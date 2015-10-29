@@ -1,3 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">速帮洗衣</string>
+    <string name="file_user">user</string>
+    <string name="err_network">网络连接错误，请检查网络是否连通。</string>
 </resources>
