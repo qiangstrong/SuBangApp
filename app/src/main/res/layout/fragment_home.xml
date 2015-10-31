@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/home_bg"
+    tools:context="com.subang.app.fragment.HomeFragment">
+
+    <RelativeLayout
+        android:id="@+id/rl_title"
+        android:layout_width="fill_parent"
+        android:layout_height="50.0dip"
+        android:background="@color/blue_theme">
+
+        <TextView
+            android:id="@+id/tv_loction"
+            android:layout_width="wrap_content"
+            android:layout_height="45.0dip"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15.0dip"
+            android:contentDescription="@null"
+            android:drawableRight="@drawable/home_location"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxEms="5"
+            android:singleLine="true"
+            android:text="定位中"
+            android:textColor="@android:color/white"
+            android:textSize="17.0sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:contentDescription="@null"
+            android:src="@drawable/home_icon"
+            android:textColor="@android:color/white"
+            android:textSize="18.0sp" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1.0px"
+            android:layout_alignParentBottom="true"
+            android:background="@color/grey_line" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/rl_title"
+        android:layout_marginTop="10.0dip"
+        android:scrollbars="none">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <RelativeLayout
+                android:id="@+id/rl_banner"
+                android:layout_width="fill_parent"
+                android:layout_height="120.0dip"
+                android:layout_marginLeft="10.0dip"
+                android:layout_marginRight="10.0dip">
+
+                <include layout="@layout/view_home_banner" />
+            </RelativeLayout>
+
+            <GridView
+                android:id="@+id/gv_category"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rl_banner"
+                android:layout_marginLeft="10.0dip"
+                android:layout_marginRight="10.0dip"
+                android:layout_marginTop="10.0dip"
+                android:gravity="center"
+                android:horizontalSpacing="10.0dip"
+                android:listSelector="@android:color/transparent"
+                android:numColumns="2"
+                android:verticalSpacing="10.0dip" />
+
+            <RelativeLayout
+                android:id="@+id/rl_divider"
+                android:layout_width="fill_parent"
+                android:layout_height="40.0dip"
+                android:layout_below="@id/gv_category">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="1.0dip"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10.0dip"
+                    android:layout_marginRight="10.0dip"
+                    android:src="@drawable/cut_off_rule_l" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="了解速帮" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="1.0dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10.0dip"
+                    android:layout_marginRight="10.0dip"
+                    android:src="@drawable/cut_off_rule_r" />
+            </RelativeLayout>
+
+            <GridView
+                android:id="@+id/gv_info"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rl_divider"
+                android:layout_marginBottom="10.0dip"
+                android:layout_marginLeft="10.0dip"
+                android:layout_marginRight="10.0dip"
+                android:gravity="center"
+                android:horizontalSpacing="10.0dip"
+                android:listSelector="@android:color/transparent"
+                android:numColumns="2"
+                android:verticalSpacing="10.0dip" />
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

@@ -3,12 +3,9 @@ package com.subang.app.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -16,6 +13,7 @@ import android.widget.Toast;
 
 import com.subang.api.SubangAPI;
 import com.subang.api.UserAPI;
+import com.subang.app.util.AppUtil;
 import com.subang.bean.Result;
 import com.subang.domain.User;
 import com.subang.util.WebConst;
@@ -52,11 +50,11 @@ public class LoadActivity extends Activity {
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {
-            if (!checkNetwork()) {
+            if (!AppUtil.checkNetwork(LoadActivity.this)) {
                 handler.sendEmptyMessage(1);    //提示用户，停留此界面
                 return;
             }
-            User user = readUser();
+            User user = AppUtil.readUser(LoadActivity.this);
             if (user == null) {
                 handler.sendEmptyMessage(2);    //转登录界面
                 return;
@@ -77,28 +75,7 @@ public class LoadActivity extends Activity {
         new Thread(runnable).start();
     }
 
-    private boolean checkNetwork() {
-        ConnectivityManager connectivityManager = (ConnectivityManager)
-                getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-        if (networkInfo == null) {
-            return false;
-        }
-        return networkInfo.isAvailable();
-    }
 
-    private User readUser() {
-        SharedPreferences sharedPreferences = getSharedPreferences(getResources().getString(R.string.file_user), MODE_PRIVATE);
-        String cellnum = sharedPreferences.getString("cellnum", null);
-        String password = sharedPreferences.getString("password", null);
-        if (cellnum != null && password != null) {
-            User user = new User();
-            user.setCellnum(cellnum);
-            user.setPassword(password);
-            return user;
-        }
-        return null;
-    }
 
     private boolean login(User user) {
         Result result = UserAPI.login(user);
@@ -132,10 +109,10 @@ public class LoadActivity extends Activity {
             return false;
         }
         com.subang.domain.Location myLocation = new com.subang.domain.Location();
-        myLocation.setLatitude(new Double(location.getLatitude()).toString());
-        myLocation.setLongitude(new Double(location.getLongitude()).toString());
+        myLocation.setLatitude(Double.toString(location.getLatitude()));
+        myLocation.setLongitude(Double.toString(location.getLongitude()));
         Result result = UserAPI.setLocation(myLocation);
-        if (result.getCode() != Result.OK) {
+        if (!result.getCode().equals(Result.OK)) {
             return false;
         }
         return true;
