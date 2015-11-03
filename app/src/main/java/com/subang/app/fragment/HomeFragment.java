@@ -17,9 +17,10 @@ import android.widget.TextView;
 
 import com.subang.api.PriceAPI;
 import com.subang.api.RegionAPI;
-import com.subang.api.SubangAPI;
 import com.subang.app.activity.R;
 import com.subang.app.adapter.ImagePagerAdapter;
+import com.subang.app.fragment.face.OnFrontListener;
+import com.subang.app.util.AppConf;
 import com.subang.app.util.AppUtil;
 import com.subang.applib.view.AutoScrollViewPager;
 import com.subang.domain.Category;
@@ -32,7 +33,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements OnFrontListener{
 
     private static final int NUM_BANNER = 3;
     private static final int NUM_CATEGORY_DEFAULT = 2;
@@ -44,6 +45,9 @@ public class HomeFragment extends Fragment {
     private GridView gv_category;
     private GridView gv_info;
 
+    private SimpleAdapter categorySimpleAdapter;
+
+    private Thread thread;
     private City city;
     private List<ImageView> bannerItems;
     private List<Map<String, Object>> categoryItems;
@@ -57,6 +61,7 @@ public class HomeFragment extends Fragment {
 
         }
     };
+
     private AdapterView.OnItemClickListener categoryOnItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -66,6 +71,7 @@ public class HomeFragment extends Fragment {
 
         }
     };
+
     private AdapterView.OnItemClickListener infoOnItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -76,7 +82,7 @@ public class HomeFragment extends Fragment {
     private SimpleAdapter.ViewBinder categoryViewBinder = new SimpleAdapter.ViewBinder() {
         @Override
         public boolean setViewValue(View view, Object data, String textRepresentation) {
-            if (view.getClass() == ImageView.class && data.getClass() == Bitmap.class) {
+            if (view instanceof ImageView && data instanceof Bitmap) {
                 ((ImageView) view).setImageBitmap((Bitmap) data);
                 return true;
             }
@@ -87,23 +93,16 @@ public class HomeFragment extends Fragment {
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            if (tv_location != null) {
-                tv_location.setText(city.getName());
-            }
-            if (gv_category != null) {
-                SimpleAdapter categorySimpleAdapter = new SimpleAdapter(getActivity(), categoryItems, R.layout
-                        .gridview_item_home_category, new
-                        String[]{"icon", "name", "comment"}, new int[]{R.id.iv_icon, R.id.tv_name, R.id.tv_comment});
-                categorySimpleAdapter.setViewBinder(categoryViewBinder);
-                gv_category.setAdapter(categorySimpleAdapter);
-                isLoaded = true;
-            }
+            tv_location.setText(city.getName());
+            categorySimpleAdapter.notifyDataSetChanged();
+            isLoaded = true;
         }
     };
+
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {
-            AppUtil.confApi(getActivity());
+            AppUtil.confApi();
             Integer cityid = RegionAPI.getCityid();
             if (cityid == null) {
                 return;
@@ -116,11 +115,11 @@ public class HomeFragment extends Fragment {
             if (categorys == null) {
                 return;
             }
-            categoryItems = new ArrayList<Map<String, Object>>();
+            categoryItems.clear();
             Map<String, Object> categoryItem;
             for (Category category : categorys) {
                 categoryItem = new HashMap<String, Object>();
-                Bitmap bitmap = BitmapFactory.decodeFile(SubangAPI.BASE_PATH + category.getIcon());
+                Bitmap bitmap = BitmapFactory.decodeFile(AppConf.basePath + category.getIcon());
                 categoryItem.put("icon", bitmap);
                 categoryItem.put("name", category.getName());
                 categoryItem.put("comment", category.getComment());
@@ -134,7 +133,10 @@ public class HomeFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         createItems();
-        new Thread(runnable).start();
+        categorySimpleAdapter = new SimpleAdapter(getActivity(), categoryItems, R.layout
+                .gridview_item_home_category, new
+                String[]{"icon", "name", "comment"}, new int[]{R.id.iv_icon, R.id.tv_name, R.id.tv_comment});
+        categorySimpleAdapter.setViewBinder(categoryViewBinder);
     }
 
     @Override
@@ -143,20 +145,18 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         findView(view);
 
-        if (city != null) {
-            tv_location.setText(city.getName());
+        if (thread == null || !thread.isAlive()) {
+            thread = new Thread(runnable);
+            thread.start();
         }
         tv_location.setOnClickListener(locationOnClickListener);
 
         vp_banner.setAdapter(new ImagePagerAdapter(bannerItems));
         vp_banner.setInterval(2000);
         vp_banner.startAutoScroll();
+        vp_banner.setSlideBorderMode(AutoScrollViewPager.SLIDE_BORDER_MODE_TO_PARENT);
         pi_banner.setViewPager(vp_banner);
 
-        SimpleAdapter categorySimpleAdapter = new SimpleAdapter(getActivity(), categoryItems, R.layout
-                .gridview_item_home_category, new
-                String[]{"icon", "name", "comment"}, new int[]{R.id.iv_icon, R.id.tv_name, R.id.tv_comment});
-        categorySimpleAdapter.setViewBinder(categoryViewBinder);
         gv_category.setAdapter(categorySimpleAdapter);
         gv_category.setOnItemClickListener(categoryOnItemClickListener);
 
@@ -165,6 +165,10 @@ public class HomeFragment extends Fragment {
         gv_info.setOnItemClickListener(infoOnItemClickListener);
 
         return view;
+    }
+
+    @Override
+    public void onFront() {
     }
 
     private void findView(View view) {
@@ -205,5 +209,6 @@ public class HomeFragment extends Fragment {
         infoItem.put("text", "服务范围");
         infoItems.add(infoItem);
     }
+
 
 }

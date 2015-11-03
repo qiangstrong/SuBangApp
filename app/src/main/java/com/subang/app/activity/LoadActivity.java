@@ -11,12 +11,11 @@ import android.os.Handler;
 import android.os.Message;
 import android.widget.Toast;
 
-import com.subang.api.SubangAPI;
 import com.subang.api.UserAPI;
+import com.subang.app.util.AppConf;
 import com.subang.app.util.AppUtil;
 import com.subang.bean.Result;
 import com.subang.domain.User;
-import com.subang.util.WebConst;
 
 import java.util.List;
 
@@ -54,12 +53,12 @@ public class LoadActivity extends Activity {
                 handler.sendEmptyMessage(1);    //提示用户，停留此界面
                 return;
             }
-            User user = AppUtil.readUser(LoadActivity.this);
-            if (user == null) {
+
+            if (!AppUtil.conf(LoadActivity.this)) {
                 handler.sendEmptyMessage(2);    //转登录界面
                 return;
             }
-            if (!login(user)) {
+            if (!login()) {
                 handler.sendEmptyMessage(2);    //转登录界面
                 return;
             }
@@ -77,13 +76,15 @@ public class LoadActivity extends Activity {
 
 
 
-    private boolean login(User user) {
+    private boolean login() {
+        User user=new User();
+        user.setCellnum(AppConf.cellnum);
+        user.setPassword(AppConf.password);
         Result result = UserAPI.login(user);
         if (result == null || !result.getCode().equals(Result.OK)) {
             return false;
         }
-        String basePath = getFilesDir().getAbsolutePath() + "/";
-        SubangAPI.conf(WebConst.USER, user.getCellnum(), user.getPassword(), basePath);
+        AppUtil.confApi();
         return true;
     }
 

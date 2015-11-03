@@ -7,9 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.subang.app.activity.R;
+import com.subang.app.fragment.face.OnFrontListener;
 
 
-public class MineFragment extends Fragment {
+public class MineFragment extends Fragment implements OnFrontListener {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -22,5 +23,7 @@ public class MineFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_mine, container, false);
     }
 
-
+    @Override
+    public void onFront() {
+    }
 }

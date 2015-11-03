@@ -7,7 +7,6 @@ import android.net.NetworkInfo;
 
 import com.subang.api.SubangAPI;
 import com.subang.app.activity.R;
-import com.subang.domain.User;
 import com.subang.util.WebConst;
 
 /**
@@ -24,29 +23,25 @@ public class AppUtil {
         return networkInfo.isAvailable();
     }
 
-    public static User readUser(Context context) {
+    public static boolean conf(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(context.getResources().getString(R.string
                 .file_user), context.MODE_PRIVATE);
+        String basePath = context.getFilesDir().getAbsolutePath() + "/";
         String cellnum = sharedPreferences.getString("cellnum", null);
         String password = sharedPreferences.getString("password", null);
         if (cellnum != null && password != null) {
-            User user = new User();
-            user.setCellnum(cellnum);
-            user.setPassword(password);
-            return user;
+            AppConf.basePath=basePath;
+            AppConf.cellnum=cellnum;
+            AppConf.password=password;
+            return true;
         }
-        return null;
+        return false;
     }
 
-    public static void confApi(Context context) {
+    public static void confApi() {
         if (SubangAPI.isConfed()) {
             return;
         }
-        User user = readUser(context);
-        if (user == null) {
-            return;         //应该不会出现这种情况
-        }
-        String basePath = context.getFilesDir().getAbsolutePath() + "/";
-        SubangAPI.conf(WebConst.USER, user.getCellnum(), user.getPassword(), basePath);
+        SubangAPI.conf(WebConst.USER, AppConf.cellnum, AppConf.password, AppConf.basePath);
     }
 }
