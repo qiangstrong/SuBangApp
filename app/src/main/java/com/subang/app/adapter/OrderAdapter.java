@@ -66,7 +66,7 @@ public class OrderAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = convertView;
         if (view == null) {
-            view = inflater.inflate(R.layout.list_item_order, null);
+            view = inflater.inflate(R.layout.order_item, null);
         }
         findView(view);
         if (dataHolder.orderDetails == null) {

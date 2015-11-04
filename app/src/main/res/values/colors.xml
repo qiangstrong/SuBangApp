@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="blue_theme">#ff32b5ff</color>
-    <color name="grey_line">#ffb4b4b4</color>
-    <color name="white_bg">#fffafafa</color>
-    <color name="dark_blue">#ff35b6ff</color>
     <color name="grey">#fff0f0f0</color>
 </resources>

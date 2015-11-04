@@ -82,7 +82,7 @@ public class HomeFragment extends Fragment implements OnFrontListener{
     private SimpleAdapter.ViewBinder categoryViewBinder = new SimpleAdapter.ViewBinder() {
         @Override
         public boolean setViewValue(View view, Object data, String textRepresentation) {
-            if (view instanceof ImageView && data instanceof Bitmap) {
+            if (view.getId()==R.id.iv_icon && data instanceof Bitmap) {
                 ((ImageView) view).setImageBitmap((Bitmap) data);
                 return true;
             }
@@ -134,7 +134,7 @@ public class HomeFragment extends Fragment implements OnFrontListener{
         super.onCreate(savedInstanceState);
         createItems();
         categorySimpleAdapter = new SimpleAdapter(getActivity(), categoryItems, R.layout
-                .gridview_item_home_category, new
+                .home_item_category, new
                 String[]{"icon", "name", "comment"}, new int[]{R.id.iv_icon, R.id.tv_name, R.id.tv_comment});
         categorySimpleAdapter.setViewBinder(categoryViewBinder);
     }
@@ -160,7 +160,7 @@ public class HomeFragment extends Fragment implements OnFrontListener{
         gv_category.setAdapter(categorySimpleAdapter);
         gv_category.setOnItemClickListener(categoryOnItemClickListener);
 
-        gv_info.setAdapter(new SimpleAdapter(getActivity(), infoItems, R.layout.gridview_item_home_info, new
+        gv_info.setAdapter(new SimpleAdapter(getActivity(), infoItems, R.layout.home_item_info, new
                 String[]{"text"}, new int[]{R.id.tv_intro}));
         gv_info.setOnItemClickListener(infoOnItemClickListener);
 
@@ -203,7 +203,7 @@ public class HomeFragment extends Fragment implements OnFrontListener{
 
         infoItems = new ArrayList<Map<String, Object>>(NUM_INFO);
         Map<String, Object> infoItem = new HashMap<String, Object>();
-        infoItem.put("text", "服务介绍");
+        infoItem.put("text","服务介绍");
         infoItems.add(infoItem);
         infoItem = new HashMap<String, Object>();
         infoItem.put("text", "服务范围");
