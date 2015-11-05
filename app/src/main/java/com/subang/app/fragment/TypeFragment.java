@@ -81,6 +81,7 @@ public class TypeFragment extends Fragment implements OnFrontListener {
                 }
                 case 2: {
                     if (!isLoaded) {                         //第一次加载成功
+                        loadingAnimation.stop();
                         rl_loading.setVisibility(View.GONE);
                         xlv_order.setVisibility(View.VISIBLE);
                     } else {                                 //下拉刷新加载成功
@@ -102,7 +103,7 @@ public class TypeFragment extends Fragment implements OnFrontListener {
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {
-            AppUtil.confApi();
+            AppUtil.confApi(getActivity());
             List<OrderDetail> orderDetails = OrderAPI.userList(type, filter);
             if (orderDetails == null) {
                 handler.sendEmptyMessage(1);            //加载数据失败
@@ -138,6 +139,10 @@ public class TypeFragment extends Fragment implements OnFrontListener {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_type, container, false);
         findView(view);
+        if (thread == null || !thread.isAlive()) {
+            thread = new Thread(runnable);
+            thread.start();
+        }
 
         xlv_order.setAdapter(orderAdapter);
         xlv_order.setOnItemClickListener(orderOnItemClickListener);
@@ -145,22 +150,15 @@ public class TypeFragment extends Fragment implements OnFrontListener {
         xlv_order.setPullLoadEnable(false);
         xlv_order.setPullRefreshEnable(true);
 
+        rl_loading.setVisibility(View.VISIBLE);
         loadingAnimation = (AnimationDrawable) iv_loading.getBackground();
+        loadingAnimation.start();
 
         return view;
     }
 
     @Override
     public void onFront() {
-        if (isLoaded) {
-            return;
-        }
-        if (thread == null || !thread.isAlive()) {
-            rl_loading.setVisibility(View.VISIBLE);
-            loadingAnimation.start();
-            thread = new Thread(runnable);
-            thread.start();
-        }
     }
 
     private void findView(View view) {

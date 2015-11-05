@@ -23,7 +23,18 @@ public class AppUtil {
         return networkInfo.isAvailable();
     }
 
+    public static boolean isConfed(){
+        if (AppConf.cellnum==null||AppConf.password==null||AppConf.basePath==null){
+            return false;
+        }else {
+            return true;
+        }
+    }
+
     public static boolean conf(Context context) {
+        if (isConfed()){
+            return true;
+        }
         SharedPreferences sharedPreferences = context.getSharedPreferences(context.getResources().getString(R.string
                 .file_user), context.MODE_PRIVATE);
         String basePath = context.getFilesDir().getAbsolutePath() + "/";
@@ -38,10 +49,11 @@ public class AppUtil {
         return false;
     }
 
-    public static void confApi() {
+    public static void confApi(Context context) {
         if (SubangAPI.isConfed()) {
             return;
         }
+        conf(context);
         SubangAPI.conf(WebConst.USER, AppConf.cellnum, AppConf.password, AppConf.basePath);
     }
 }

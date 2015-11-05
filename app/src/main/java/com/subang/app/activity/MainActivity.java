@@ -11,7 +11,6 @@ import com.subang.app.adapter.MyFragmentPagerAdapter;
 import com.subang.app.fragment.HomeFragment;
 import com.subang.app.fragment.MineFragment;
 import com.subang.app.fragment.OrderFragment;
-import com.subang.app.fragment.face.OnFrontListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +28,7 @@ public class MainActivity extends Activity {
         @Override
         public void onPageSelected(int position) {
             iv_onClick(imageViews[position]);
-            ((OnFrontListener)fragmentPagerAdapter.getItem(position)).onFront();
+            //((OnFrontListener)fragmentPagerAdapter.getItem(position)).onFront();
         }
     };
 

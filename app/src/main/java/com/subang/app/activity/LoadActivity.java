@@ -84,7 +84,7 @@ public class LoadActivity extends Activity {
         if (result == null || !result.getCode().equals(Result.OK)) {
             return false;
         }
-        AppUtil.confApi();
+        AppUtil.confApi(LoadActivity.this);
         return true;
     }
 

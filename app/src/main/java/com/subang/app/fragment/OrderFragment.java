@@ -48,7 +48,7 @@ public class OrderFragment extends Fragment implements OnFrontListener {
             } else {
                 rb_done.setChecked(true);
             }
-            ((OnFrontListener)fragmentPagerAdapter.getItem(position)).onFront();
+            //((OnFrontListener)fragmentPagerAdapter.getItem(position)).onFront();
         }
     };
 
@@ -86,8 +86,8 @@ public class OrderFragment extends Fragment implements OnFrontListener {
 
     @Override
     public void onFront() {
-        int position=vp_order.getCurrentItem();
-        ((OnFrontListener)fragmentPagerAdapter.getItem(position)).onFront();
+//        int position=vp_order.getCurrentItem();
+//        ((OnFrontListener)fragmentPagerAdapter.getItem(position)).onFront();
     }
 
     private void findView(View view) {

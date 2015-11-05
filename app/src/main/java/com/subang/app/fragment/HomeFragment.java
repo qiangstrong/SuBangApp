@@ -102,7 +102,7 @@ public class HomeFragment extends Fragment implements OnFrontListener{
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {
-            AppUtil.confApi();
+            AppUtil.confApi(getActivity());
             Integer cityid = RegionAPI.getCityid();
             if (cityid == null) {
                 return;
@@ -117,6 +117,7 @@ public class HomeFragment extends Fragment implements OnFrontListener{
             }
             categoryItems.clear();
             Map<String, Object> categoryItem;
+            AppUtil.conf(getActivity());
             for (Category category : categorys) {
                 categoryItem = new HashMap<String, Object>();
                 Bitmap bitmap = BitmapFactory.decodeFile(AppConf.basePath + category.getIcon());
@@ -144,16 +145,17 @@ public class HomeFragment extends Fragment implements OnFrontListener{
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         findView(view);
-
         if (thread == null || !thread.isAlive()) {
             thread = new Thread(runnable);
             thread.start();
         }
+
         tv_location.setOnClickListener(locationOnClickListener);
 
         vp_banner.setAdapter(new ImagePagerAdapter(bannerItems));
         vp_banner.setInterval(2000);
         vp_banner.startAutoScroll();
+        vp_banner.setOffscreenPageLimit(3);
         vp_banner.setSlideBorderMode(AutoScrollViewPager.SLIDE_BORDER_MODE_TO_PARENT);
         pi_banner.setViewPager(vp_banner);
 
@@ -194,7 +196,7 @@ public class HomeFragment extends Fragment implements OnFrontListener{
 
         categoryItems = new ArrayList<Map<String, Object>>(NUM_CATEGORY_DEFAULT);
         Map<String, Object> categoryItem = new HashMap<String, Object>();
-        categoryItem.put("icon", R.drawable.home_gridview_default);
+        categoryItem.put("icon", R.drawable.home_item_default);
         categoryItem.put("name", "");
         categoryItem.put("comment", "");
         categoryItems.add(categoryItem);
@@ -209,6 +211,4 @@ public class HomeFragment extends Fragment implements OnFrontListener{
         infoItem.put("text", "服务范围");
         infoItems.add(infoItem);
     }
-
-
 }

@@ -16,6 +16,7 @@ import com.subang.api.InfoAPI;
 import com.subang.api.UserAPI;
 import com.subang.app.activity.R;
 import com.subang.app.fragment.face.OnFrontListener;
+import com.subang.app.util.AppConf;
 import com.subang.app.util.AppUtil;
 import com.subang.domain.Info;
 import com.subang.domain.User;
@@ -94,7 +95,6 @@ public class MineFragment extends Fragment implements OnFrontListener {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 1: {
-                    tv_cellnum.setText(user.getCellnum());
                     tv_money.setText(user.getMoney().toString() + "元");
                     tv_score.setText(user.getScore().toString());
                     isUserLoaded = true;
@@ -112,7 +112,7 @@ public class MineFragment extends Fragment implements OnFrontListener {
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {
-            AppUtil.confApi();
+            AppUtil.confApi(getActivity());
             user = UserAPI.get();
             if (user != null) {
                 handler.sendEmptyMessage(1);
@@ -138,25 +138,25 @@ public class MineFragment extends Fragment implements OnFrontListener {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_mine, container, false);
         findView(view);
+        if (thread == null || !thread.isAlive()) {
+            thread = new Thread(runnable);
+            thread.start();
+        }
 
+        AppUtil.conf(getActivity());
+        tv_cellnum.setText(AppConf.cellnum);
         tv_recharge.setOnClickListener(rechargeOnClickListener);
         tv_money.setOnClickListener(moneyOnClickListener);
         tv_score.setOnClickListener(scoreOnClickListener);
 
         lv_action.setAdapter(actionSimpleAdapter);
         lv_action.setOnItemClickListener(actionOnItemClickListener);
+
         return view;
     }
 
     @Override
     public void onFront() {
-        if (isUserLoaded && isInfoLoaded) {
-            return;
-        }
-        if (thread == null || !thread.isAlive()) {
-            thread = new Thread(runnable);
-            thread.start();
-        }
     }
 
     private void findView(View view) {
@@ -184,4 +184,5 @@ public class MineFragment extends Fragment implements OnFrontListener {
         actionItems.get(2).put("line", YES_LINE);
         actionItems.get(5).put("line", YES_LINE);
     }
+
 }
