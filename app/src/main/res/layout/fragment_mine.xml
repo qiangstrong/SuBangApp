@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/grey"
+    android:background="@color/gray"
     tools:context="com.subang.app.fragment.MineFragment">
 
     <LinearLayout
@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:text="个人中心"
             android:textColor="@android:color/white"
-            android:textSize="18.0sp" />
+            android:textSize="@dimen/tile_size" />
     </LinearLayout>
 
     <RelativeLayout
@@ -74,7 +74,8 @@
             android:gravity="center"
             android:text="充值 "
             android:textColor="#ffff690e"
-            android:textSize="17.0sp" />
+            android:textSize="17.0sp"
+            android:clickable="true"/>
     </RelativeLayout>
 
     <View
@@ -82,7 +83,7 @@
         android:layout_width="fill_parent"
         android:layout_height="1.0px"
         android:layout_below="@id/rl_top"
-        android:background="@color/grey" />
+        android:background="@color/gray" />
 
     <LinearLayout
         android:id="@+id/ll_user_info"
@@ -96,6 +97,7 @@
         android:weightSum="2.0">
 
         <RelativeLayout
+            android:id="@+id/rl_money"
             android:layout_width="0.0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1.0">
@@ -125,9 +127,10 @@
         <View
             android:layout_width="1.0px"
             android:layout_height="fill_parent"
-            android:background="@color/grey" />
+            android:background="@color/gray" />
 
         <RelativeLayout
+            android:id="@+id/rl_score"
             android:layout_width="0.0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1.0">
@@ -160,7 +163,7 @@
         android:layout_width="fill_parent"
         android:layout_height="1.0px"
         android:layout_below="@id/ll_user_info"
-        android:background="@color/grey" />
+        android:background="@color/gray" />
 
     <ListView
         android:id="@+id/lv_action"

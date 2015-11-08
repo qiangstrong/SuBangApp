@@ -4,8 +4,33 @@
     <style name="FullscreenTheme" parent="@android:style/Theme.Material.NoActionBar.Fullscreen" tools:ignore="NewApi">
         <item name="android:windowBackground">@null</item>
         <item name="android:windowNoTitle">true</item>
-        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowIsTranslucent">false</item>
         <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <style name="CustomTranslucent" parent="@android:style/Theme.Translucent.NoTitleBar">
+        <item name="android:windowBackground">@color/half_translucent</item>
+    </style>
+
+    <style name="textsize_1">
+        <item name="android:textSize">13.0sp</item>
+        <item name="android:textColor">#ff3e3e3e</item>
+    </style>
+    <style name="textsize_2">
+        <item name="android:textSize">15.0sp</item>
+        <item name="android:textColor">#ff3e3e3e</item>
+    </style>
+    <style name="textsize_3">
+        <item name="android:textSize">14.0sp</item>
+        <item name="android:textColor">#ffb6b6b6</item>
+    </style>
+    <style name="textsize_4">
+        <item name="android:textSize">17.0sp</item>
+        <item name="android:textColor">#ff1aa4f2</item>
+    </style>
+    <style name="textsize_5">
+        <item name="android:textSize">14.0sp</item>
+        <item name="android:textColor">#ff1aa4f2</item>
     </style>
 </resources>
 

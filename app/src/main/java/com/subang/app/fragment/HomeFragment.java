@@ -1,6 +1,7 @@
 package com.subang.app.fragment;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -17,10 +18,12 @@ import android.widget.TextView;
 
 import com.subang.api.PriceAPI;
 import com.subang.api.RegionAPI;
+import com.subang.app.activity.AddOrderActivity;
 import com.subang.app.activity.R;
 import com.subang.app.adapter.ImagePagerAdapter;
 import com.subang.app.fragment.face.OnFrontListener;
 import com.subang.app.util.AppConf;
+import com.subang.app.util.AppConst;
 import com.subang.app.util.AppUtil;
 import com.subang.applib.view.AutoScrollViewPager;
 import com.subang.domain.Category;
@@ -50,6 +53,7 @@ public class HomeFragment extends Fragment implements OnFrontListener{
     private Thread thread;
     private City city;
     private List<ImageView> bannerItems;
+    private List<Category> categorys;
     private List<Map<String, Object>> categoryItems;
     private List<Map<String, Object>> infoItems;
 
@@ -68,7 +72,9 @@ public class HomeFragment extends Fragment implements OnFrontListener{
             if (!isLoaded) {
                 return;
             }
-
+            Intent intent=new Intent(getActivity(), AddOrderActivity.class);
+            intent.putExtra("category",categorys.get(position));
+            startActivity(intent);
         }
     };
 
@@ -93,9 +99,19 @@ public class HomeFragment extends Fragment implements OnFrontListener{
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            tv_location.setText(city.getName());
-            categorySimpleAdapter.notifyDataSetChanged();
-            isLoaded = true;
+            switch (msg.what) {
+                case AppConst.WHAT_NETWORK_ERR: {
+                    AppUtil.networkTip(getActivity());
+                    break;
+                }
+                case AppConst.WHAT_SUCC_LOAD: {
+                    tv_location.setText(city.getName());
+                    categorySimpleAdapter.notifyDataSetChanged();
+                    isLoaded = true;
+                    break;
+                }
+            }
+
         }
     };
 
@@ -105,14 +121,17 @@ public class HomeFragment extends Fragment implements OnFrontListener{
             AppUtil.confApi(getActivity());
             Integer cityid = RegionAPI.getCityid();
             if (cityid == null) {
+                handler.sendEmptyMessage(AppConst.WHAT_NETWORK_ERR);
                 return;
             }
             city = RegionAPI.getCity(cityid);
             if (city == null) {
+                handler.sendEmptyMessage(AppConst.WHAT_NETWORK_ERR);
                 return;
             }
-            List<Category> categorys = PriceAPI.listcategory(cityid, null);
+            categorys = PriceAPI.listcategory(cityid, null);
             if (categorys == null) {
+                handler.sendEmptyMessage(AppConst.WHAT_NETWORK_ERR);
                 return;
             }
             categoryItems.clear();
@@ -126,7 +145,7 @@ public class HomeFragment extends Fragment implements OnFrontListener{
                 categoryItem.put("comment", category.getComment());
                 categoryItems.add(categoryItem);
             }
-            handler.sendEmptyMessage(1);
+            handler.sendEmptyMessage(AppConst.WHAT_SUCC_LOAD);
         }
     };
 

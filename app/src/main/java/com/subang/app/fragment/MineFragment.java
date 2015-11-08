@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
@@ -17,6 +18,7 @@ import com.subang.api.UserAPI;
 import com.subang.app.activity.R;
 import com.subang.app.fragment.face.OnFrontListener;
 import com.subang.app.util.AppConf;
+import com.subang.app.util.AppConst;
 import com.subang.app.util.AppUtil;
 import com.subang.domain.Info;
 import com.subang.domain.User;
@@ -33,6 +35,7 @@ public class MineFragment extends Fragment implements OnFrontListener {
     private static final int NO_LINE = 0;
     private static final int YES_LINE = 1;
 
+    private RelativeLayout rl_money,rl_score;
     private TextView tv_cellnum, tv_recharge, tv_money, tv_score, tv_phone;
     private ListView lv_action;
 
@@ -43,8 +46,7 @@ public class MineFragment extends Fragment implements OnFrontListener {
     private Info info;
     private List<Map<String, Object>> actionItems;
 
-    private boolean isUserLoaded = false;
-    private boolean isInfoLoaded = false;
+    private boolean isLoaded = false;
 
     private View.OnClickListener rechargeOnClickListener = new View.OnClickListener() {
         @Override
@@ -94,15 +96,15 @@ public class MineFragment extends Fragment implements OnFrontListener {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
-                case 1: {
-                    tv_money.setText(user.getMoney().toString() + "元");
-                    tv_score.setText(user.getScore().toString());
-                    isUserLoaded = true;
+                case AppConst.WHAT_NETWORK_ERR: {
+                    AppUtil.networkTip(getActivity());
                     break;
                 }
-                case 2: {
+                case AppConst.WHAT_SUCC_LOAD: {
+                    tv_money.setText(user.getMoney().toString() + "元");
+                    tv_score.setText(user.getScore().toString());
                     tv_phone.setText("客服 " + info.getPhone());
-                    isInfoLoaded = true;
+                    isLoaded = true;
                     break;
                 }
             }
@@ -114,13 +116,16 @@ public class MineFragment extends Fragment implements OnFrontListener {
         public void run() {
             AppUtil.confApi(getActivity());
             user = UserAPI.get();
-            if (user != null) {
-                handler.sendEmptyMessage(1);
+            if (user==null){
+                handler.sendEmptyMessage(AppConst.WHAT_NETWORK_ERR);    //提示用户，停留此界面
+                return;
             }
             info = InfoAPI.get();
-            if (info != null) {
-                handler.sendEmptyMessage(2);
+            if (info == null) {
+                handler.sendEmptyMessage(AppConst.WHAT_NETWORK_ERR);    //提示用户，停留此界面
+                return;
             }
+            handler.sendEmptyMessage(AppConst.WHAT_SUCC_LOAD);
         }
     };
 
@@ -146,8 +151,8 @@ public class MineFragment extends Fragment implements OnFrontListener {
         AppUtil.conf(getActivity());
         tv_cellnum.setText(AppConf.cellnum);
         tv_recharge.setOnClickListener(rechargeOnClickListener);
-        tv_money.setOnClickListener(moneyOnClickListener);
-        tv_score.setOnClickListener(scoreOnClickListener);
+        rl_money.setOnClickListener(moneyOnClickListener);
+        rl_score.setOnClickListener(scoreOnClickListener);
 
         lv_action.setAdapter(actionSimpleAdapter);
         lv_action.setOnItemClickListener(actionOnItemClickListener);
@@ -160,6 +165,8 @@ public class MineFragment extends Fragment implements OnFrontListener {
     }
 
     private void findView(View view) {
+        rl_money = (RelativeLayout) view.findViewById(R.id.rl_money);
+        rl_score = (RelativeLayout) view.findViewById(R.id.rl_score);
         tv_cellnum = (TextView) view.findViewById(R.id.tv_cellnum);
         tv_recharge = (TextView) view.findViewById(R.id.tv_recharge);
         tv_money = (TextView) view.findViewById(R.id.tv_money);

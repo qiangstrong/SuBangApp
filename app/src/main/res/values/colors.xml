@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="blue_theme">#ff32b5ff</color>
-    <color name="grey">#fff0f0f0</color>
+    <color name="gray">#fff0f0f0</color>
+    <color name="half_translucent">#50000000</color>
 </resources>

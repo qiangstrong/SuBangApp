@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.widget.Toast;
 
 import com.subang.api.SubangAPI;
 import com.subang.app.activity.R;
@@ -13,6 +14,7 @@ import com.subang.util.WebConst;
  * Created by Qiang on 2015/10/31.
  */
 public class AppUtil {
+
     public static boolean checkNetwork(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.
                 getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -55,5 +57,10 @@ public class AppUtil {
         }
         conf(context);
         SubangAPI.conf(WebConst.USER, AppConf.cellnum, AppConf.password, AppConf.basePath);
+    }
+
+    public static void networkTip(Context context){
+        Toast toast = Toast.makeText(context, R.string.err_network, Toast.LENGTH_LONG);
+        toast.show();
     }
 }

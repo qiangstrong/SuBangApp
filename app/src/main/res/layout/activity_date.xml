@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_marginTop="230.0dip"
+    android:background="@color/gray"
+    tools:context="com.subang.app.activity.DateActivity">
+
+    <LinearLayout
+        android:id="@+id/ll_title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:paddingLeft="10.0dip"
+        android:paddingRight="10.0dip">
+
+        <TextView
+            android:id="@+id/tv_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:gravity="center"
+            android:onClick="tv_cancel_onClick"
+            android:padding="10.0dip"
+            android:text="取消"
+            android:textColor="#ffb4b4b4"
+            android:textSize="16.0sp" />
+
+        <View
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0" />
+
+        <TextView
+            android:id="@+id/tv_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:gravity="center"
+            android:onClick="tv_ok_onClick"
+            android:padding="10.0dip"
+            android:text="保存"
+            android:textColor="@color/blue_theme"
+            android:textSize="16.0sp" />
+    </LinearLayout>
+
+    <com.viewpagerindicator.TitlePageIndicator
+        android:id="@+id/pi_date"
+        android:layout_width="fill_parent"
+        android:layout_height="40.0dip"
+        android:layout_below="@id/ll_title"
+        android:background="@android:color/white"
+        android:padding="10.0dip"
+        android:textColor="@color/gray"
+        app:footerColor="@color/blue_theme"
+        app:footerIndicatorHeight="2.0dip"
+        app:footerIndicatorStyle="underline"
+        app:footerLineHeight="0.0dip"
+        app:selectedBold="true"
+        app:selectedColor="@color/blue_theme" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_date"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/pi_date"
+        android:layout_marginBottom="10.0dip"
+        android:layout_marginLeft="10.0dip"
+        android:layout_marginRight="10.0dip"
+        android:layout_marginTop="10.0dip" />
+</RelativeLayout>

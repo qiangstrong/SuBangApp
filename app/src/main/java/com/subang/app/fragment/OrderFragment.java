@@ -12,6 +12,7 @@ import android.widget.RadioGroup;
 import com.subang.app.activity.R;
 import com.subang.app.adapter.MyFragmentPagerAdapter;
 import com.subang.app.fragment.face.OnFrontListener;
+import com.subang.app.util.AppShare;
 import com.subang.applib.view.AutoScrollViewPager;
 import com.subang.util.WebConst;
 
@@ -22,6 +23,8 @@ import java.util.List;
 public class OrderFragment extends Fragment implements OnFrontListener {
 
     private static final int NUM_FRAGMENT = 2;
+
+    private AppShare appShare;
 
     private RadioGroup rg_type;
     private RadioButton rb_undone, rb_done;
@@ -55,6 +58,7 @@ public class OrderFragment extends Fragment implements OnFrontListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        appShare=(AppShare)getActivity().getApplication();
         List<Fragment> fragments = new ArrayList<Fragment>(NUM_FRAGMENT);
 
         Bundle args = new Bundle();
@@ -82,6 +86,17 @@ public class OrderFragment extends Fragment implements OnFrontListener {
         vp_order.setOnPageChangeListener(simpleOnPageChangeListener);
         vp_order.setSlideBorderMode(AutoScrollViewPager.SLIDE_BORDER_MODE_TO_PARENT);
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Integer position;
+        if (appShare.map.containsKey("order.position")){
+            position=(Integer)appShare.map.get("order.position");
+            appShare.map.remove("order.position");
+            vp_order.setCurrentItem(position);
+        }
     }
 
     @Override

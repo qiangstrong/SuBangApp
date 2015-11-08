@@ -11,6 +11,7 @@ import com.subang.app.adapter.MyFragmentPagerAdapter;
 import com.subang.app.fragment.HomeFragment;
 import com.subang.app.fragment.MineFragment;
 import com.subang.app.fragment.OrderFragment;
+import com.subang.app.util.AppShare;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,8 @@ import java.util.List;
 public class MainActivity extends Activity {
 
     private static final int NUM_FRAGMENT = 3;
+
+    private AppShare appShare;
 
     private ViewPager vp_main;
     private ImageView[] imageViews;
@@ -35,6 +38,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        appShare=(AppShare)getApplication();
         setContentView(R.layout.activity_main);
         findView();
 
@@ -46,6 +50,17 @@ public class MainActivity extends Activity {
         fragmentPagerAdapter = new MyFragmentPagerAdapter(getFragmentManager(), fragments);
         vp_main.setAdapter(fragmentPagerAdapter);
         vp_main.setOnPageChangeListener(simpleOnPageChangeListener);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Integer position;
+        if (appShare.map.containsKey("main.position")){
+            position=(Integer)appShare.map.get("main.position");
+            appShare.map.remove("main.position");
+            vp_main.setCurrentItem(position);
+        }
     }
 
     private void findView() {

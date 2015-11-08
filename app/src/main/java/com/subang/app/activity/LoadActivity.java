@@ -9,10 +9,10 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.widget.Toast;
 
 import com.subang.api.UserAPI;
 import com.subang.app.util.AppConf;
+import com.subang.app.util.AppConst;
 import com.subang.app.util.AppUtil;
 import com.subang.bean.Result;
 import com.subang.domain.User;
@@ -26,18 +26,17 @@ public class LoadActivity extends Activity {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
-                case 1: {
-                    Toast toast = Toast.makeText(LoadActivity.this, R.string.err_network, Toast.LENGTH_LONG);
-                    toast.show();
+                case AppConst.WHAT_NETWORK_ERR: {
+                    AppUtil.networkTip(LoadActivity.this);
                     break;
                 }
-                case 2: {
+                case 1: {
                     Intent intent = new Intent(LoadActivity.this, LoginActivity.class);
                     startActivity(intent);
                     finish();
                     break;
                 }
-                case 3: {
+                case 2: {
                     Intent intent = new Intent(LoadActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();
@@ -50,20 +49,20 @@ public class LoadActivity extends Activity {
         @Override
         public void run() {
             if (!AppUtil.checkNetwork(LoadActivity.this)) {
-                handler.sendEmptyMessage(1);    //提示用户，停留此界面
+                handler.sendEmptyMessage(AppConst.WHAT_NETWORK_ERR);    //提示用户，停留此界面
                 return;
             }
 
             if (!AppUtil.conf(LoadActivity.this)) {
-                handler.sendEmptyMessage(2);    //转登录界面
+                handler.sendEmptyMessage(1);    //转登录界面
                 return;
             }
             if (!login()) {
-                handler.sendEmptyMessage(2);    //转登录界面
+                handler.sendEmptyMessage(1);    //转登录界面
                 return;
             }
             setLocation();
-            handler.sendEmptyMessage(3);        //转主界面
+            handler.sendEmptyMessage(2);        //转主界面
         }
     };
 
@@ -75,9 +74,8 @@ public class LoadActivity extends Activity {
     }
 
 
-
     private boolean login() {
-        User user=new User();
+        User user = new User();
         user.setCellnum(AppConf.cellnum);
         user.setPassword(AppConf.password);
         Result result = UserAPI.login(user);

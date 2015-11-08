@@ -27,7 +27,8 @@
             android:singleLine="true"
             android:text="定位中"
             android:textColor="@android:color/white"
-            android:textSize="17.0sp" />
+            android:textSize="17.0sp"
+            android:clickable="true"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -36,13 +37,13 @@
             android:contentDescription="@null"
             android:text="@string/app_name"
             android:textColor="@android:color/white"
-            android:textSize="18.0sp" />
+            android:textSize="@dimen/tile_size" />
 
         <View
             android:layout_width="fill_parent"
             android:layout_height="1.0px"
             android:layout_alignParentBottom="true"
-            android:background="@color/grey" />
+            android:background="@color/gray" />
     </RelativeLayout>
 
     <RelativeLayout

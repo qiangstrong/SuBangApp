@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="@color/grey">
+    android:background="@color/gray">
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -60,7 +60,7 @@
             android:layout_height="1.0px"
             android:layout_below="@id/iv_categorylogo"
             android:layout_marginLeft="15.0dip"
-            android:background="@color/grey" />
+            android:background="@color/gray" />
 
         <TextView
             android:id="@+id/tv_orderno"
@@ -89,7 +89,7 @@
             android:layout_below="@id/tv_datetime"
             android:layout_marginLeft="30.0dip"
             android:layout_marginTop="10.0dip"
-            android:background="@color/grey" />
+            android:background="@color/gray" />
 
         <RelativeLayout
             android:layout_width="fill_parent"
@@ -116,6 +116,7 @@
                 android:layout_marginRight="5.0dip"
                 android:layout_toLeftOf="@+id/tv_operation_1"
                 android:background="@drawable/order_operation_bg"
+                android:clickable="true"
                 android:gravity="center"
                 android:text=""
                 android:textColor="@color/blue_theme"
@@ -129,6 +130,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="10.0dip"
                 android:background="@drawable/order_operation_bg"
+                android:clickable="true"
                 android:gravity="center"
                 android:text=""
                 android:textColor="@color/blue_theme"
