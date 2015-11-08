@@ -36,6 +36,7 @@ public class TypeFragment extends Fragment implements OnFrontListener {
     private OrderAdapter orderAdapter;
 
     private Thread thread, operaThread;
+    List<OrderDetail> orderDetails;
     private OrderAdapter.DataHolder dataHolder;
     private OrderDetail filter;
 
@@ -73,6 +74,7 @@ public class TypeFragment extends Fragment implements OnFrontListener {
                 }
                 case AppConst.WHAT_SUCC_LOAD: {
                     xlv_order.stopRefresh();
+                    dataHolder.orderDetails = orderDetails;
                     orderAdapter.notifyDataSetChanged();
                     if (dataHolder.orderDetails.isEmpty()) {
                         xlv_order.setBackgroundResource(R.drawable.order_listview_bg);
@@ -102,12 +104,11 @@ public class TypeFragment extends Fragment implements OnFrontListener {
         @Override
         public void run() {
             AppUtil.confApi(getActivity());
-            List<OrderDetail> orderDetails = OrderAPI.userList(type, filter);
+            orderDetails = OrderAPI.userList(type, filter);
             if (orderDetails == null) {
                 handler.sendEmptyMessage(AppConst.WHAT_NETWORK_ERR);           //加载数据失败
                 return;
             }
-            dataHolder.orderDetails = orderDetails;
             handler.sendEmptyMessage(AppConst.WHAT_SUCC_LOAD);                //加载数据成功
         }
     };

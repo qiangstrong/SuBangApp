@@ -200,6 +200,8 @@ public class AddOrderActivity extends Activity {
     private void prepare() {
         if (isAddr && isDate) {
             btn_add.setEnabled(true);
+        }else {
+            btn_add.setEnabled(false);
         }
     }
 }

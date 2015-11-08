@@ -23,7 +23,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" android:launchMode="singleTask"></activity>
-        <activity android:name=".LoginActivity" />
+        <activity android:name=".LoginActivity" >
+
+        </activity>
         <activity android:name=".TestActivity">
 
         </activity>
