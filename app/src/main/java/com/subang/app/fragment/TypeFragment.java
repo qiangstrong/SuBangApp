@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Toast;
 
 import com.subang.api.OrderAPI;
 import com.subang.app.activity.R;
@@ -18,8 +19,10 @@ import com.subang.app.util.AppShare;
 import com.subang.app.util.AppUtil;
 import com.subang.applib.view.XListView;
 import com.subang.bean.OrderDetail;
+import com.subang.bean.Result;
 import com.subang.domain.Order;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 
@@ -32,7 +35,7 @@ public class TypeFragment extends Fragment implements OnFrontListener {
     private XListView xlv_order;
     private OrderAdapter orderAdapter;
 
-    private Thread thread;
+    private Thread thread, operaThread;
     private OrderAdapter.DataHolder dataHolder;
     private OrderDetail filter;
 
@@ -79,6 +82,18 @@ public class TypeFragment extends Fragment implements OnFrontListener {
                     isLoaded = true;
                     break;
                 }
+                case AppConst.WHAT_SUCC_SUBMIT: {
+                    Bundle bundle = msg.getData();
+                    OperaData operaData = (OperaData) bundle.get("operaData");
+                    String info = bundle.getString("info");
+                    if (thread == null || !thread.isAlive()) {
+                        thread = new Thread(runnable);
+                        thread.start();
+                    }
+                    Toast toast = Toast.makeText(getActivity(), info, Toast.LENGTH_SHORT);
+                    toast.show();
+                    break;
+                }
             }
         }
     };
@@ -100,7 +115,7 @@ public class TypeFragment extends Fragment implements OnFrontListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        appShare=(AppShare)getActivity().getApplication();
+        appShare = (AppShare) getActivity().getApplication();
         if (getArguments().containsKey("type")) {
             type = getArguments().getInt("type");
         }
@@ -116,6 +131,7 @@ public class TypeFragment extends Fragment implements OnFrontListener {
         filter.setCategoryname("");
 
         orderAdapter = new OrderAdapter(getActivity(), dataHolder);
+        orderAdapter.setOperationOnClickListener(operationOnClickListener);
     }
 
     @Override
@@ -140,10 +156,10 @@ public class TypeFragment extends Fragment implements OnFrontListener {
     public void onResume() {
         super.onResume();
         boolean refresh;
-        if (appShare.map.containsKey("refresh")){
-            refresh=(boolean)appShare.map.get("refresh");
+        if (appShare.map.containsKey("refresh")) {
+            refresh = (boolean) appShare.map.get("refresh");
             appShare.map.remove("refresh");
-            if (refresh){
+            if (refresh) {
                 if (thread == null || !thread.isAlive()) {
                     thread = new Thread(runnable);
                     thread.start();
@@ -158,5 +174,80 @@ public class TypeFragment extends Fragment implements OnFrontListener {
 
     private void findView(View view) {
         xlv_order = (XListView) view.findViewById(R.id.xlv_order);
+    }
+
+    private View.OnClickListener operationOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            OperaData operaData = new OperaData();
+            operaData.operation = (com.subang.domain.Order.State) v.getTag(R.id.key_operation);
+            operaData.orderid = (Integer) v.getTag(R.id.key_orderid);
+            switch (operaData.operation) {
+                case canceled: {
+                    if (operaThread == null || !operaThread.isAlive()) {
+                        operaThread = new OperaThread(operaData);
+                        operaThread.start();
+                    }
+                    break;
+                }
+                case paid: {
+                    break;
+                }
+                case delivered: {
+                    break;
+                }
+                case remarked: {
+                    break;
+                }
+            }
+        }
+    };
+
+    private static class OperaData implements Serializable {
+        public Order.State operation;
+        public Integer orderid;
+    }
+
+    private class OperaThread extends Thread {
+
+        OperaData operaData;
+
+        public OperaThread(OperaData operaData) {
+            super();
+            this.operaData = operaData;
+        }
+
+        @Override
+        public void run() {
+            Result result;
+            Message msg;
+            Bundle bundle;
+            switch (operaData.operation) {
+                case canceled: {
+                    result = OrderAPI.cancel(operaData.orderid);
+                    if (result == null) {
+                        handler.sendEmptyMessage(AppConst.WHAT_NETWORK_ERR);
+                        return;
+                    }
+                    msg = new Message();
+                    msg.what = AppConst.WHAT_SUCC_SUBMIT;
+                    bundle = new Bundle();
+                    bundle.putSerializable("operaData", operaData);
+                    bundle.putString("info", "订单取消成功。");
+                    msg.setData(bundle);
+                    handler.sendMessage(msg);
+                    break;
+                }
+                case paid: {
+                    break;
+                }
+                case delivered: {
+                    break;
+                }
+                case remarked: {
+                    break;
+                }
+            }
+        }
     }
 }

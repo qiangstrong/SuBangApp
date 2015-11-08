@@ -25,23 +25,21 @@ public class OrderAdapter extends BaseAdapter {
 
     private LayoutInflater inflater;
     private DataHolder dataHolder;
-
-    View.OnClickListener operationOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Order.State operation = (Order.State) v.getTag(R.id.key_operation);
-            String orderno = (String) v.getTag(R.id.key_orderno);
-            switch (operation) {
-
-            }
-        }
-    };
+    private View.OnClickListener operationOnClickListener;
 
 
     public OrderAdapter(Context context, DataHolder dataHolder) {
         super();
         this.dataHolder = dataHolder;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
+
+    public View.OnClickListener getOperationOnClickListener() {
+        return operationOnClickListener;
+    }
+
+    public void setOperationOnClickListener(View.OnClickListener operationOnClickListener) {
+        this.operationOnClickListener = operationOnClickListener;
     }
 
     @Override
@@ -137,9 +135,9 @@ public class OrderAdapter extends BaseAdapter {
                 break;
             }
         }
-        tv_operation1.setTag(R.id.key_orderno, orderDetail.getOrderno());
+        tv_operation1.setTag(R.id.key_orderid, orderDetail.getId());
         tv_operation1.setOnClickListener(operationOnClickListener);
-        tv_operation2.setTag(R.id.key_orderno, orderDetail.getOrderno());
+        tv_operation2.setTag(R.id.key_orderid, orderDetail.getId());
         tv_operation2.setOnClickListener(operationOnClickListener);
     }
 
