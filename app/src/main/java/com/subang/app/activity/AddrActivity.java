@@ -14,6 +14,7 @@ import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import com.subang.api.UserAPI;
+import com.subang.app.helper.AddrDataHelper;
 import com.subang.app.util.AppConst;
 import com.subang.app.util.AppShare;
 import com.subang.app.util.AppUtil;
@@ -98,6 +99,7 @@ public class AddrActivity extends Activity {
                         addrItem = new HashMap<String, Object>();
                         addrItem.put("name", addr.getName());
                         addrItem.put("cellnum", addr.getCellnum());
+                        addrItem.put("area", AddrDataHelper.getAreaDes(addr));
                         addrItem.put("detail", addr.getDetail());
                         addrItems.add(addrItem);
                     }
@@ -153,8 +155,8 @@ public class AddrActivity extends Activity {
 
         addrItems = new ArrayList<>();
         addrSimpleAdapter = new SimpleAdapter(AddrActivity.this, addrItems, R.layout.item_addr,
-                new String[]{"name", "cellnum", "detail"},
-                new int[]{R.id.tv_name, R.id.tv_cellnum, R.id.tv_detail});
+                new String[]{"name", "cellnum", "area", "detail"},
+                new int[]{R.id.tv_name, R.id.tv_cellnum, R.id.tv_area, R.id.tv_detail});
         lv_addr.setAdapter(addrSimpleAdapter);
         lv_addr.setOnItemClickListener(addrOnItemClickListener);
         lv_addr.setMenuCreator(swipeMenuCreator);

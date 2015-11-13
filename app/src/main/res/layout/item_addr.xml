@@ -2,7 +2,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="100.0dip"
+    android:layout_height="match_parent"
     android:background="@android:color/white"
     android:gravity="center_vertical"
     android:orientation="horizontal"
@@ -40,12 +40,23 @@
         </RelativeLayout>
 
         <TextView
-            android:id="@+id/tv_detail"
+            android:id="@+id/tv_area"
             style="@style/textsize_2"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_alignRight="@id/rl_addr"
             android:layout_below="@id/rl_addr"
+            android:layout_marginLeft="10.0dip"
+            android:layout_marginRight="15.0dip"
+            android:paddingTop="5.0dip" />
+
+        <TextView
+            android:id="@+id/tv_detail"
+            style="@style/textsize_2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@id/rl_addr"
+            android:layout_below="@id/tv_area"
             android:layout_marginLeft="10.0dip"
             android:layout_marginRight="15.0dip"
             android:paddingTop="5.0dip" />

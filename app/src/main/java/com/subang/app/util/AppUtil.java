@@ -77,12 +77,7 @@ public class AppUtil {
     }
 
     public static void networkTip(Context context) {
-        Toast toast = Toast.makeText(context, R.string.err_network, Toast.LENGTH_LONG);
-        toast.show();
-    }
-
-    public static void updateTip(Context context) {
-        Toast toast = Toast.makeText(context, R.string.err_update, Toast.LENGTH_LONG);
+        Toast toast = Toast.makeText(context, R.string.err_network, Toast.LENGTH_SHORT);
         toast.show();
     }
 

@@ -1,6 +1,7 @@
 package com.subang.app.helper;
 
 import com.subang.bean.AddrData;
+import com.subang.bean.AddrDetail;
 import com.subang.domain.City;
 import com.subang.domain.District;
 import com.subang.domain.Region;
@@ -12,6 +13,16 @@ import java.util.List;
  * Created by Qiang on 2015/11/12.
  */
 public class AddrDataHelper {
+
+    public static String getAreaDes(AddrDetail addrDetail) {
+        StringBuilder builder = new StringBuilder();
+        builder.append(addrDetail.getCityname());
+        builder.append("  ");
+        builder.append(addrDetail.getDistrictname());
+        builder.append("  ");
+        builder.append(addrDetail.getRegionname());
+        return builder.toString();
+    }
 
     //添加地址界面生成的关于area的描述
     public static String getAreaDes(AddrData addrData) {
