@@ -1,10 +1,10 @@
-package com.subang.app.adapter;
+package com.subang.app.helper;
 
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.subang.applib.adapter.RecyclingPagerAdapter;
+import com.subang.applib.util.RecyclingPagerAdapter;
 
 import java.util.List;
 

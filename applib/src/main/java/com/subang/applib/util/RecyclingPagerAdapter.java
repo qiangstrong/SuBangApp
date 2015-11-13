@@ -1,4 +1,4 @@
-package com.subang.applib.adapter;
+package com.subang.applib.util;
 
 import android.support.v4.view.PagerAdapter;
 import android.view.View;

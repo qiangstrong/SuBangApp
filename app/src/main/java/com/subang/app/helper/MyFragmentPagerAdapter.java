@@ -1,4 +1,4 @@
-package com.subang.app.adapter;
+package com.subang.app.helper;
 
 import android.app.Fragment;
 import android.app.FragmentManager;

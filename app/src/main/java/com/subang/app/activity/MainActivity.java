@@ -7,7 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.subang.app.adapter.MyFragmentPagerAdapter;
+import com.subang.app.helper.MyFragmentPagerAdapter;
 import com.subang.app.fragment.HomeFragment;
 import com.subang.app.fragment.MineFragment;
 import com.subang.app.fragment.OrderFragment;

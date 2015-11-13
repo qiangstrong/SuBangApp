@@ -1,6 +1,7 @@
 package com.subang.app.fragment;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 
 import com.subang.api.InfoAPI;
 import com.subang.api.UserAPI;
+import com.subang.app.activity.AddrActivity;
 import com.subang.app.activity.R;
 import com.subang.app.fragment.face.OnFrontListener;
 import com.subang.app.util.AppConf;
@@ -72,7 +74,13 @@ public class MineFragment extends Fragment implements OnFrontListener {
     private AdapterView.OnItemClickListener actionOnItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+            switch (position){
+                case 0:{
+                    Intent intent = new Intent(getActivity(), AddrActivity.class);
+                    startActivity(intent);
+                    break;
+                }
+            }
         }
     };
 
@@ -133,7 +141,7 @@ public class MineFragment extends Fragment implements OnFrontListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         createItems();
-        actionSimpleAdapter = new SimpleAdapter(getActivity(), actionItems, R.layout.mine_item,
+        actionSimpleAdapter = new SimpleAdapter(getActivity(), actionItems, R.layout.item_action,
                 new String[]{"icon", "text", "line"}, new int[]{R.id.iv_icon, R.id.tv_text, R.id.v_line});
         actionSimpleAdapter.setViewBinder(actionViewBinder);
     }

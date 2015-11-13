@@ -23,15 +23,15 @@ import java.util.List;
  */
 public class AppUtil {
 
-    public static boolean isConfed(){
-        if (AppConf.cellnum==null||AppConf.password==null||AppConf.basePath==null){
+    public static boolean isConfed() {
+        if (AppConf.cellnum == null || AppConf.password == null || AppConf.basePath == null) {
             return false;
-        }else {
+        } else {
             return true;
         }
     }
 
-    public static void saveConf(Context context,User user){
+    public static void saveConf(Context context, User user) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(context.getResources().getString(R.string
                 .file_user), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -41,7 +41,7 @@ public class AppUtil {
     }
 
     public static boolean conf(Context context) {
-        if (isConfed()){
+        if (isConfed()) {
             return true;
         }
         SharedPreferences sharedPreferences = context.getSharedPreferences(context.getResources().getString(R.string
@@ -50,9 +50,9 @@ public class AppUtil {
         String cellnum = sharedPreferences.getString("cellnum", null);
         String password = sharedPreferences.getString("password", null);
         if (cellnum != null && password != null) {
-            AppConf.basePath=basePath;
-            AppConf.cellnum=cellnum;
-            AppConf.password=password;
+            AppConf.basePath = basePath;
+            AppConf.cellnum = cellnum;
+            AppConf.password = password;
             return true;
         }
         return false;
@@ -76,14 +76,19 @@ public class AppUtil {
         return networkInfo.isAvailable();
     }
 
-    public static void networkTip(Context context){
+    public static void networkTip(Context context) {
         Toast toast = Toast.makeText(context, R.string.err_network, Toast.LENGTH_LONG);
+        toast.show();
+    }
+
+    public static void updateTip(Context context) {
+        Toast toast = Toast.makeText(context, R.string.err_update, Toast.LENGTH_LONG);
         toast.show();
     }
 
     //后台执行
     public static boolean setLocation(Context context) {
-        LocationManager locationManager = (LocationManager)context.getSystemService(Context.LOCATION_SERVICE);
+        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         String bestProvider = locationManager.getBestProvider(new Criteria(), true);
         Location location = null;
         try {

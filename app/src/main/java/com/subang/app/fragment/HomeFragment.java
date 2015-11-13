@@ -20,7 +20,7 @@ import com.subang.api.PriceAPI;
 import com.subang.api.RegionAPI;
 import com.subang.app.activity.AddOrderActivity;
 import com.subang.app.activity.R;
-import com.subang.app.adapter.ImagePagerAdapter;
+import com.subang.app.helper.ImagePagerAdapter;
 import com.subang.app.fragment.face.OnFrontListener;
 import com.subang.app.util.AppConf;
 import com.subang.app.util.AppConst;
@@ -52,8 +52,8 @@ public class HomeFragment extends Fragment implements OnFrontListener{
 
     private Thread thread;
     private City city;
-    private List<ImageView> bannerItems;
     private List<Category> categorys;
+    private List<ImageView> bannerItems;
     private List<Map<String, Object>> categoryItems;
     private List<Map<String, Object>> infoItems;
 
@@ -106,6 +106,18 @@ public class HomeFragment extends Fragment implements OnFrontListener{
                 }
                 case AppConst.WHAT_SUCC_LOAD: {
                     tv_location.setText(city.getName());
+
+                    categoryItems.clear();
+                    Map<String, Object> categoryItem;
+                    AppUtil.conf(getActivity());
+                    for (Category category : categorys) {
+                        categoryItem = new HashMap<String, Object>();
+                        Bitmap bitmap = BitmapFactory.decodeFile(AppConf.basePath + category.getIcon());
+                        categoryItem.put("icon", bitmap);
+                        categoryItem.put("name", category.getName());
+                        categoryItem.put("comment", category.getComment());
+                        categoryItems.add(categoryItem);
+                    }
                     categorySimpleAdapter.notifyDataSetChanged();
                     isLoaded = true;
                     break;
@@ -134,17 +146,6 @@ public class HomeFragment extends Fragment implements OnFrontListener{
                 handler.sendEmptyMessage(AppConst.WHAT_NETWORK_ERR);
                 return;
             }
-            categoryItems.clear();
-            Map<String, Object> categoryItem;
-            AppUtil.conf(getActivity());
-            for (Category category : categorys) {
-                categoryItem = new HashMap<String, Object>();
-                Bitmap bitmap = BitmapFactory.decodeFile(AppConf.basePath + category.getIcon());
-                categoryItem.put("icon", bitmap);
-                categoryItem.put("name", category.getName());
-                categoryItem.put("comment", category.getComment());
-                categoryItems.add(categoryItem);
-            }
             handler.sendEmptyMessage(AppConst.WHAT_SUCC_LOAD);
         }
     };
@@ -154,7 +155,7 @@ public class HomeFragment extends Fragment implements OnFrontListener{
         super.onCreate(savedInstanceState);
         createItems();
         categorySimpleAdapter = new SimpleAdapter(getActivity(), categoryItems, R.layout
-                .home_item_category, new
+                .item_category, new
                 String[]{"icon", "name", "comment"}, new int[]{R.id.iv_icon, R.id.tv_name, R.id.tv_comment});
         categorySimpleAdapter.setViewBinder(categoryViewBinder);
     }
@@ -181,7 +182,7 @@ public class HomeFragment extends Fragment implements OnFrontListener{
         gv_category.setAdapter(categorySimpleAdapter);
         gv_category.setOnItemClickListener(categoryOnItemClickListener);
 
-        gv_info.setAdapter(new SimpleAdapter(getActivity(), infoItems, R.layout.home_item_info, new
+        gv_info.setAdapter(new SimpleAdapter(getActivity(), infoItems, R.layout.item_info, new
                 String[]{"text"}, new int[]{R.id.tv_intro}));
         gv_info.setOnItemClickListener(infoOnItemClickListener);
 

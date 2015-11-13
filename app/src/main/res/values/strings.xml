@@ -3,7 +3,8 @@
     <string name="app_name">速帮洗衣</string>
     <string name="file_user">user</string>
     <string name="err_network">网络连接错误，请检查网络是否连通。</string>
-    <string name="flag_user">洗衣就用速帮洗衣, 幸福生活每一天</string>
+    <string name="err_update">请刷新页面，然后重试。</string>
+    <string name="flag_user">我们只做最专业的品质服务</string>
     <string name="operation_cancel">取消</string>
     <string name="operation_urge">催单</string>
     <string name="operation_pay">支付</string>

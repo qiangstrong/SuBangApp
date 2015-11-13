@@ -45,7 +45,7 @@ public class AddOrderActivity extends Activity {
     private boolean isDate = false;
     private Order order;
 
-    private boolean isLoaded = false;
+    private boolean isLoaded = false;       //用作记录第一次下载数据是否成功，未使用
 
     private Handler handler = new Handler() {
         @Override
@@ -59,23 +59,24 @@ public class AddOrderActivity extends Activity {
                     if (addr == null) {
                         tv_addAddr.setVisibility(View.VISIBLE);
                         rl_addr.setVisibility(View.GONE);
+                        isAddr = false;
                     } else {
                         tv_addAddr.setVisibility(View.GONE);
                         rl_addr.setVisibility(View.VISIBLE);
                         tv_name.setText(addr.getName());
                         tv_cellnum.setText(addr.getCellnum());
                         tv_detail.setText(addr.getDetail());
+                        isAddr = true;
                     }
                     isLoaded = true;
-                    isAddr = true;
                     prepare();
                     break;
                 }
-                case AppConst.WHAT_SUCC_SUBMIT:{
-                    appShare.map.put("main.position",1);
-                    appShare.map.put("order.position",0);
-                    appShare.map.put("refresh",true);
-                    Intent intent=new Intent(AddOrderActivity.this,MainActivity.class);
+                case AppConst.WHAT_SUCC_SUBMIT: {
+                    appShare.map.put("main.position", 1);
+                    appShare.map.put("order.position", 0);
+                    appShare.map.put("type.refresh", true);
+                    Intent intent = new Intent(AddOrderActivity.this, MainActivity.class);
                     startActivity(intent);
                     break;
                 }
@@ -96,6 +97,8 @@ public class AddOrderActivity extends Activity {
             }
             if (addrDetails.size() != 0) {
                 addr = UserAPI.getDefaultAddr();
+            } else {
+                addr = null;
             }
             handler.sendEmptyMessage(AppConst.WHAT_SUCC_LOAD);
         }
@@ -105,8 +108,8 @@ public class AddOrderActivity extends Activity {
         @Override
         public void run() {
             AppUtil.confApi(AddOrderActivity.this);
-            Map<String, String> errors= OrderAPI.add(order);
-            if (errors==null){
+            Map<String, String> errors = OrderAPI.add(order);
+            if (errors == null) {
                 handler.sendEmptyMessage(AppConst.WHAT_NETWORK_ERR);
                 return;
             }
@@ -117,7 +120,7 @@ public class AddOrderActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        appShare=(AppShare)getApplication();
+        appShare = (AppShare) getApplication();
         setContentView(R.layout.activity_add_order);
         findView();
         if (thread == null || !thread.isAlive()) {
@@ -131,11 +134,29 @@ public class AddOrderActivity extends Activity {
     }
 
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         switch (requestCode) {
             case REGUEST_CODE_ADDR: {
+                if (resultCode == RESULT_OK) {
+                    Bundle bundle = intent.getExtras();
+                    addr = (AddrDetail) bundle.get("addr");
+
+                    tv_addAddr.setVisibility(View.GONE);
+                    rl_addr.setVisibility(View.VISIBLE);
+                    tv_name.setText(addr.getName());
+                    tv_cellnum.setText(addr.getCellnum());
+                    tv_detail.setText(addr.getDetail());
+                    isAddr=true;
+                    prepare();
+                } else {
+                    if (thread == null || !thread.isAlive()) {
+                        isAddr=false;
+                        prepare();
+                        thread = new Thread(runnable);
+                        thread.start();
+                    }
+                }
                 break;
             }
             case REGUEST_CODE_DATE: {
@@ -174,11 +195,14 @@ public class AddOrderActivity extends Activity {
     }
 
     public void tv_addAddr_onClick(View view) {
-        //到添加地址activity
+        //仍然跳转到AddrActivity。因为不能立即获取到添加的地址的主键
+        Intent intent = new Intent(AddOrderActivity.this, AddrActivity.class);
+        startActivityForResult(intent, REGUEST_CODE_ADDR);
     }
 
     public void rl_addr_onClick(View view) {
-        //到查看地址activity
+        Intent intent = new Intent(AddOrderActivity.this, AddrActivity.class);
+        startActivityForResult(intent, REGUEST_CODE_ADDR);
     }
 
     public void rl_date_onClick(View view) {
@@ -187,6 +211,7 @@ public class AddOrderActivity extends Activity {
     }
 
     public void btn_add_onClick(View view) {
+
         order.setAddrid(addr.getId());
         order.setDate((Date) dateOption.getValue());
         order.setTime((Integer) timeOption.getValue());
@@ -200,7 +225,7 @@ public class AddOrderActivity extends Activity {
     private void prepare() {
         if (isAddr && isDate) {
             btn_add.setEnabled(true);
-        }else {
+        } else {
             btn_add.setEnabled(false);
         }
     }

@@ -8,7 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.Toast;
 
-import com.subang.app.adapter.MyFragmentPagerAdapter;
+import com.subang.app.helper.MyFragmentPagerAdapter;
 import com.subang.app.fragment.TimeFragment;
 import com.subang.util.TimeUtil;
 import com.viewpagerindicator.TitlePageIndicator;

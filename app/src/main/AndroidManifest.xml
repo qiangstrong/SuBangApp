@@ -22,17 +22,26 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" android:launchMode="singleTask"></activity>
-        <activity android:name=".LoginActivity" >
-
-        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:launchMode="singleTask" />
+        <activity android:name=".LoginActivity"></activity>
         <activity android:name=".TestActivity">
 
         </activity>
-        <activity android:name=".AddOrderActivity"></activity>
+        <activity android:name=".AddOrderActivity" />
         <activity
             android:name=".DateActivity"
-            android:theme="@style/CustomTranslucent"></activity>
+            android:theme="@style/CustomTranslucent" />
+        <activity android:name=".AddrActivity"></activity>
+        <activity android:name=".AddAddrActivity">
+
+        </activity>
+        <activity
+            android:name=".AreaActivity"
+            android:theme="@style/CustomTranslucent">
+
+        </activity>
     </application>
 
 </manifest>

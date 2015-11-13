@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <integer name="order_user_comment">100</integer>
+    <integer name="addr_detail_auto">30</integer>
+    <integer name="addr_detail_manu">20</integer>
+    <integer name="name">4</integer>
+    <integer name="cellnum">11</integer>
+    <integer name="password">50</integer>
 </resources>

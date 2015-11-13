@@ -12,6 +12,6 @@
         android:cacheColorHint="#00000000"
         android:divider="@null"
         android:dividerHeight="0.0dip"
-        android:background="@drawable/order_listview_default" />
+        android:background="@drawable/listview_default" />
 
 </RelativeLayout>

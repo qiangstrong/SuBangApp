@@ -10,7 +10,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.subang.app.activity.R;
-import com.subang.app.adapter.MyFragmentPagerAdapter;
+import com.subang.app.helper.MyFragmentPagerAdapter;
 import com.subang.app.fragment.face.OnFrontListener;
 import com.subang.app.util.AppShare;
 import com.subang.applib.view.AutoScrollViewPager;

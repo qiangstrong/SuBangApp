@@ -1,4 +1,4 @@
-package com.subang.applib.adapter;
+package com.subang.applib.util;
 
 import android.os.Build;
 import android.util.SparseArray;

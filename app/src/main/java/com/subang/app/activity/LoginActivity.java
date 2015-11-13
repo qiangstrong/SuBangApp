@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -15,6 +13,7 @@ import android.widget.Toast;
 import com.subang.api.UserAPI;
 import com.subang.app.util.AppConst;
 import com.subang.app.util.AppUtil;
+import com.subang.app.helper.MyTextWatcher;
 import com.subang.bean.Result;
 import com.subang.domain.User;
 
@@ -26,50 +25,16 @@ public class LoginActivity extends Activity {
     private Thread thread;
     private User user;
 
-    private boolean isCellnum = false;
-    private boolean isPassword = false;
+    private MyTextWatcher cellnumWatcher, passwordWatcher;
 
-    private TextWatcher cellnumWatcher = new TextWatcher() {
+    private MyTextWatcher.OnPrepareListener onPrepareListener = new MyTextWatcher.OnPrepareListener() {
         @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            if (s.length() == 11) {    //电话号码的长度
-                isCellnum = true;
+        public void onPrepare() {
+            if (cellnumWatcher.isAvail() && passwordWatcher.isAvail()) {
+                tv_login.setEnabled(true);
             } else {
-                isCellnum = false;
+                tv_login.setEnabled(false);
             }
-            prepare();
-        }
-    };
-
-    private TextWatcher passwordWatcher = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            if (s.length() > 0) {
-                isPassword = true;
-            } else {
-                isPassword = false;
-            }
-            prepare();
         }
     };
 
@@ -123,8 +88,11 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         findView();
-        user=new User();
+        user = new User();
+
+        cellnumWatcher = new MyTextWatcher(11, onPrepareListener);
         et_cellnum.addTextChangedListener(cellnumWatcher);
+        passwordWatcher = new MyTextWatcher(1, onPrepareListener);
         et_password.addTextChangedListener(passwordWatcher);
     }
 
@@ -140,14 +108,6 @@ public class LoginActivity extends Activity {
         if (thread == null || !thread.isAlive()) {
             thread = new Thread(runnable);
             thread.start();
-        }
-    }
-
-    private void prepare() {
-        if (isCellnum && isPassword) {
-            tv_login.setEnabled(true);
-        } else {
-            tv_login.setEnabled(false);
         }
     }
 }

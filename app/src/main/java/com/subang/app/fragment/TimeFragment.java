@@ -54,7 +54,7 @@ public class TimeFragment extends Fragment {
             timeItems.add(timeItem);
         }
 
-        timeSimpleAdapter = new SimpleAdapter(getActivity(), timeItems, R.layout.time_item, new String[]{"text"}, new
+        timeSimpleAdapter = new SimpleAdapter(getActivity(), timeItems, R.layout.item_time, new String[]{"text"}, new
                 int[]{R.id.tv_time});
     }
 

@@ -27,7 +27,7 @@
         android:drawableLeft="@drawable/cellnum_icon"
         android:hint="请输入手机号"
         android:inputType="phone"
-        android:maxLength="11"
+        android:maxLength="@integer/cellnum"
         android:paddingLeft="5.0dip"
         android:paddingRight="5.0dip"
         android:textColor="@android:color/black"
@@ -42,12 +42,13 @@
         android:layout_below="@id/et_cellnum"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="8.0dip"
-        android:password="true"
         android:background="@drawable/login_edit_default"
         android:drawableLeft="@drawable/password_icon"
         android:hint="请输入密码"
+        android:maxLength="@integer/password"
         android:paddingLeft="5.0dip"
         android:paddingRight="5.0dip"
+        android:password="true"
         android:textColor="@android:color/black"
         android:textColorHint="#ffc1c1c1"
         android:textCursorDrawable="@null"
@@ -65,10 +66,10 @@
         android:clickable="true"
         android:enabled="false"
         android:gravity="center"
+        android:onClick="tv_login_onClick"
         android:padding="10.0dip"
         android:text="登录"
         android:textColor="@android:color/white"
-        android:textSize="16.0sp"
-        android:onClick="tv_login_onClick"/>
+        android:textSize="16.0sp" />
 
 </RelativeLayout>

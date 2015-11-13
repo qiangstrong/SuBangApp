@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import com.subang.api.OrderAPI;
 import com.subang.app.activity.R;
-import com.subang.app.adapter.OrderAdapter;
+import com.subang.app.helper.OrderAdapter;
 import com.subang.app.fragment.face.OnFrontListener;
 import com.subang.app.util.AppConst;
 import com.subang.app.util.AppShare;
@@ -77,7 +77,7 @@ public class TypeFragment extends Fragment implements OnFrontListener {
                     dataHolder.orderDetails = orderDetails;
                     orderAdapter.notifyDataSetChanged();
                     if (dataHolder.orderDetails.isEmpty()) {
-                        xlv_order.setBackgroundResource(R.drawable.order_listview_bg);
+                        xlv_order.setBackgroundResource(R.drawable.listview_no_order);
                     } else {
                         xlv_order.setBackgroundResource(android.R.color.transparent);
                     }
@@ -157,9 +157,9 @@ public class TypeFragment extends Fragment implements OnFrontListener {
     public void onResume() {
         super.onResume();
         boolean refresh;
-        if (appShare.map.containsKey("refresh")) {
-            refresh = (boolean) appShare.map.get("refresh");
-            appShare.map.remove("refresh");
+        if (appShare.map.containsKey("type.refresh")) {
+            refresh = (boolean) appShare.map.get("type.refresh");
+            appShare.map.remove("type.refresh");
             if (refresh) {
                 if (thread == null || !thread.isAlive()) {
                     thread = new Thread(runnable);
@@ -223,6 +223,7 @@ public class TypeFragment extends Fragment implements OnFrontListener {
             Result result;
             Message msg;
             Bundle bundle;
+            AppUtil.confApi(getActivity());
             switch (operaData.operation) {
                 case canceled: {
                     result = OrderAPI.cancel(operaData.orderid);

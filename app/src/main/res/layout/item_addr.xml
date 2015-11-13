@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="100.0dip"
+    android:background="@android:color/white"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingBottom="10.0dip"
+    android:paddingTop="10.0dip">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="7.0dip"
+        android:layout_marginTop="7.0dip">
+
+        <RelativeLayout
+            android:id="@+id/rl_addr"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10.0dip">
+
+            <TextView
+                android:id="@+id/tv_name"
+                style="@style/textsize_3"
+                android:layout_width="90.0dip"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:maxLength="6" />
+
+            <TextView
+                android:id="@+id/tv_cellnum"
+                style="@style/textsize_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/tv_name" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_detail"
+            style="@style/textsize_2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@id/rl_addr"
+            android:layout_below="@id/rl_addr"
+            android:layout_marginLeft="10.0dip"
+            android:layout_marginRight="15.0dip"
+            android:paddingTop="5.0dip" />
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10.0dip"
+        android:src="@drawable/next" />
+</RelativeLayout>
