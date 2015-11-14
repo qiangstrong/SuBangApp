@@ -15,6 +15,8 @@ import com.subang.domain.User;
 
 public class LoadActivity extends Activity {
 
+    private static final int WHAT_LOGIN = 1;
+    private static final int WHAT_MAIN = 2;
 
     private Handler handler = new Handler() {
         @Override
@@ -24,13 +26,13 @@ public class LoadActivity extends Activity {
                     AppUtil.networkTip(LoadActivity.this);
                     break;
                 }
-                case 1: {
+                case WHAT_LOGIN: {
                     Intent intent = new Intent(LoadActivity.this, LoginActivity.class);
                     startActivity(intent);
                     finish();
                     break;
                 }
-                case 2: {
+                case WHAT_MAIN: {
                     Intent intent = new Intent(LoadActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();
@@ -48,24 +50,24 @@ public class LoadActivity extends Activity {
             }
 
             if (!AppUtil.conf(LoadActivity.this)) {
-                handler.sendEmptyMessage(1);    //转登录界面
+                handler.sendEmptyMessage(WHAT_LOGIN);    //转登录界面
                 return;
             }
             User user = new User();
             user.setCellnum(AppConf.cellnum);
             user.setPassword(AppConf.password);
             Result result = UserAPI.login(user);
-            if (result==null){
+            if (result == null) {
                 handler.sendEmptyMessage(AppConst.WHAT_NETWORK_ERR);    //提示用户，停留此界面
                 return;
             }
             if (!result.getCode().equals(Result.OK)) {
-                handler.sendEmptyMessage(1);    //转登录界面
+                handler.sendEmptyMessage(WHAT_LOGIN);    //转登录界面
                 return;
             }
             AppUtil.confApi(LoadActivity.this);
             AppUtil.setLocation(LoadActivity.this);
-            handler.sendEmptyMessage(2);        //转主界面
+            handler.sendEmptyMessage(WHAT_MAIN);        //转主界面
         }
     };
 

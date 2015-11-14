@@ -6,4 +6,5 @@
     <integer name="name">4</integer>
     <integer name="cellnum">11</integer>
     <integer name="password">50</integer>
+    <integer name="authcode">4</integer>
 </resources>

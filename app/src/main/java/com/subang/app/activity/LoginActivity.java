@@ -8,16 +8,18 @@ import android.os.Message;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.subang.api.UserAPI;
+import com.subang.app.helper.MyTextWatcher;
 import com.subang.app.util.AppConst;
 import com.subang.app.util.AppUtil;
-import com.subang.app.helper.MyTextWatcher;
+import com.subang.app.util.ComUtil;
 import com.subang.bean.Result;
 import com.subang.domain.User;
 
 public class LoginActivity extends Activity {
+
+    private static final int WHAT_MAIN = 1;
 
     private EditText et_cellnum, et_password;
     private TextView tv_login;
@@ -46,12 +48,12 @@ public class LoginActivity extends Activity {
                     AppUtil.networkTip(LoginActivity.this);
                     break;
                 }
-                case 1: {
-                    Toast toast = Toast.makeText(LoginActivity.this, "用户名或密码错误。", Toast.LENGTH_SHORT);
-                    toast.show();
+                case AppConst.WHAT_INFO: {
+                    String info = ComUtil.getInfo(msg);
+                    AppUtil.tip(LoginActivity.this, info);
                     break;
                 }
-                case 2: {
+                case WHAT_MAIN: {
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();
@@ -65,20 +67,22 @@ public class LoginActivity extends Activity {
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {
+            AppUtil.confApi(LoginActivity.this);
             Result result = UserAPI.login(user);
             if (result == null) {
                 handler.sendEmptyMessage(AppConst.WHAT_NETWORK_ERR);    //提示用户，停留此界面
                 return;
             }
             if (!result.getCode().equals(Result.OK)) {
-                handler.sendEmptyMessage(1);            //提示输入错误
+                Message msg = ComUtil.getMessage(AppConst.WHAT_INFO, "用户名或密码错误。");
+                handler.sendMessage(msg);
                 return;
             }
             AppUtil.saveConf(LoginActivity.this, user);
             AppUtil.conf(LoginActivity.this);
             AppUtil.confApi(LoginActivity.this);
             AppUtil.setLocation(LoginActivity.this);
-            handler.sendEmptyMessage(2);                //转主界面
+            handler.sendEmptyMessage(WHAT_MAIN);                //转主界面
         }
     };
 
@@ -90,7 +94,8 @@ public class LoginActivity extends Activity {
         findView();
         user = new User();
 
-        cellnumWatcher = new MyTextWatcher(11, onPrepareListener);
+        int cellnumLength = getResources().getInteger(R.integer.cellnum);
+        cellnumWatcher = new MyTextWatcher(cellnumLength, onPrepareListener);
         et_cellnum.addTextChangedListener(cellnumWatcher);
         passwordWatcher = new MyTextWatcher(1, onPrepareListener);
         et_password.addTextChangedListener(passwordWatcher);
@@ -109,5 +114,11 @@ public class LoginActivity extends Activity {
             thread = new Thread(runnable);
             thread.start();
         }
+    }
+
+    public void tv_signin_onClick(View view) {
+        Intent intent = new Intent(LoginActivity.this, CellnumActivity.class);
+        intent.putExtra("type", AppConst.TYPE_SIGNIN);
+        startActivity(intent);
     }
 }

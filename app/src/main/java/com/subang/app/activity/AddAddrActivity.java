@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -28,7 +27,7 @@ public class AddAddrActivity extends Activity {
 
     private TextView tv_area;
     private EditText et_detailAuto, et_detailManu, et_name, et_cellnum;
-    private Button btn_add;
+    private TextView tv_add;
 
     private Thread thread, submitThread;
     private AddrData addrData;              //没有使用AddrData中的list字段
@@ -44,9 +43,9 @@ public class AddAddrActivity extends Activity {
         public void onPrepare() {
             if (isArea&&(detailAutoWatcher.isAvail() || detailManuWatcher.isAvail()) &&
                     nameWatcher.isAvail() && cellnumWatcher.isAvail()) {
-                btn_add.setEnabled(true);
+                tv_add.setEnabled(true);
             } else {
-                btn_add.setEnabled(false);
+                tv_add.setEnabled(false);
             }
         }
     };
@@ -117,10 +116,11 @@ public class AddAddrActivity extends Activity {
         }
         addr = new Addr();
 
+        int cellnumLength=getResources().getInteger(R.integer.cellnum);
         detailAutoWatcher = new MyTextWatcher(1, onPrepareListener);
         detailManuWatcher = new MyTextWatcher(1, onPrepareListener);
         nameWatcher = new MyTextWatcher(1, onPrepareListener);
-        cellnumWatcher = new MyTextWatcher(1, onPrepareListener);
+        cellnumWatcher = new MyTextWatcher(cellnumLength, onPrepareListener);
 
         et_detailAuto.addTextChangedListener(detailAutoWatcher);
         et_detailManu.addTextChangedListener(detailManuWatcher);
@@ -150,7 +150,7 @@ public class AddAddrActivity extends Activity {
         et_detailManu = (EditText) findViewById(R.id.et_detail_manu);
         et_name = (EditText) findViewById(R.id.et_name);
         et_cellnum = (EditText) findViewById(R.id.et_cellnum);
-        btn_add = (Button) findViewById(R.id.btn_add);
+        tv_add = (TextView) findViewById(R.id.tv_add);
     }
 
     public void iv_back_onClick(View view) {
@@ -162,7 +162,7 @@ public class AddAddrActivity extends Activity {
         startActivityForResult(intent, 0);
     }
 
-    public void btn_add_onClick(View view) {
+    public void tv_add_onClick(View view) {
         addr.setName(et_name.getText().toString());
         addr.setCellnum(et_cellnum.getText().toString());
         addr.setDetail(et_detailAuto.getText().toString() + et_detailManu.getText().toString());

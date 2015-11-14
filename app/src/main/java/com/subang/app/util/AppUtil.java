@@ -23,14 +23,7 @@ import java.util.List;
  */
 public class AppUtil {
 
-    public static boolean isConfed() {
-        if (AppConf.cellnum == null || AppConf.password == null || AppConf.basePath == null) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
+    //把用户信息（app配置）保存在磁盘
     public static void saveConf(Context context, User user) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(context.getResources().getString(R.string
                 .file_user), Context.MODE_PRIVATE);
@@ -38,10 +31,24 @@ public class AppUtil {
         editor.putString("cellnum", user.getCellnum());
         editor.putString("password", user.getPassword());
         editor.commit();
+        AppConf.invalidate();
+        SubangAPI.invalidate();
     }
 
+    //从磁盘删除用户信息（app配置）
+    public static void deleteConf(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(context.getResources().getString(R.string
+                .file_user), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.commit();
+        AppConf.invalidate();
+        SubangAPI.invalidate();
+    }
+
+    //配置app，使用AppConf前调用此函数。如果没有配置，则配置
     public static boolean conf(Context context) {
-        if (isConfed()) {
+        if (AppConf.isConfed()){
             return true;
         }
         SharedPreferences sharedPreferences = context.getSharedPreferences(context.getResources().getString(R.string
@@ -58,6 +65,7 @@ public class AppUtil {
         return false;
     }
 
+    //配置api，使用api前调用此函数。如果没有配置，则配置
     public static void confApi(Context context) {
         if (SubangAPI.isConfed()) {
             return;
@@ -78,6 +86,11 @@ public class AppUtil {
 
     public static void networkTip(Context context) {
         Toast toast = Toast.makeText(context, R.string.err_network, Toast.LENGTH_SHORT);
+        toast.show();
+    }
+
+    public static void tip(Context context, String info) {
+        Toast toast = Toast.makeText(context, info, Toast.LENGTH_SHORT);
         toast.show();
     }
 
@@ -107,7 +120,7 @@ public class AppUtil {
         myLocation.setLatitude(Double.toString(location.getLatitude()));
         myLocation.setLongitude(Double.toString(location.getLongitude()));
         Result result = UserAPI.setLocation(myLocation);
-        if (!result.getCode().equals(Result.OK)) {
+        if (result==null||!result.getCode().equals(Result.OK)) {
             return false;
         }
         return true;

@@ -41,6 +41,17 @@
         </activity>
         <activity android:name=".CityActivity" >
         </activity>
+        <activity android:name=".MoreActivity" >
+        </activity>
+        <activity android:name=".CellnumActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".PasswordActivity" >
+        </activity>
     </application>
 
 </manifest>

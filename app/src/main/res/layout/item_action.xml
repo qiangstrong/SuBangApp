@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="30.0dip"
     android:background="@android:color/white"
     android:orientation="vertical">
 
@@ -25,7 +26,7 @@
             android:layout_marginLeft="10.0dip"
             android:layout_marginTop="10.0dip"
             android:layout_toRightOf="@id/iv_icon"
-            android:textColor="#ff222222"
+            android:textColor="#ff3e3e3e"
             android:textSize="16.0sp" />
 
         <ImageView
@@ -35,7 +36,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:paddingRight="10.0dip"
-            android:src="@drawable/mine_item_arrow" />
+            android:src="@drawable/next" />
 
         <View
             android:layout_width="fill_parent"
@@ -51,5 +52,5 @@
         android:layout_width="fill_parent"
         android:layout_height="5.0dip"
         android:background="@color/gray"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 </LinearLayout>

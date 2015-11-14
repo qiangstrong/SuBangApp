@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -34,7 +33,7 @@ public class AddOrderActivity extends Activity {
 
     private TextView tv_title, tv_addAddr, tv_name, tv_cellnum, tv_detail, tv_date;
     private EditText et_comment;
-    private Button btn_add;
+    private TextView tv_add;
     private RelativeLayout rl_addr;
 
     private Thread thread, submitThread;
@@ -182,7 +181,7 @@ public class AddOrderActivity extends Activity {
         tv_detail = (TextView) findViewById(R.id.tv_detail);
         tv_date = (TextView) findViewById(R.id.tv_date);
         et_comment = (EditText) findViewById(R.id.et_comment);
-        btn_add = (Button) findViewById(R.id.btn_add);
+        tv_add = (TextView) findViewById(R.id.tv_add);
         rl_addr = (RelativeLayout) findViewById(R.id.rl_addr);
     }
 
@@ -210,8 +209,7 @@ public class AddOrderActivity extends Activity {
         startActivityForResult(intent, REGUEST_CODE_DATE);
     }
 
-    public void btn_add_onClick(View view) {
-
+    public void tv_add_onClick(View view) {
         order.setAddrid(addr.getId());
         order.setDate((Date) dateOption.getValue());
         order.setTime((Integer) timeOption.getValue());
@@ -224,9 +222,9 @@ public class AddOrderActivity extends Activity {
 
     private void prepare() {
         if (isAddr && isDate) {
-            btn_add.setEnabled(true);
+            tv_add.setEnabled(true);
         } else {
-            btn_add.setEnabled(false);
+            tv_add.setEnabled(false);
         }
     }
 }

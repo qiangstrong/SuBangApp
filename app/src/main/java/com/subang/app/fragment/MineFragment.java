@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.subang.api.InfoAPI;
 import com.subang.api.UserAPI;
 import com.subang.app.activity.AddrActivity;
+import com.subang.app.activity.MoreActivity;
 import com.subang.app.activity.R;
 import com.subang.app.fragment.face.OnFrontListener;
 import com.subang.app.util.AppConf;
@@ -77,6 +78,11 @@ public class MineFragment extends Fragment implements OnFrontListener {
             switch (position){
                 case 0:{
                     Intent intent = new Intent(getActivity(), AddrActivity.class);
+                    startActivity(intent);
+                    break;
+                }
+                case 5:{
+                    Intent intent = new Intent(getActivity(), MoreActivity.class);
                     startActivity(intent);
                     break;
                 }

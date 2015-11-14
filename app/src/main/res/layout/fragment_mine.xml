@@ -70,7 +70,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10.0dip"
-            android:drawableRight="@drawable/mine_recharge_arrow"
+            android:drawableRight="@drawable/recharge_arrow"
             android:gravity="center"
             android:text="充值 "
             android:textColor="#ffff690e"
