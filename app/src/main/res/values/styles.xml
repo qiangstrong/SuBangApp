@@ -32,6 +32,17 @@
         <item name="android:textSize">14.0sp</item>
         <item name="android:textColor">#ff1aa4f2</item>
     </style>
+
+    <style name="RatingBar" parent="@android:style/Widget.RatingBar">
+        <item name="android:maxHeight">48.0dip</item>
+        <item name="android:progressDrawable">@drawable/rating_bg</item>
+        <item name="android:minHeight">48.0dip</item>
+    </style>
+    <style name="RatingBarSmall" parent="@android:style/Widget.RatingBar">
+        <item name="android:maxHeight">25.0dip</item>
+        <item name="android:progressDrawable">@drawable/rating_small_bg</item>
+        <item name="android:minHeight">25.0dip</item>
+    </style>
 </resources>
 
 

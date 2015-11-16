@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/gray"
+    tools:context="com.subang.app.activity.FeedbackActivity">
+
+    <RelativeLayout
+        android:id="@+id/rl_title"
+        android:layout_width="fill_parent"
+        android:layout_height="50.0dip"
+        android:background="@color/blue_theme">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="45.0dip"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15.0dip"
+            android:contentDescription="@null"
+            android:onClick="iv_back_onClick"
+            android:src="@drawable/back_btn" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="意见反馈"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/tile_size" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_whole"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
+        android:layout_marginBottom="10dip"
+        android:layout_below="@id/rl_title"
+        android:background="@android:color/white">
+
+        <TextView
+            android:id="@+id/tv_whole"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dip"
+            android:text="整体评价"
+            android:textColor="@android:color/black"
+            android:textSize="16.0sp" />
+
+        <RatingBar
+            android:id="@+id/rb_whole"
+            style="@style/RatingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/tv_whole"
+            android:layout_toRightOf="@id/tv_whole"
+            android:numStars="5"
+            android:max="5"
+            android:progress="3"
+            android:stepSize="1" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_other"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dip"
+        android:layout_below="@id/rl_whole"
+        android:background="@android:color/white">
+
+        <TextView
+            android:id="@+id/tv_wash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dip"
+            android:text="洗衣质量"
+            android:textColor="@android:color/black"
+            android:textSize="16.0sp" />
+
+        <RatingBar
+            android:id="@+id/rb_wash"
+            style="@style/RatingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/tv_wash"
+            android:layout_toRightOf="@id/tv_wash"
+            android:numStars="5"
+            android:max="5"
+            android:progress="3"
+            android:stepSize="1" />
+
+        <TextView
+            android:id="@+id/tv_service"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_wash"
+            android:padding="10dip"
+            android:text="服务态度"
+            android:textColor="@android:color/black"
+            android:textSize="16.0sp" />
+
+        <RatingBar
+            android:id="@+id/rb_service"
+            style="@style/RatingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/tv_service"
+            android:layout_toRightOf="@id/tv_service"
+            android:numStars="5"
+            android:max="5"
+            android:progress="3"
+            android:stepSize="1" />
+
+        <TextView
+            android:id="@+id/tv_app"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_service"
+            android:padding="10dip"
+            android:text="软件质量"
+            android:textColor="@android:color/black"
+            android:textSize="16.0sp" />
+
+        <RatingBar
+            android:id="@+id/rb_app"
+            style="@style/RatingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/tv_app"
+            android:layout_toRightOf="@id/tv_app"
+            android:numStars="5"
+            android:max="5"
+            android:progress="3"
+            android:stepSize="1" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_text"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rl_other"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+
+        <EditText
+            android:id="@+id/et_text"
+            android:layout_width="fill_parent"
+            android:layout_height="100.0dip"
+            android:layout_gravity="center_horizontal"
+            android:background="@android:color/white"
+            android:gravity="left"
+            android:hint="对速帮的服务有什么建议？我们将积极改进"
+            android:maxLength="@integer/feedback_comment_text"
+            android:paddingLeft="10.0dip"
+            android:paddingTop="10.0dip"
+            android:textColor="#ff3e3e3e"
+            android:textCursorDrawable="@null"
+            android:textSize="14.0sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_ok"
+        android:layout_width="fill_parent"
+        android:layout_height="45.0dip"
+        android:layout_below="@id/ll_text"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="15.0dip"
+        android:layout_marginRight="15.0dip"
+        android:layout_marginTop="90.0dip"
+        android:background="@drawable/btn_action_bg"
+        android:clickable="true"
+        android:gravity="center"
+        android:onClick="tv_ok_onClick"
+        android:text="确定"
+        android:textColor="@android:color/white"
+        android:textSize="15.0sp" />
+
+</RelativeLayout>

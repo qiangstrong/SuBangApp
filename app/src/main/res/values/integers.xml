@@ -7,4 +7,6 @@
     <integer name="cellnum">11</integer>
     <integer name="password">50</integer>
     <integer name="authcode">4</integer>
+    <integer name="feedback_comment_text">200</integer>
+    <integer name="feedback_remark_text">50</integer>
 </resources>

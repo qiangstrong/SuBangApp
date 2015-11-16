@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.subang.api.InfoAPI;
 import com.subang.api.UserAPI;
 import com.subang.app.activity.AddrActivity;
+import com.subang.app.activity.FeedbackActivity;
 import com.subang.app.activity.MoreActivity;
 import com.subang.app.activity.R;
 import com.subang.app.activity.WebActivity;
@@ -97,6 +98,8 @@ public class MineFragment extends Fragment implements OnFrontListener {
                     break;
                 }
                 case 4: {
+                    Intent intent = new Intent(getActivity(), FeedbackActivity.class);
+                    startActivity(intent);
                     break;
                 }
                 case 5: {

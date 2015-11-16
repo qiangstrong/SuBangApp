@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.subang.app.activity" >
+    package="com.subang.app.activity">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -14,8 +14,11 @@
         android:label="@string/app_name"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
-        android:theme="@style/FullscreenTheme" >
-        <activity android:name=".LoadActivity" >
+        android:theme="@style/FullscreenTheme">
+        <activity android:name=".TestActivity">
+
+        </activity>
+        <activity android:name=".LoadActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,31 +29,23 @@
             android:name=".MainActivity"
             android:launchMode="singleTask" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".TestActivity" >
-        </activity>
         <activity android:name=".AddOrderActivity" />
         <activity
             android:name=".DateActivity"
             android:theme="@style/CustomTranslucent" />
         <activity android:name=".AddrActivity" />
-        <activity android:name=".AddAddrActivity" >
-        </activity>
+        <activity android:name=".AddAddrActivity"></activity>
         <activity
             android:name=".AreaActivity"
-            android:theme="@style/CustomTranslucent" >
-        </activity>
-        <activity android:name=".CityActivity" >
-        </activity>
-        <activity android:name=".MoreActivity" >
-        </activity>
-        <activity android:name=".CellnumActivity" >
-        </activity>
-        <activity android:name=".PasswordActivity" >
-        </activity>
-        <activity android:name=".OrderDetailActivity" >
-        </activity>
-        <activity android:name=".WebActivity" >
-        </activity>
+            android:theme="@style/CustomTranslucent"></activity>
+        <activity android:name=".CityActivity"></activity>
+        <activity android:name=".MoreActivity"></activity>
+        <activity android:name=".CellnumActivity"></activity>
+        <activity android:name=".PasswordActivity"></activity>
+        <activity android:name=".OrderDetailActivity"></activity>
+        <activity android:name=".WebActivity"></activity>
+        <activity android:name=".FeedbackActivity"></activity>
+        <activity android:name=".RemarkActivity"></activity>
     </application>
 
 </manifest>

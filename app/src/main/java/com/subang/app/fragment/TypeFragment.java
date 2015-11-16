@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.subang.api.OrderAPI;
 import com.subang.app.activity.OrderDetailActivity;
 import com.subang.app.activity.R;
+import com.subang.app.activity.RemarkActivity;
 import com.subang.app.fragment.face.OnFrontListener;
 import com.subang.app.helper.OrderAdapter;
 import com.subang.app.util.AppConst;
@@ -205,6 +206,9 @@ public class TypeFragment extends Fragment implements OnFrontListener {
                     break;
                 }
                 case remarked: {
+                    Intent intent = new Intent(getActivity(), RemarkActivity.class);
+                    intent.putExtra("orderid", operaData.orderid);
+                    startActivity(intent);
                     break;
                 }
             }
