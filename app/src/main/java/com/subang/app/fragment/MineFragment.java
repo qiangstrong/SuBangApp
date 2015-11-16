@@ -19,12 +19,14 @@ import com.subang.api.UserAPI;
 import com.subang.app.activity.AddrActivity;
 import com.subang.app.activity.MoreActivity;
 import com.subang.app.activity.R;
+import com.subang.app.activity.WebActivity;
 import com.subang.app.fragment.face.OnFrontListener;
 import com.subang.app.util.AppConf;
 import com.subang.app.util.AppConst;
 import com.subang.app.util.AppUtil;
 import com.subang.domain.Info;
 import com.subang.domain.User;
+import com.subang.util.WebConst;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,7 +40,7 @@ public class MineFragment extends Fragment implements OnFrontListener {
     private static final int NO_LINE = 0;
     private static final int YES_LINE = 1;
 
-    private RelativeLayout rl_money,rl_score;
+    private RelativeLayout rl_money, rl_score;
     private TextView tv_cellnum, tv_recharge, tv_money, tv_score, tv_phone;
     private ListView lv_action;
 
@@ -75,13 +77,29 @@ public class MineFragment extends Fragment implements OnFrontListener {
     private AdapterView.OnItemClickListener actionOnItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            switch (position){
-                case 0:{
+            switch (position) {
+                case 0: {
                     Intent intent = new Intent(getActivity(), AddrActivity.class);
                     startActivity(intent);
                     break;
                 }
-                case 5:{
+                case 1: {
+                    break;
+                }
+                case 2: {
+                    break;
+                }
+                case 3: {
+                    Intent intent = new Intent(getActivity(), WebActivity.class);
+                    intent.putExtra("title", "常见问题");
+                    intent.putExtra("url", WebConst.HOST_URI + "weixin/info/faq.html");
+                    startActivity(intent);
+                    break;
+                }
+                case 4: {
+                    break;
+                }
+                case 5: {
                     Intent intent = new Intent(getActivity(), MoreActivity.class);
                     startActivity(intent);
                     break;
@@ -97,7 +115,7 @@ public class MineFragment extends Fragment implements OnFrontListener {
                 int line = (int) data;
                 if (line == YES_LINE) {
                     view.setVisibility(View.VISIBLE);
-                }else {
+                } else {
                     view.setVisibility(View.GONE);
                 }
                 return true;
@@ -130,7 +148,7 @@ public class MineFragment extends Fragment implements OnFrontListener {
         public void run() {
             AppUtil.confApi(getActivity());
             user = UserAPI.get();
-            if (user==null){
+            if (user == null) {
                 handler.sendEmptyMessage(AppConst.WHAT_NETWORK_ERR);    //提示用户，停留此界面
                 return;
             }

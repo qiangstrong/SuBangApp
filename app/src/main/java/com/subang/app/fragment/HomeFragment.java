@@ -21,6 +21,7 @@ import com.subang.api.RegionAPI;
 import com.subang.app.activity.AddOrderActivity;
 import com.subang.app.activity.CityActivity;
 import com.subang.app.activity.R;
+import com.subang.app.activity.WebActivity;
 import com.subang.app.fragment.face.OnFrontListener;
 import com.subang.app.helper.ImagePagerAdapter;
 import com.subang.app.util.AppConf;
@@ -29,6 +30,7 @@ import com.subang.app.util.AppUtil;
 import com.subang.applib.view.AutoScrollViewPager;
 import com.subang.domain.Category;
 import com.subang.domain.City;
+import com.subang.util.WebConst;
 import com.viewpagerindicator.CirclePageIndicator;
 
 import java.util.ArrayList;
@@ -85,7 +87,22 @@ public class HomeFragment extends Fragment implements OnFrontListener {
     private AdapterView.OnItemClickListener infoOnItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+            switch (position) {
+                case 0: {
+                    Intent intent = new Intent(getActivity(), WebActivity.class);
+                    intent.putExtra("title", "服务介绍");
+                    intent.putExtra("url", WebConst.HOST_URI + "weixin/info/serviceintro.html");
+                    startActivity(intent);
+                    break;
+                }
+                case 1: {
+                    Intent intent = new Intent(getActivity(), WebActivity.class);
+                    intent.putExtra("title", "服务范围");
+                    intent.putExtra("url", WebConst.HOST_URI + "weixin/region/scope.html?cityid=" + city.getId());
+                    startActivity(intent);
+                    break;
+                }
+            }
         }
     };
 
@@ -108,7 +125,7 @@ public class HomeFragment extends Fragment implements OnFrontListener {
                     AppUtil.networkTip(getActivity());
                     break;
                 }
-                case WHAT_CITY:{
+                case WHAT_CITY: {
                     tv_location.setText(city.getName());
                     if (categoryThread == null || !categoryThread.isAlive()) {
                         categoryThread = new Thread(categoryRunnable);
@@ -116,7 +133,7 @@ public class HomeFragment extends Fragment implements OnFrontListener {
                     }
                     break;
                 }
-                case WHAT_CATEGORY:{
+                case WHAT_CATEGORY: {
                     categoryItems.clear();
                     Map<String, Object> categoryItem;
                     AppUtil.conf(getActivity());
@@ -246,7 +263,7 @@ public class HomeFragment extends Fragment implements OnFrontListener {
         categoryItem.put("icon", R.drawable.home_item_default);
         categoryItem.put("name", "");
         categoryItem.put("comment", "");
-        for (int i=0;i<NUM_CATEGORY_DEFAULT;i++){
+        for (int i = 0; i < NUM_CATEGORY_DEFAULT; i++) {
             categoryItem = new HashMap<String, Object>(categoryItem);
             categoryItems.add(categoryItem);
         }

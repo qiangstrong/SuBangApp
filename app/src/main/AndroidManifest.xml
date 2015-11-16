@@ -27,7 +27,6 @@
             android:launchMode="singleTask" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".TestActivity" >
-
         </activity>
         <activity android:name=".AddOrderActivity" />
         <activity
@@ -49,6 +48,8 @@
         <activity android:name=".PasswordActivity" >
         </activity>
         <activity android:name=".OrderDetailActivity" >
+        </activity>
+        <activity android:name=".WebActivity" >
         </activity>
     </application>
 

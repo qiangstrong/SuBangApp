@@ -10,6 +10,7 @@ import android.widget.SimpleAdapter;
 
 import com.subang.app.util.AppConst;
 import com.subang.app.util.AppUtil;
+import com.subang.util.WebConst;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,6 +44,10 @@ public class MoreActivity extends Activity {
                     break;
                 }
                 case 2: {
+                    Intent intent = new Intent(MoreActivity.this, WebActivity.class);
+                    intent.putExtra("title", "用户协议");
+                    intent.putExtra("url", WebConst.HOST_URI + "weixin/info/term.html");
+                    startActivity(intent);
                     break;
                 }
                 case 3: {

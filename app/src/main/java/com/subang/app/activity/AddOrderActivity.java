@@ -19,6 +19,7 @@ import com.subang.bean.AddrDetail;
 import com.subang.domain.Category;
 import com.subang.domain.Order;
 import com.subang.util.TimeUtil;
+import com.subang.util.WebConst;
 
 import java.sql.Date;
 import java.util.List;
@@ -146,11 +147,11 @@ public class AddOrderActivity extends Activity {
                     tv_name.setText(addr.getName());
                     tv_cellnum.setText(addr.getCellnum());
                     tv_detail.setText(addr.getDetail());
-                    isAddr=true;
+                    isAddr = true;
                     prepare();
                 } else {
                     if (thread == null || !thread.isAlive()) {
-                        isAddr=false;
+                        isAddr = false;
                         prepare();
                         thread = new Thread(runnable);
                         thread.start();
@@ -190,7 +191,10 @@ public class AddOrderActivity extends Activity {
     }
 
     public void ll_price_onClick(View view) {
-        //跳转到价目表的activity
+        Intent intent = new Intent(AddOrderActivity.this, WebActivity.class);
+        intent.putExtra("title", "价目表");
+        intent.putExtra("url", WebConst.HOST_URI + "weixin/price/index.html?categoryid=" + category.getId());
+        startActivity(intent);
     }
 
     public void tv_addAddr_onClick(View view) {
