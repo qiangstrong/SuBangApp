@@ -1,6 +1,7 @@
 package com.subang.app.fragment;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -11,9 +12,10 @@ import android.widget.AdapterView;
 import android.widget.Toast;
 
 import com.subang.api.OrderAPI;
+import com.subang.app.activity.OrderDetailActivity;
 import com.subang.app.activity.R;
-import com.subang.app.helper.OrderAdapter;
 import com.subang.app.fragment.face.OnFrontListener;
+import com.subang.app.helper.OrderAdapter;
 import com.subang.app.util.AppConst;
 import com.subang.app.util.AppShare;
 import com.subang.app.util.AppUtil;
@@ -45,7 +47,12 @@ public class TypeFragment extends Fragment implements OnFrontListener {
     AdapterView.OnItemClickListener orderOnItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+            position = position - 1;
+            if (position >= 0 && position < orderDetails.size()) {
+                Intent intent = new Intent(getActivity(), OrderDetailActivity.class);
+                intent.putExtra("orderid", orderDetails.get(position).getId());
+                startActivity(intent);
+            }
         }
     };
 
@@ -76,7 +83,7 @@ public class TypeFragment extends Fragment implements OnFrontListener {
                     xlv_order.stopRefresh();
                     dataHolder.orderDetails = orderDetails;
                     orderAdapter.notifyDataSetChanged();
-                    if (dataHolder.orderDetails.isEmpty()) {
+                    if (orderDetails.isEmpty()) {
                         xlv_order.setBackgroundResource(R.drawable.listview_no_order);
                     } else {
                         xlv_order.setBackgroundResource(android.R.color.transparent);

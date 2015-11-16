@@ -19,6 +19,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="15.0dip"
+            android:clickable="true"
             android:contentDescription="@null"
             android:drawableRight="@drawable/home_location"
             android:ellipsize="end"
@@ -27,8 +28,7 @@
             android:singleLine="true"
             android:text="定位中"
             android:textColor="@android:color/white"
-            android:textSize="17.0sp"
-            android:clickable="true"/>
+            android:textSize="17.0sp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -46,79 +46,85 @@
             android:background="@color/gray" />
     </RelativeLayout>
 
-    <RelativeLayout
+    <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@id/rl_title"
-        android:layout_marginTop="5.0dip">
+        android:layout_below="@id/rl_title">
 
         <RelativeLayout
-            android:id="@+id/rl_banner"
-            android:layout_width="fill_parent"
-            android:layout_height="120.0dip"
-            android:layout_marginLeft="10.0dip"
-            android:layout_marginRight="10.0dip">
-
-            <include layout="@layout/view_banner" />
-        </RelativeLayout>
-
-        <GridView
-            android:id="@+id/gv_category"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/rl_banner"
-            android:layout_marginLeft="10.0dip"
-            android:layout_marginRight="10.0dip"
-            android:layout_marginTop="10.0dip"
-            android:gravity="center"
-            android:horizontalSpacing="10.0dip"
-            android:listSelector="@android:color/transparent"
-            android:numColumns="2"
-            android:verticalSpacing="10.0dip" />
+            android:layout_marginTop="5.0dip">
 
-        <RelativeLayout
-            android:id="@+id/rl_divider"
-            android:layout_width="fill_parent"
-            android:layout_height="40.0dip"
-            android:layout_below="@id/gv_category">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="1.0dip"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
+            <RelativeLayout
+                android:id="@+id/rl_banner"
+                android:layout_width="fill_parent"
+                android:layout_height="120.0dip"
                 android:layout_marginLeft="10.0dip"
-                android:layout_marginRight="10.0dip"
-                android:src="@drawable/cut_off_rule_l" />
+                android:layout_marginRight="10.0dip">
 
-            <TextView
-                android:layout_width="wrap_content"
+                <include layout="@layout/view_banner" />
+            </RelativeLayout>
+
+            <com.subang.applib.view.ExpandableHeightGridView
+                android:id="@+id/gv_category"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="了解速帮" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="1.0dip"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
+                android:layout_below="@id/rl_banner"
                 android:layout_marginLeft="10.0dip"
                 android:layout_marginRight="10.0dip"
-                android:src="@drawable/cut_off_rule_r" />
-        </RelativeLayout>
+                android:layout_marginTop="10.0dip"
+                android:gravity="center"
+                android:horizontalSpacing="10.0dip"
+                android:listSelector="@android:color/transparent"
+                android:numColumns="2"
+                android:verticalSpacing="10.0dip" />
 
-        <GridView
-            android:id="@+id/gv_info"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/rl_divider"
-            android:layout_marginBottom="10.0dip"
-            android:layout_marginLeft="10.0dip"
-            android:layout_marginRight="10.0dip"
-            android:gravity="center"
-            android:horizontalSpacing="10.0dip"
-            android:listSelector="@android:color/transparent"
-            android:numColumns="2"
-            android:verticalSpacing="10.0dip" />
-    </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/rl_divider"
+                android:layout_width="fill_parent"
+                android:layout_height="40.0dip"
+                android:layout_below="@id/gv_category">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="1.0dip"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10.0dip"
+                    android:layout_marginRight="10.0dip"
+                    android:src="@drawable/cut_off_rule_l" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="了解速帮" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="1.0dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10.0dip"
+                    android:layout_marginRight="10.0dip"
+                    android:src="@drawable/cut_off_rule_r" />
+            </RelativeLayout>
+
+            <com.subang.applib.view.ExpandableHeightGridView
+                android:id="@+id/gv_info"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rl_divider"
+                android:layout_marginBottom="10.0dip"
+                android:layout_marginLeft="10.0dip"
+                android:layout_marginRight="10.0dip"
+                android:gravity="center"
+                android:horizontalSpacing="10.0dip"
+                android:listSelector="@android:color/transparent"
+                android:numColumns="2"
+                android:verticalSpacing="10.0dip" />
+        </RelativeLayout>
+    </ScrollView>
+
 </RelativeLayout>

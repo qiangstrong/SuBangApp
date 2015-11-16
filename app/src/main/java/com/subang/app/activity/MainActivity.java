@@ -67,7 +67,7 @@ public class MainActivity extends Activity {
         vp_main = (ViewPager) findViewById(R.id.vp_main);
         imageViews = new ImageView[NUM_FRAGMENT];
         imageViews[0] = (ImageView) findViewById(R.id.iv_home);
-        imageViews[1] = (ImageView) findViewById(R.id.iv_order);
+        imageViews[1] = (ImageView) findViewById(R.id.iv_info);
         imageViews[2] = (ImageView) findViewById(R.id.iv_mine);
     }
 
@@ -80,7 +80,7 @@ public class MainActivity extends Activity {
                 vp_main.setCurrentItem(0);
                 break;
             }
-            case R.id.iv_order: {
+            case R.id.iv_info: {
                 imageViews[0].setImageResource(R.drawable.home_default_icon);
                 imageViews[1].setImageResource(R.drawable.order_press_icon);
                 imageViews[2].setImageResource(R.drawable.mine_default_icon);

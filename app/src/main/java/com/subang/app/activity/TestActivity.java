@@ -4,62 +4,48 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
-import com.subang.applib.view.WheelView;
-
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class TestActivity extends Activity {
 
 
-    private String[] main = new String[]{"1","2"};
-    private String[] PLANETS = new String[]{"Mercury", "Venus", "Earth", "Mars", "Jupiter", "Uranus", "Neptune", "Pluto"};
-    private String[] PLANETS1 = new String[]{"Mercury1", "Venus1", "Earth1", "Mars1", "Jupiter1", "Uranus1", "Neptune1", "Pluto1"};
+    private ListView lv_test;
+    private List<String> items;
 
-    private WheelView wv_1,wv_2;
+    AdapterView.OnItemClickListener onItemClickListener=new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            Log.e("Qiang",Integer.toString(position));
+            Log.e("Qiang", lv_test.getChildCount()+"");
+        }
+    };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
-        wv_1=(WheelView)findViewById(R.id.wv_1);
-        wv_2=(WheelView)findViewById(R.id.wv_2);
-
-        wv_1.setOffset(3);
-        wv_1.setItems(Arrays.asList(main));
-        wv_1.setOnItemSelectedListener(new WheelView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(int selectedIndex) {
-                if (selectedIndex == 0) {
-                    wv_2.setItems(Arrays.asList(PLANETS));
-                } else {
-                    wv_2.setItems(Arrays.asList(PLANETS1));
-                }
-            }
-        });
-
-        wv_2.setOffset(3);
-        wv_2.setItems(Arrays.asList(PLANETS));
-        wv_2.setOnItemSelectedListener(new WheelView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(int selectedIndex) {
-                if (wv_1.getSelectedIndex()==0) {
-                    Log.e("Qiang", PLANETS[selectedIndex]);
-                } else {
-                    Log.e("Qiang", PLANETS1[selectedIndex]);
-                }
-            }
-        });
-
+        lv_test=(ListView)findViewById(R.id.lv_test);
+        createItems();
+        lv_test.setAdapter(new ArrayAdapter<String>(TestActivity.this,
+                android.R.layout.simple_list_item_1, items));
+        lv_test.setOnItemClickListener(onItemClickListener);
     }
 
     public void onClick(View view){
-        wv_1.setItems(Arrays.asList(PLANETS1));
+
     }
 
     private void createItems() {
-
+        items=new ArrayList<>();
+        for (int i=0;i<2;i++){
+            items.add(i+"");
+        }
     }
 
 

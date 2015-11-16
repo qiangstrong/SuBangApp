@@ -27,6 +27,7 @@
             android:launchMode="singleTask" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".TestActivity" >
+
         </activity>
         <activity android:name=".AddOrderActivity" />
         <activity
@@ -44,13 +45,10 @@
         <activity android:name=".MoreActivity" >
         </activity>
         <activity android:name=".CellnumActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".PasswordActivity" >
+        </activity>
+        <activity android:name=".OrderDetailActivity" >
         </activity>
     </application>
 

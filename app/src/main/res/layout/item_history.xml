@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white">
+
+    <ImageView
+        android:id="@+id/iv_history_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10.0dip"
+        android:layout_alignTop="@+id/rl_history_item"
+        android:layout_alignBottom="@id/rl_history_item"
+        android:src="@drawable/order_detail_history_item" />
+
+    <LinearLayout
+        android:id="@id/rl_history_item"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_toRightOf="@id/iv_history_item"
+        android:paddingLeft="10.0dip">
+
+        <TextView
+            android:id="@+id/tv_operation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dip"
+            android:textColor="#ff222222"
+            android:textSize="15.0sp" />
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dip"
+            android:textColor="#ff555555"
+            android:textSize="13.0sp" />
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="1.0dip"
+            android:layout_marginBottom="10dip"
+            android:background="@color/gray"
+            android:contentDescription="@null" />
+    </LinearLayout>
+</RelativeLayout>

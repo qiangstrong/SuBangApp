@@ -49,7 +49,7 @@
             android:background="@android:color/white">
 
             <ImageView
-                android:id="@+id/iv_order"
+                android:id="@+id/iv_info"
                 android:layout_width="40.0dip"
                 android:layout_height="48.0dip"
                 android:layout_centerInParent="true"

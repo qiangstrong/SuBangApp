@@ -7,28 +7,10 @@
     android:orientation="vertical"
     tools:context="com.subang.app.activity.TestActivity">
 
-
-    <LinearLayout
+    <ListView
+        android:id="@+id/lv_test"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:background="#ffffffff"
-        android:orientation="horizontal"
-        android:paddingBottom="10.0dip">
+        android:cacheColorHint="#00000000"/>
 
-        <com.subang.applib.view.WheelView
-            android:id="@+id/wv_1"
-            android:layout_width="180dip"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1.0" />
-
-        <com.subang.applib.view.WheelView
-            android:id="@+id/wv_2"
-            android:layout_width="180dip"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1.0" />
-
-    </LinearLayout>
 </RelativeLayout>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="0.0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="4.0"
+            android:gravity="center"
+            android:paddingBottom="10.0dip"
+            android:paddingTop="10.0dip"
+            android:textColor="#ff555555"
+            android:textSize="13.0sp" />
+
+        <ImageView
+            android:layout_width="1.0dip"
+            android:layout_height="fill_parent"
+            android:background="@drawable/clothes_dashed_shorts"
+            android:contentDescription="@null"
+            android:tileMode="repeat" />
+
+        <TextView
+            android:id="@+id/tv_color"
+            android:layout_width="0.0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="3.0"
+            android:gravity="center"
+            android:paddingBottom="10.0dip"
+            android:paddingTop="10.0dip"
+            android:textColor="#ff555555"
+            android:textSize="13.0sp" />
+
+        <ImageView
+            android:layout_width="1.0dip"
+            android:layout_height="fill_parent"
+            android:background="@drawable/clothes_dashed_shorts"
+            android:contentDescription="@null"
+            android:tileMode="repeat" />
+
+        <TextView
+            android:id="@+id/tv_flaw"
+            android:layout_width="0.0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="6.0"
+            android:gravity="left"
+            android:paddingBottom="10.0dip"
+            android:paddingLeft="10.0dip"
+            android:paddingRight="10.0dip"
+            android:paddingTop="10.0dip"
+            android:textColor="#ff555555"
+            android:textSize="13.0sp" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="1.0dip"
+        android:background="@drawable/clothes_dashed_shorts"
+        android:contentDescription="@null"
+        android:tileMode="repeat" />
+</LinearLayout>

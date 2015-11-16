@@ -246,9 +246,10 @@ public class HomeFragment extends Fragment implements OnFrontListener {
         categoryItem.put("icon", R.drawable.home_item_default);
         categoryItem.put("name", "");
         categoryItem.put("comment", "");
-        categoryItems.add(categoryItem);
-        categoryItem = new HashMap<String, Object>(categoryItem);
-        categoryItems.add(categoryItem);
+        for (int i=0;i<NUM_CATEGORY_DEFAULT;i++){
+            categoryItem = new HashMap<String, Object>(categoryItem);
+            categoryItems.add(categoryItem);
+        }
 
         infoItems = new ArrayList<Map<String, Object>>(NUM_INFO);
         Map<String, Object> infoItem = new HashMap<String, Object>();
