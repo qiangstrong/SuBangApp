@@ -2,6 +2,7 @@ package com.subang.app.helper;
 
 import com.subang.bean.AddrData;
 import com.subang.bean.AddrDetail;
+import com.subang.bean.OrderDetail;
 import com.subang.domain.City;
 import com.subang.domain.District;
 import com.subang.domain.Region;
@@ -13,6 +14,16 @@ import java.util.List;
  * Created by Qiang on 2015/11/12.
  */
 public class AddrDataHelper {
+
+    public static String getAreaDes(OrderDetail orderDetail) {
+        StringBuilder builder = new StringBuilder();
+        builder.append(orderDetail.getCityname());
+        builder.append("  ");
+        builder.append(orderDetail.getDistrictname());
+        builder.append("  ");
+        builder.append(orderDetail.getRegionname());
+        return builder.toString();
+    }
 
     public static String getAreaDes(AddrDetail addrDetail) {
         StringBuilder builder = new StringBuilder();

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <integer name="order_user_comment">100</integer>
+    <integer name="order_comment">100</integer>
+    <integer name="order_remark_text">50</integer>
     <integer name="addr_detail_auto">30</integer>
     <integer name="addr_detail_manu">20</integer>
     <integer name="name">4</integer>
@@ -8,5 +9,4 @@
     <integer name="password">50</integer>
     <integer name="authcode">4</integer>
     <integer name="feedback_comment_text">200</integer>
-    <integer name="feedback_remark_text">50</integer>
 </resources>

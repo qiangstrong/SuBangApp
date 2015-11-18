@@ -16,11 +16,11 @@
         android:id="@id/v_line"
         android:layout_width="fill_parent"
         android:layout_height="1.0px"
-        android:layout_above="@+id/ll_main_title"
+        android:layout_above="@+id/ll_title"
         android:background="@color/gray" />
 
     <LinearLayout
-        android:id="@id/ll_main_title"
+        android:id="@id/ll_title"
         android:layout_width="fill_parent"
         android:layout_height="50.0dip"
         android:layout_alignParentBottom="true"

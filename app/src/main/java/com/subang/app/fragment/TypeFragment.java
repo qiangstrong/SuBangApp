@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Toast;
 
 import com.subang.api.OrderAPI;
 import com.subang.app.activity.OrderDetailActivity;
@@ -20,6 +19,7 @@ import com.subang.app.helper.OrderAdapter;
 import com.subang.app.util.AppConst;
 import com.subang.app.util.AppShare;
 import com.subang.app.util.AppUtil;
+import com.subang.app.util.ComUtil;
 import com.subang.applib.view.XListView;
 import com.subang.bean.OrderDetail;
 import com.subang.bean.Result;
@@ -93,15 +93,12 @@ public class TypeFragment extends Fragment implements OnFrontListener {
                     break;
                 }
                 case AppConst.WHAT_SUCC_SUBMIT: {
-                    Bundle bundle = msg.getData();
-                    OperaData operaData = (OperaData) bundle.get("operaData");
-                    String info = bundle.getString("info");
                     if (thread == null || !thread.isAlive()) {
                         thread = new Thread(runnable);
                         thread.start();
                     }
-                    Toast toast = Toast.makeText(getActivity(), info, Toast.LENGTH_SHORT);
-                    toast.show();
+                    String info = ComUtil.getInfo(msg);
+                    AppUtil.tip(getActivity(),info);
                     break;
                 }
             }
@@ -137,6 +134,7 @@ public class TypeFragment extends Fragment implements OnFrontListener {
         filter.setTime(0);
         filter.setMoney(0.0);
         filter.setFreight(0.0);
+        filter.setMoneyTicket(0.0);
         filter.setCategoryname("");
 
         orderAdapter = new OrderAdapter(getActivity(), dataHolder);
@@ -233,7 +231,6 @@ public class TypeFragment extends Fragment implements OnFrontListener {
         public void run() {
             Result result;
             Message msg;
-            Bundle bundle;
             AppUtil.confApi(getActivity());
             switch (operaData.operation) {
                 case canceled: {
@@ -242,12 +239,7 @@ public class TypeFragment extends Fragment implements OnFrontListener {
                         handler.sendEmptyMessage(AppConst.WHAT_NETWORK_ERR);
                         return;
                     }
-                    msg = new Message();
-                    msg.what = AppConst.WHAT_SUCC_SUBMIT;
-                    bundle = new Bundle();
-                    bundle.putSerializable("operaData", operaData);
-                    bundle.putString("info", "订单取消成功。");
-                    msg.setData(bundle);
+                    msg = ComUtil.getMessage(AppConst.WHAT_SUCC_SUBMIT, "订单取消成功。");
                     handler.sendMessage(msg);
                     break;
                 }
@@ -255,9 +247,13 @@ public class TypeFragment extends Fragment implements OnFrontListener {
                     break;
                 }
                 case delivered: {
-                    break;
-                }
-                case remarked: {
+                    result = OrderAPI.deliver(operaData.orderid);
+                    if (result == null) {
+                        handler.sendEmptyMessage(AppConst.WHAT_NETWORK_ERR);
+                        return;
+                    }
+                    msg = ComUtil.getMessage(AppConst.WHAT_SUCC_SUBMIT, "订单送达成功。");
+                    handler.sendMessage(msg);
                     break;
                 }
             }

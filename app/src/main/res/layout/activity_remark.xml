@@ -153,7 +153,7 @@
             android:background="@android:color/white"
             android:gravity="left"
             android:hint="对速帮的服务有什么建议？我们将积极改进"
-            android:maxLength="@integer/feedback_remark_text"
+            android:maxLength="@integer/order_remark_text"
             android:paddingLeft="10.0dip"
             android:paddingTop="10.0dip"
             android:textColor="#ff3e3e3e"

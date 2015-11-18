@@ -209,7 +209,7 @@
                 android:background="@android:color/white"
                 android:gravity="left"
                 android:hint="如有其他问题，请留言"
-                android:maxLength="@integer/order_user_comment"
+                android:maxLength="@integer/order_comment"
                 android:paddingLeft="20.0dip"
                 android:paddingTop="10.0dip"
                 android:textColor="#ff3e3e3e"

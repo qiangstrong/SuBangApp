@@ -34,18 +34,18 @@
             android:name=".DateActivity"
             android:theme="@style/CustomTranslucent" />
         <activity android:name=".AddrActivity" />
-        <activity android:name=".AddAddrActivity"></activity>
+        <activity android:name=".AddAddrActivity" />
         <activity
             android:name=".AreaActivity"
-            android:theme="@style/CustomTranslucent"></activity>
-        <activity android:name=".CityActivity"></activity>
-        <activity android:name=".MoreActivity"></activity>
-        <activity android:name=".CellnumActivity"></activity>
-        <activity android:name=".PasswordActivity"></activity>
-        <activity android:name=".OrderDetailActivity"></activity>
-        <activity android:name=".WebActivity"></activity>
-        <activity android:name=".FeedbackActivity"></activity>
-        <activity android:name=".RemarkActivity"></activity>
+            android:theme="@style/CustomTranslucent" />
+        <activity android:name=".CityActivity" />
+        <activity android:name=".MoreActivity" />
+        <activity android:name=".CellnumActivity" />
+        <activity android:name=".PasswordActivity" />
+        <activity android:name=".OrderDetailActivity" />
+        <activity android:name=".WebActivity" />
+        <activity android:name=".FeedbackActivity" />
+        <activity android:name=".RemarkActivity" />
     </application>
 
 </manifest>

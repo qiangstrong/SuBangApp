@@ -108,7 +108,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:drawableLeft="@drawable/mine_money_icon"
-                android:text=" 优惠券"
+                android:text=" 余额"
                 android:textColor="#ff222222"
                 android:textSize="14.0sp" />
 

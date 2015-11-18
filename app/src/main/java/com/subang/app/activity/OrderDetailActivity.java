@@ -11,6 +11,7 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.subang.api.OrderAPI;
+import com.subang.app.helper.AddrDataHelper;
 import com.subang.app.util.AppConst;
 import com.subang.app.util.AppUtil;
 import com.subang.bean.OrderDetail;
@@ -28,9 +29,9 @@ public class OrderDetailActivity extends Activity {
     private static final int WHAT_CLOTHES = 2;
     private static final int WHAT_HISTORY = 3;
 
-    private TextView tv_orderno, tv_datetime, tv_categoryname, tv_userComment, tv_addrcellnum,
-            tv_addrdetail, tv_workercellnum, tv_workerComment, tv_payType, tv_payment,
-            tv_clothesNum, tv_addrname, tv_workername, tv_actualMoney;
+    private TextView tv_orderno, tv_datetime, tv_categoryname, tv_userComment, tv_addrname, tv_addrcellnum,
+            tv_area, tv_addrdetail, tv_workername, tv_workercellnum, tv_workerComment, tv_payType, tv_payment,
+            tv_actualMoney, tv_clothesNum;
     private ListView lv_clothes, lv_history;
     private RelativeLayout rl_pay, rl_clothes;
 
@@ -124,6 +125,7 @@ public class OrderDetailActivity extends Activity {
         tv_categoryname = (TextView) findViewById(R.id.tv_categoryname);
         tv_userComment = (TextView) findViewById(R.id.tv_user_comment);
         tv_addrcellnum = (TextView) findViewById(R.id.tv_addrcellnum);
+        tv_area = (TextView) findViewById(R.id.tv_area);
         tv_addrdetail = (TextView) findViewById(R.id.tv_addrdetail);
         tv_workercellnum = (TextView) findViewById(R.id.tv_workercellnum);
         tv_workerComment = (TextView) findViewById(R.id.tv_worker_comment);
@@ -155,6 +157,7 @@ public class OrderDetailActivity extends Activity {
         //地址信息
         tv_addrname.setText(orderDetail.getAddrname());
         tv_addrcellnum.setText(orderDetail.getAddrcellnum());
+        tv_area.setText(AddrDataHelper.getAreaDes(orderDetail));
         tv_addrdetail.setText(orderDetail.getAddrdetail());
 
         //取衣员信息

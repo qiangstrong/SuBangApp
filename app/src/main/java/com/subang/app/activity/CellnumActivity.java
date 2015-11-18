@@ -26,8 +26,9 @@ import java.util.TimerTask;
 
 public class CellnumActivity extends Activity {
 
-    private static final int WHAT_GET = 1;
-    private static final int WHAT_OK = 2;
+    private static final int WHAT_GET_SUCC = 1;
+    private static final int WHAT_GET_FAIL = 2;
+    private static final int WHAT_OK = 3;
 
     private int type;       //标志此activity用于改变用户信息，还是用于注册
     private Timer timer;    //调度timerTask
@@ -74,10 +75,16 @@ public class CellnumActivity extends Activity {
                     AppUtil.tip(CellnumActivity.this, info);
                     break;
                 }
-                case WHAT_GET: {
+                case WHAT_GET_FAIL: {
+                    tv_get.setText("获取验证码");
+                    String info = ComUtil.getInfo(msg);
+                    AppUtil.tip(CellnumActivity.this, info);
+                    break;
+                }
+                case WHAT_GET_SUCC: {
                     isCellnumWatcher = false;
                     tv_get.setClickable(false);
-                    tv_get.setText("60s");
+                    tv_get.setText(WebConst.AUTHCODE_NEXT_INTERVAL + "s");
                     downCounter = WebConst.AUTHCODE_NEXT_INTERVAL;
                     handler.postDelayed(textViewRunnable, WebConst.ONE_SECOND);
                     break;
@@ -119,17 +126,17 @@ public class CellnumActivity extends Activity {
                 return;
             }
             if (!result.getCode().equals(Result.OK)) {
-                Message msg = ComUtil.getMessage(AppConst.WHAT_INFO, "该手机号已被注册。");
+                Message msg = ComUtil.getMessage(WHAT_GET_FAIL, "该手机号已被注册。");
                 handler.sendMessage(msg);
                 return;
             }
             if (timerTask != null) {
                 timerTask.cancel();
             }
-            authcode = SuUtil.getUserAuthcode();
-            if (!SmsUtil.send(cellnum, com.subang.util.AppConst.templateId_authcode, SmsUtil.toUserContent(authcode))) {
+            authcode = SuUtil.getAuthcode();
+            if (!SmsUtil.send(cellnum, com.subang.util.AppConst.templateId_authcode, SmsUtil.toAuthcodeContent(authcode))) {
                 authcode = null;
-                Message msg = ComUtil.getMessage(AppConst.WHAT_INFO, "发送验证码错误。");
+                Message msg = ComUtil.getMessage(WHAT_GET_FAIL, "发送验证码错误。");
                 handler.sendMessage(msg);
                 return;
             }
@@ -140,7 +147,7 @@ public class CellnumActivity extends Activity {
                 }
             };
             timer.schedule(timerTask, WebConst.AUTHCODE_INTERVAL);
-            handler.sendEmptyMessage(WHAT_GET);
+            handler.sendEmptyMessage(WHAT_GET_SUCC);
         }
     };
 
@@ -202,6 +209,7 @@ public class CellnumActivity extends Activity {
 
     public void tv_get_onClick(View view) {
         if (getThread == null || !getThread.isAlive()) {
+            tv_get.setText("请稍等");
             getThread = new Thread(getRunnable);
             getThread.start();
         }
