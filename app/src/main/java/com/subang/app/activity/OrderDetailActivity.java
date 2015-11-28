@@ -17,6 +17,7 @@ import com.subang.app.util.AppUtil;
 import com.subang.bean.OrderDetail;
 import com.subang.domain.Clothes;
 import com.subang.domain.History;
+import com.subang.util.WebConst;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -74,7 +75,7 @@ public class OrderDetailActivity extends Activity {
         @Override
         public void run() {
             AppUtil.confApi(OrderDetailActivity.this);
-            orderDetail = OrderAPI.get(orderid);
+            orderDetail = OrderAPI.get(WebConst.ORDER_GET_ID, orderid.toString());
             if (orderDetail == null) {
                 handler.sendEmptyMessage(AppConst.WHAT_NETWORK_ERR);
                 return;
@@ -195,7 +196,7 @@ public class OrderDetailActivity extends Activity {
         for (History history : historys) {
             historyItem = new HashMap<>();
             historyItem.put("operation", history.getOperationDes());
-            historyItem.put("time", history.getTime());
+            historyItem.put("time", history.getTimeDes());
             historyItems.add(historyItem);
         }
         historySimpleAdapter.notifyDataSetChanged();

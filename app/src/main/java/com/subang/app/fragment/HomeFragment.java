@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
+import com.subang.api.ActivityAPI;
 import com.subang.api.PriceAPI;
 import com.subang.api.RegionAPI;
 import com.subang.app.activity.AddOrderActivity;
@@ -28,6 +29,7 @@ import com.subang.app.util.AppConf;
 import com.subang.app.util.AppConst;
 import com.subang.app.util.AppUtil;
 import com.subang.applib.view.AutoScrollViewPager;
+import com.subang.domain.Banner;
 import com.subang.domain.Category;
 import com.subang.domain.City;
 import com.subang.util.WebConst;
@@ -41,11 +43,13 @@ import java.util.Map;
 
 public class HomeFragment extends Fragment implements OnFrontListener {
 
-    private static final int NUM_BANNER = 3;
+    private static final int NUM_BANNER_DEFAULT = 3;
     private static final int NUM_CATEGORY_DEFAULT = 2;
     private static final int NUM_INFO = 2;
-    private static final int WHAT_CITY = 1;
-    private static final int WHAT_CATEGORY = 2;
+
+    private static final int WHAT_BANNER = 1;
+    private static final int WHAT_CITY = 2;
+    private static final int WHAT_CATEGORY = 3;
 
     private TextView tv_location;
     private AutoScrollViewPager vp_banner;
@@ -53,9 +57,11 @@ public class HomeFragment extends Fragment implements OnFrontListener {
     private GridView gv_category;
     private GridView gv_info;
 
-    private SimpleAdapter categorySimpleAdapter;
+    private ImagePagerAdapter bannerAdapter;
+    private SimpleAdapter categoryAdapter;
 
-    private Thread cityThread, categoryThread;
+    private Thread thread;
+    private List<Banner> banners;
     private City city;
     private List<Category> categorys;
     private List<ImageView> bannerItems;
@@ -69,6 +75,18 @@ public class HomeFragment extends Fragment implements OnFrontListener {
         public void onClick(View v) {
             Intent intent = new Intent(getActivity(), CityActivity.class);
             startActivityForResult(intent, 0);
+        }
+    };
+
+    private View.OnClickListener bannerOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            String url = (String) v.getTag(R.id.key_link);
+            if (url!=null&&url.length()!=0){
+                Intent intent = new Intent(getActivity(), WebActivity.class);
+                intent.putExtra("url", WebConst.HOST_URI + url);
+                startActivity(intent);
+            }
         }
     };
 
@@ -91,7 +109,7 @@ public class HomeFragment extends Fragment implements OnFrontListener {
                 case 0: {
                     Intent intent = new Intent(getActivity(), WebActivity.class);
                     intent.putExtra("title", "服务介绍");
-                    intent.putExtra("url", WebConst.HOST_URI + "weixin/info/serviceintro.html");
+                    intent.putExtra("url", WebConst.HOST_URI + "content/weixin/info/serviceintro.htm");
                     startActivity(intent);
                     break;
                 }
@@ -125,12 +143,24 @@ public class HomeFragment extends Fragment implements OnFrontListener {
                     AppUtil.networkTip(getActivity());
                     break;
                 }
+                case WHAT_BANNER: {
+                    bannerItems.clear();
+                    ImageView bannerItem;
+                    AppUtil.conf(getActivity());
+                    for (Banner banner : banners) {
+                        bannerItem = new ImageView(getActivity());
+                        Bitmap bitmap = BitmapFactory.decodeFile(AppConf.basePath + banner.getIcon());
+                        bannerItem.setImageBitmap(bitmap);
+                        bannerItem.setTag(R.id.key_link, banner.getLink());
+                        bannerItem.setOnClickListener(bannerOnClickListener);
+                        bannerItems.add(bannerItem);
+                    }
+                    bannerAdapter = new ImagePagerAdapter(bannerItems);
+                    vp_banner.setAdapter(bannerAdapter);
+                    break;
+                }
                 case WHAT_CITY: {
                     tv_location.setText(city.getName());
-                    if (categoryThread == null || !categoryThread.isAlive()) {
-                        categoryThread = new Thread(categoryRunnable);
-                        categoryThread.start();
-                    }
                     break;
                 }
                 case WHAT_CATEGORY: {
@@ -145,7 +175,7 @@ public class HomeFragment extends Fragment implements OnFrontListener {
                         categoryItem.put("comment", category.getComment());
                         categoryItems.add(categoryItem);
                     }
-                    categorySimpleAdapter.notifyDataSetChanged();
+                    categoryAdapter.notifyDataSetChanged();
                     isLoaded = true;
                     break;
                 }
@@ -158,6 +188,14 @@ public class HomeFragment extends Fragment implements OnFrontListener {
         @Override
         public void run() {
             AppUtil.confApi(getActivity());
+
+            banners = ActivityAPI.listBanner(null);
+            if (banners == null) {
+                handler.sendEmptyMessage(AppConst.WHAT_NETWORK_ERR);
+                return;
+            }
+            handler.sendEmptyMessage(WHAT_BANNER);
+
             Integer cityid = RegionAPI.getCityid();
             if (cityid == null) {
                 handler.sendEmptyMessage(AppConst.WHAT_NETWORK_ERR);
@@ -169,13 +207,6 @@ public class HomeFragment extends Fragment implements OnFrontListener {
                 return;
             }
             handler.sendEmptyMessage(WHAT_CITY);
-        }
-    };
-
-    private Runnable categoryRunnable = new Runnable() {
-        @Override
-        public void run() {
-            AppUtil.confApi(getActivity());
             categorys = PriceAPI.listcategory(city.getId(), null);
             if (categorys == null) {
                 handler.sendEmptyMessage(AppConst.WHAT_NETWORK_ERR);
@@ -189,10 +220,11 @@ public class HomeFragment extends Fragment implements OnFrontListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         createItems();
-        categorySimpleAdapter = new SimpleAdapter(getActivity(), categoryItems, R.layout
+        bannerAdapter = new ImagePagerAdapter(bannerItems);
+        categoryAdapter = new SimpleAdapter(getActivity(), categoryItems, R.layout
                 .item_category, new
                 String[]{"icon", "name", "comment"}, new int[]{R.id.iv_icon, R.id.tv_name, R.id.tv_comment});
-        categorySimpleAdapter.setViewBinder(categoryViewBinder);
+        categoryAdapter.setViewBinder(categoryViewBinder);
     }
 
     @Override
@@ -200,21 +232,21 @@ public class HomeFragment extends Fragment implements OnFrontListener {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         findView(view);
-        if (cityThread == null || !cityThread.isAlive()) {
-            cityThread = new Thread(cityRunnable);
-            cityThread.start();
+        if (thread == null || !thread.isAlive()) {
+            thread = new Thread(cityRunnable);
+            thread.start();
         }
 
         tv_location.setOnClickListener(locationOnClickListener);
 
-        vp_banner.setAdapter(new ImagePagerAdapter(bannerItems));
+        vp_banner.setAdapter(bannerAdapter);
         vp_banner.setInterval(2000);
         vp_banner.startAutoScroll();
         vp_banner.setOffscreenPageLimit(3);
         vp_banner.setSlideBorderMode(AutoScrollViewPager.SLIDE_BORDER_MODE_TO_PARENT);
         pi_banner.setViewPager(vp_banner);
 
-        gv_category.setAdapter(categorySimpleAdapter);
+        gv_category.setAdapter(categoryAdapter);
         gv_category.setOnItemClickListener(categoryOnItemClickListener);
 
         gv_info.setAdapter(new SimpleAdapter(getActivity(), infoItems, R.layout.item_info, new
@@ -247,16 +279,13 @@ public class HomeFragment extends Fragment implements OnFrontListener {
     }
 
     private void createItems() {
-        bannerItems = new ArrayList<ImageView>(NUM_BANNER);
-        ImageView bannerItem = new ImageView(getActivity());
-        bannerItem.setImageResource(R.drawable.banner_1);
-        bannerItems.add(bannerItem);
-        bannerItem = new ImageView(getActivity());
-        bannerItem.setImageResource(R.drawable.banner_2);
-        bannerItems.add(bannerItem);
-        bannerItem = new ImageView(getActivity());
-        bannerItem.setImageResource(R.drawable.banner_3);
-        bannerItems.add(bannerItem);
+        bannerItems = new ArrayList<ImageView>(NUM_BANNER_DEFAULT);
+        ImageView bannerItem;
+        for (int i = 0; i < NUM_BANNER_DEFAULT; i++) {
+            bannerItem = new ImageView(getActivity());
+            bannerItem.setImageResource(R.drawable.banner_default);
+            bannerItems.add(bannerItem);
+        }
 
         categoryItems = new ArrayList<Map<String, Object>>(NUM_CATEGORY_DEFAULT);
         Map<String, Object> categoryItem = new HashMap<String, Object>();

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@android:color/white"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context="com.subang.app.activity.TicketActivity">
+
+    <RelativeLayout
+        android:id="@+id/rl_title"
+        android:layout_width="fill_parent"
+        android:layout_height="50.0dip"
+        android:background="@color/blue_theme">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="45.0dip"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15.0dip"
+            android:contentDescription="@null"
+            android:onClick="iv_back_onClick"
+            android:src="@drawable/back_btn" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="我的优惠券"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/tile_size" />
+
+        <TextView
+            android:id="@+id/tv_intro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15.0dip"
+            android:text="使用说明"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/tile_size"
+            android:clickable="true"
+            android:onClick="tv_intro_onClick"/>
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/lv_ticket"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/rl_title"
+        android:cacheColorHint="#00000000"
+        android:divider="#ffe5e5e5"
+        android:dividerHeight="0.5dip"
+        android:fastScrollEnabled="false"
+        android:listSelector="@android:color/transparent"
+        android:background="@drawable/listview_default"/>
+</RelativeLayout>

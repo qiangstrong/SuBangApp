@@ -46,7 +46,7 @@ public class MoreActivity extends Activity {
                 case 2: {
                     Intent intent = new Intent(MoreActivity.this, WebActivity.class);
                     intent.putExtra("title", "用户协议");
-                    intent.putExtra("url", WebConst.HOST_URI + "weixin/info/term.html");
+                    intent.putExtra("url", WebConst.HOST_URI + "content/weixin/info/term.htm");
                     startActivity(intent);
                     break;
                 }

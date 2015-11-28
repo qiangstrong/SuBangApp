@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="key_operation" type="id" />
-    <item name="key_orderid" type="id" />
+    <item name="key_id" type="id" />
+    <item name="key_link" type="id" />
+    <item name="key_data" type="id" />
 </resources>

@@ -135,9 +135,9 @@ public class OrderAdapter extends BaseAdapter {
                 break;
             }
         }
-        tv_operation1.setTag(R.id.key_orderid, orderDetail.getId());
+        tv_operation1.setTag(R.id.key_id, orderDetail.getId());
         tv_operation1.setOnClickListener(operationOnClickListener);
-        tv_operation2.setTag(R.id.key_orderid, orderDetail.getId());
+        tv_operation2.setTag(R.id.key_id, orderDetail.getId());
         tv_operation2.setOnClickListener(operationOnClickListener);
     }
 

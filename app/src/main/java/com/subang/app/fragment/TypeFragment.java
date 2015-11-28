@@ -188,7 +188,7 @@ public class TypeFragment extends Fragment implements OnFrontListener {
         public void onClick(View v) {
             OperaData operaData = new OperaData();
             operaData.operation = (com.subang.domain.Order.State) v.getTag(R.id.key_operation);
-            operaData.orderid = (Integer) v.getTag(R.id.key_orderid);
+            operaData.orderid = (Integer) v.getTag(R.id.key_id);
             switch (operaData.operation) {
                 case canceled: {
                     if (operaThread == null || !operaThread.isAlive()) {

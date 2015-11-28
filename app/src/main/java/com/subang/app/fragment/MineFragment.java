@@ -17,13 +17,17 @@ import android.widget.TextView;
 import com.subang.api.InfoAPI;
 import com.subang.api.UserAPI;
 import com.subang.app.activity.AddrActivity;
+import com.subang.app.activity.BalanceActivity;
 import com.subang.app.activity.FeedbackActivity;
+import com.subang.app.activity.MallActivity;
 import com.subang.app.activity.MoreActivity;
 import com.subang.app.activity.R;
+import com.subang.app.activity.TicketActivity;
 import com.subang.app.activity.WebActivity;
 import com.subang.app.fragment.face.OnFrontListener;
 import com.subang.app.util.AppConf;
 import com.subang.app.util.AppConst;
+import com.subang.app.util.AppShare;
 import com.subang.app.util.AppUtil;
 import com.subang.domain.Info;
 import com.subang.domain.User;
@@ -41,6 +45,8 @@ public class MineFragment extends Fragment implements OnFrontListener {
     private static final int NO_LINE = 0;
     private static final int YES_LINE = 1;
 
+    private AppShare appShare;
+
     private RelativeLayout rl_money, rl_score;
     private TextView tv_cellnum, tv_recharge, tv_money, tv_score, tv_phone;
     private ListView lv_action;
@@ -57,21 +63,31 @@ public class MineFragment extends Fragment implements OnFrontListener {
     private View.OnClickListener rechargeOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
+            if (!isLoaded) {
+                return;
+            }
         }
     };
 
     private View.OnClickListener moneyOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
+            if (!isLoaded) {
+                return;
+            }
+            Intent intent = new Intent(getActivity(), BalanceActivity.class);
+            intent.putExtra("user", user);
+            startActivity(intent);
         }
     };
 
     private View.OnClickListener scoreOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
+            Intent intent = new Intent(getActivity(), WebActivity.class);
+            intent.putExtra("title", "如何获得积分");
+            intent.putExtra("url", WebConst.HOST_URI + "content/weixin/user/scoreintro.htm");
+            startActivity(intent);
         }
     };
 
@@ -85,9 +101,17 @@ public class MineFragment extends Fragment implements OnFrontListener {
                     break;
                 }
                 case 1: {
+                    Intent intent = new Intent(getActivity(), TicketActivity.class);
+                    startActivity(intent);
                     break;
                 }
                 case 2: {
+                    if (!isLoaded) {
+                        return;
+                    }
+                    Intent intent = new Intent(getActivity(), MallActivity.class);
+                    intent.putExtra("user", user);
+                    startActivity(intent);
                     break;
                 }
                 case 3: {
@@ -167,6 +191,7 @@ public class MineFragment extends Fragment implements OnFrontListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        appShare = (AppShare) getActivity().getApplication();
         createItems();
         actionSimpleAdapter = new SimpleAdapter(getActivity(), actionItems, R.layout.item_action,
                 new String[]{"icon", "text", "line"}, new int[]{R.id.iv_icon, R.id.tv_text, R.id.v_line});
@@ -197,6 +222,23 @@ public class MineFragment extends Fragment implements OnFrontListener {
 
     @Override
     public void onFront() {
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        boolean refresh;
+        if (appShare.map.containsKey("mine.refresh")) {
+            refresh = (boolean) appShare.map.get("mine.refresh");
+            appShare.map.remove("mine.refresh");
+            if (refresh) {
+                isLoaded=false;
+                if (thread == null || !thread.isAlive()) {
+                    thread = new Thread(runnable);
+                    thread.start();
+                }
+            }
+        }
     }
 
     private void findView(View view) {

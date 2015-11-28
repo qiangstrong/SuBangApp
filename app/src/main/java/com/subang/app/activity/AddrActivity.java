@@ -11,7 +11,6 @@ import android.os.Message;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.SimpleAdapter;
-import android.widget.Toast;
 
 import com.subang.api.UserAPI;
 import com.subang.app.helper.AddrDataHelper;
@@ -113,15 +112,11 @@ public class AddrActivity extends Activity {
                     break;
                 }
                 case AppConst.WHAT_SUCC_SUBMIT: {
-                    Bundle bundle = msg.getData();
-                    Integer addrid = (Integer) bundle.get("addrid");
-                    String info = bundle.getString("info");
                     if (thread == null || !thread.isAlive()) {
                         thread = new Thread(runnable);
                         thread.start();
                     }
-                    Toast toast = Toast.makeText(AddrActivity.this, info, Toast.LENGTH_SHORT);
-                    toast.show();
+                    AppUtil.tip(AddrActivity.this, com.subang.app.util.ComUtil.getInfo(msg));
                     break;
                 }
             }
@@ -209,12 +204,7 @@ public class AddrActivity extends Activity {
                 handler.sendEmptyMessage(AppConst.WHAT_NETWORK_ERR);
                 return;
             }
-            Message msg = new Message();
-            msg.what = AppConst.WHAT_SUCC_SUBMIT;
-            Bundle bundle = new Bundle();
-            bundle.putInt("addrid", addrid);
-            bundle.putString("info", "地址删除成功。");
-            msg.setData(bundle);
+            Message msg= com.subang.app.util.ComUtil.getMessage(AppConst.WHAT_SUCC_SUBMIT,"地址删除成功。");
             handler.sendMessage(msg);
         }
     }

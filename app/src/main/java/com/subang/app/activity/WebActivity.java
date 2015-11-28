@@ -49,9 +49,12 @@ public class WebActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web);
         findView();
-        title = getIntent().getStringExtra("title");
+        Bundle bundle=getIntent().getExtras();
+        if (bundle.containsKey("title")){
+            title=bundle.getString("title");
+            tv_title.setText(title);
+        }
         url = getIntent().getStringExtra("url");
-        tv_title.setText(title);
 
         WebSettings webSettings = wv_web.getSettings();
         webSettings.setJavaScriptEnabled(true);
