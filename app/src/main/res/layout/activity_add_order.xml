@@ -29,6 +29,7 @@
                 android:layout_marginLeft="15.0dip"
                 android:contentDescription="@null"
                 android:onClick="iv_back_onClick"
+                android:paddingRight="20dip"
                 android:src="@drawable/back_btn" />
 
             <TextView
@@ -107,7 +108,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15.0dip"
                     android:layout_marginTop="10.0dip"
-                    android:drawableLeft="@drawable/add_order_name"
+                    android:drawableLeft="@drawable/addr_name"
                     android:textColor="#ff3e3e3e"
                     android:textSize="14.0sp" />
 
@@ -118,7 +119,7 @@
                     android:layout_marginLeft="10.0dip"
                     android:layout_marginTop="10.0dip"
                     android:layout_toRightOf="@id/tv_name"
-                    android:drawableLeft="@drawable/add_order_cellnum"
+                    android:drawableLeft="@drawable/addr_cellnum"
                     android:textColor="#ff3e3e3e"
                     android:textSize="14.0sp" />
 
@@ -129,10 +130,11 @@
                     android:layout_below="@id/tv_name"
                     android:layout_marginLeft="15.0dip"
                     android:layout_marginTop="10.0dip"
-                    android:drawableLeft="@drawable/add_order_detail"
+                    android:drawableLeft="@drawable/addr_detail"
                     android:ellipsize="end"
                     android:singleLine="true"
-                    android:textColor="#ff3e3e3e" />
+                    android:textColor="#ff3e3e3e"
+                    android:textSize="14.0sp" />
             </RelativeLayout>
 
             <ImageView

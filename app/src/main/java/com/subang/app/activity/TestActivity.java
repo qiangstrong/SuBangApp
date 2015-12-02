@@ -4,12 +4,14 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 
 
 public class TestActivity extends Activity {
 
     private RatingBar rb_test;
+    private ImageView iv;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

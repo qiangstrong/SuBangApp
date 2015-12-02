@@ -24,6 +24,7 @@
             android:layout_marginLeft="15.0dip"
             android:contentDescription="@null"
             android:onClick="iv_back_onClick"
+            android:paddingRight="20dip"
             android:src="@drawable/back_btn" />
 
         <TextView
@@ -41,11 +42,11 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="15.0dip"
+            android:clickable="true"
+            android:onClick="tv_intro_onClick"
             android:text="使用说明"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/tile_size"
-            android:clickable="true"
-            android:onClick="tv_intro_onClick"/>
+            android:textSize="@dimen/tile_size" />
     </RelativeLayout>
 
     <ListView
@@ -53,10 +54,10 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_below="@id/rl_title"
+        android:background="@drawable/listview_default"
         android:cacheColorHint="#00000000"
         android:divider="#ffe5e5e5"
         android:dividerHeight="0.5dip"
         android:fastScrollEnabled="false"
-        android:listSelector="@android:color/transparent"
-        android:background="@drawable/listview_default"/>
+        android:listSelector="@android:color/transparent" />
 </RelativeLayout>

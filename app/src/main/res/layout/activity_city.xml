@@ -22,6 +22,7 @@
             android:layout_marginLeft="15.0dip"
             android:contentDescription="@null"
             android:onClick="iv_back_onClick"
+            android:paddingRight="20dip"
             android:src="@drawable/back_btn" />
 
         <TextView

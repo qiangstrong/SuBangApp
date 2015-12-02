@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.subang.api.SubangAPI;
 import com.subang.api.UserAPI;
 import com.subang.app.activity.R;
+import com.subang.app.bean.AppEtc;
 import com.subang.bean.Result;
 import com.subang.domain.User;
 import com.subang.util.WebConst;
@@ -73,6 +74,23 @@ public class AppUtil {
         conf(context);
         SubangAPI.conf(WebConst.USER, AppConf.cellnum, AppConf.password, AppConf.basePath);
     }
+
+    public static AppEtc getEtc(Context context){
+        AppEtc etc=new AppEtc();
+        SharedPreferences sharedPreferences = context.getSharedPreferences(context.getResources().getString(R.string
+                .file_etc), Context.MODE_PRIVATE);
+        etc.setFirst(sharedPreferences.getBoolean("first", true));
+        return etc;
+    }
+
+    public static void saveEtc(Context context,AppEtc etc){
+        SharedPreferences sharedPreferences = context.getSharedPreferences(context.getResources().getString(R.string
+                .file_etc), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("first", etc.isFirst());
+        editor.commit();
+    }
+
 
     public static boolean checkNetwork(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.

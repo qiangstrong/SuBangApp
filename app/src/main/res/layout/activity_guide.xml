@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    tools:context="com.subang.app.activity.GuideActivity">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_guide"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30.0dip"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_dot1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null"
+            android:scaleType="fitXY"
+            android:src="@drawable/guide_dot_current" />
+
+        <ImageView
+            android:id="@+id/iv_dot2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25.0dip"
+            android:contentDescription="@null"
+            android:scaleType="fitXY"
+            android:src="@drawable/guide_dot_default" />
+
+        <ImageView
+            android:id="@+id/iv_dot3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25.0dip"
+            android:contentDescription="@null"
+            android:scaleType="fitXY"
+            android:src="@drawable/guide_dot_default" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="45.0dip"
+        android:background="@drawable/guide_btn_bg"
+        android:onClick="iv_start_onClick"
+        android:visibility="invisible" />
+</RelativeLayout>

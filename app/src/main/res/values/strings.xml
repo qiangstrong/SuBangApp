@@ -2,6 +2,8 @@
 <resources>
     <string name="app_name">速帮洗衣</string>
     <string name="file_user">user</string>
+    <string name="file_etc">etc</string>
+
     <string name="err_network">网络连接错误，请检查网络是否连通。</string>
     <string name="flag_user">我们只做最专业的品质服务</string>
     <string name="operation_cancel">取消</string>

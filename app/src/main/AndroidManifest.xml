@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.subang.app.activity" >
+    package="com.subang.app.activity">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -14,18 +14,20 @@
         android:label="@string/app_name"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
-        android:theme="@style/FullscreenTheme" >
-        <activity android:name=".TestActivity" >
+        android:theme="@style/FullscreenTheme">
+        <activity android:name=".TestActivity">
+
         </activity>
         <activity
-            android:name=".LoadActivity"
-            android:label="速帮洗衣" >
+            android:name=".GuideActivity"
+            android:label="速帮洗衣">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".LoadActivity" />
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTask" />
@@ -47,12 +49,10 @@
         <activity android:name=".WebActivity" />
         <activity android:name=".FeedbackActivity" />
         <activity android:name=".RemarkActivity" />
-        <activity android:name=".TicketActivity" >
-        </activity>
-        <activity android:name=".BalanceActivity" >
-        </activity>
-        <activity android:name=".MallActivity" >
-        </activity>
+        <activity android:name=".TicketActivity"/>
+        <activity android:name=".BalanceActivity"/>
+        <activity android:name=".MallActivity"/>
+
     </application>
 
 </manifest>

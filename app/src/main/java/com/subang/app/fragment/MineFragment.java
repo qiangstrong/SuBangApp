@@ -162,7 +162,7 @@ public class MineFragment extends Fragment implements OnFrontListener {
                 case AppConst.WHAT_SUCC_LOAD: {
                     tv_money.setText(user.getMoney().toString() + "元");
                     tv_score.setText(user.getScore().toString());
-                    tv_phone.setText("客服 " + info.getPhone());
+                    tv_phone.setText("客服热线：" + info.getPhone());
                     isLoaded = true;
                     break;
                 }

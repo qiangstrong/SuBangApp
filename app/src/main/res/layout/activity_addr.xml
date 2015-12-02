@@ -22,8 +22,9 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="15.0dip"
             android:contentDescription="@null"
-            android:src="@drawable/back_btn"
-            android:onClick="iv_back_onClick"/>
+            android:onClick="iv_back_onClick"
+            android:paddingRight="20dip"
+            android:src="@drawable/back_btn" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -40,11 +41,11 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="15.0dip"
+            android:clickable="true"
+            android:onClick="tv_add_onClick"
             android:padding="4.0dip"
             android:text="添加地址"
-            android:textColor="@android:color/white"
-            android:clickable="true"
-            android:onClick="tv_add_onClick"/>
+            android:textColor="@android:color/white" />
     </RelativeLayout>
 
     <com.subang.applib.view.SwipeMenuListView
@@ -52,10 +53,10 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_below="@id/rl_title"
+        android:background="@drawable/listview_default"
         android:cacheColorHint="@android:color/transparent"
         android:divider="#ffe5e5e5"
         android:dividerHeight="0.5dip"
         android:listSelector="@android:color/transparent"
-        android:overScrollMode="never"
-        android:background="@drawable/listview_default"/>
+        android:overScrollMode="never" />
 </RelativeLayout>

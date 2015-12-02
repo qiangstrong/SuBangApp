@@ -70,12 +70,12 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10.0dip"
+            android:clickable="true"
             android:drawableRight="@drawable/recharge_arrow"
             android:gravity="center"
             android:text="充值 "
             android:textColor="#ffff690e"
-            android:textSize="17.0sp"
-            android:clickable="true"/>
+            android:textSize="17.0sp" />
     </RelativeLayout>
 
     <View
@@ -169,24 +169,33 @@
         android:id="@+id/lv_action"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_above="@+id/tv_phone"
+        android:layout_above="@+id/ll_phone"
         android:layout_below="@id/v_line_2"
         android:layout_marginTop="5.0dip"
         android:divider="@null"
         android:dividerHeight="0.0dip" />
 
-    <TextView
-        android:id="@id/tv_phone"
+    <LinearLayout
+        android:id="@id/ll_phone"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="5.0dip"
-        android:autoLink="phone"
-        android:background="@android:color/white"
-        android:gravity="center"
-        android:paddingBottom="15.0dip"
-        android:paddingTop="15.0dip"
-        android:text="客服 0429-2912222"
-        android:textColor="#ff444444"
-        android:textSize="18.0sp" />
+        android:gravity="center_horizontal"
+        android:background="@android:color/white">
+
+        <TextView
+            android:id="@+id/tv_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:autoLink="phone"
+            android:drawableLeft="@drawable/mine_phone"
+            android:paddingBottom="15.0dip"
+            android:paddingTop="15.0dip"
+            android:text="客服热线：0429-2912222"
+            android:textColor="#ff444444"
+            android:textSize="18.0sp" />
+    </LinearLayout>
+
+
 </RelativeLayout>

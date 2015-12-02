@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
@@ -23,20 +22,22 @@
 
             <TextView
                 android:id="@+id/tv_name"
-                style="@style/textsize_3"
+                style="@style/textsize_2"
                 android:layout_width="90.0dip"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
+                android:drawableLeft="@drawable/addr_name"
                 android:maxLength="6" />
 
             <TextView
                 android:id="@+id/tv_cellnum"
-                style="@style/textsize_3"
+                style="@style/textsize_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_toRightOf="@id/tv_name" />
+                android:layout_toRightOf="@id/tv_name"
+                android:drawableLeft="@drawable/addr_cellnum" />
         </RelativeLayout>
 
         <TextView
@@ -48,6 +49,7 @@
             android:layout_below="@id/rl_addr"
             android:layout_marginLeft="10.0dip"
             android:layout_marginRight="15.0dip"
+            android:drawableLeft="@drawable/addr_detail"
             android:paddingTop="5.0dip" />
 
         <TextView
@@ -57,7 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_alignRight="@id/rl_addr"
             android:layout_below="@id/tv_area"
-            android:layout_marginLeft="10.0dip"
+            android:layout_marginLeft="32.0dip"
             android:layout_marginRight="15.0dip"
             android:paddingTop="5.0dip" />
     </RelativeLayout>
