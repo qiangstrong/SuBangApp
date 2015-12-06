@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.1"
 
     defaultConfig {
-        applicationId "com.subang.app"
+        applicationId "com.subang.app.activity"
         minSdkVersion 15
         targetSdkVersion 23
         versionCode 1

@@ -48,7 +48,7 @@ public class TicketActivity extends Activity {
                 return;
             }
             Intent intent = getIntent();
-            intent.putExtra("ticketid", ticketDetails.get(position).getId());
+            intent.putExtra("ticketDetail", ticketDetails.get(position));
             setResult(RESULT_OK, intent);
             finish();
         }

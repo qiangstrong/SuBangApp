@@ -6,6 +6,8 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name="com.subang.app.util.AppShare"
@@ -49,10 +51,32 @@
         <activity android:name=".WebActivity" />
         <activity android:name=".FeedbackActivity" />
         <activity android:name=".RemarkActivity" />
-        <activity android:name=".TicketActivity"/>
-        <activity android:name=".BalanceActivity"/>
-        <activity android:name=".MallActivity"/>
+        <activity android:name=".TicketActivity" />
+        <activity android:name=".BalanceActivity" />
+        <activity android:name=".MallActivity" />
+        <activity android:name=".PayActivity" />
+        <activity android:name=".RechargeActivity" />
+        <activity
+            android:name="PrepayActivity"
+            android:exported="true"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="wxe52147e45bfaa563" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop" />
+        <activity android:name=".PayResultActivity" />
 
+        <receiver android:name="com.subang.app.component.WeixinReceiver">
+            <intent-filter>
+                <action android:name="com.tencent.mm.plugin.openapi.Intent.ACTION_REFRESH_WXAPP" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

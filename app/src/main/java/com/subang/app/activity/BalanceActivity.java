@@ -1,6 +1,7 @@
 package com.subang.app.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -96,6 +97,9 @@ public class BalanceActivity extends Activity {
     }
 
     public void tv_recharge_onClick(View view) {
+        Intent intent = new Intent(BalanceActivity.this, RechargeActivity.class);
+        intent.putExtra("user", user);
+        startActivity(intent);
     }
 
     public void iv_back_onClick(View view) {

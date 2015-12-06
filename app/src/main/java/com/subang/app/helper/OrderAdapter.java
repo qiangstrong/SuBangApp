@@ -102,6 +102,9 @@ public class OrderAdapter extends BaseAdapter {
 
     private void bindOperation() {
 
+        tv_operation1.setVisibility(View.INVISIBLE);
+        tv_operation2.setVisibility(View.INVISIBLE);
+
         switch (orderDetail.getStateEnum()) {
             case accepted: {
                 tv_operation1.setVisibility(View.VISIBLE);

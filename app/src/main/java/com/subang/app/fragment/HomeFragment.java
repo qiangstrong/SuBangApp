@@ -27,6 +27,7 @@ import com.subang.app.fragment.face.OnFrontListener;
 import com.subang.app.helper.ImagePagerAdapter;
 import com.subang.app.util.AppConf;
 import com.subang.app.util.AppConst;
+import com.subang.app.util.AppShare;
 import com.subang.app.util.AppUtil;
 import com.subang.applib.view.AutoScrollViewPager;
 import com.subang.domain.Banner;
@@ -50,6 +51,8 @@ public class HomeFragment extends Fragment implements OnFrontListener {
     private static final int WHAT_BANNER = 1;
     private static final int WHAT_CITY = 2;
     private static final int WHAT_CATEGORY = 3;
+
+    private AppShare appShare;
 
     private TextView tv_location;
     private AutoScrollViewPager vp_banner;
@@ -184,7 +187,7 @@ public class HomeFragment extends Fragment implements OnFrontListener {
         }
     };
 
-    private Runnable cityRunnable = new Runnable() {
+    private Runnable runnable = new Runnable() {
         @Override
         public void run() {
             AppUtil.confApi(getActivity());
@@ -219,6 +222,7 @@ public class HomeFragment extends Fragment implements OnFrontListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        appShare = (AppShare) getActivity().getApplication();
         createItems();
         bannerAdapter = new ImagePagerAdapter(bannerItems);
         categoryAdapter = new SimpleAdapter(getActivity(), categoryItems, R.layout
@@ -233,7 +237,7 @@ public class HomeFragment extends Fragment implements OnFrontListener {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         findView(view);
         if (thread == null || !thread.isAlive()) {
-            thread = new Thread(cityRunnable);
+            thread = new Thread(runnable);
             thread.start();
         }
 
@@ -258,6 +262,23 @@ public class HomeFragment extends Fragment implements OnFrontListener {
 
     @Override
     public void onFront() {
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        boolean refresh;
+        if (appShare.map.containsKey("home.refresh")) {
+            refresh = (boolean) appShare.map.get("home.refresh");
+            appShare.map.remove("home.refresh");
+            if (refresh) {
+                isLoaded=false;
+                if (thread == null || !thread.isAlive()) {
+                    thread = new Thread(runnable);
+                    thread.start();
+                }
+            }
+        }
     }
 
     @Override

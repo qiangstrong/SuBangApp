@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/gray"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    tools:context="com.subang.app.activity.PayResultActivity">
+
+    <RelativeLayout
+        android:id="@+id/rl_title"
+        android:layout_width="fill_parent"
+        android:layout_height="50.0dip"
+        android:background="@color/blue_theme">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="45.0dip"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15.0dip"
+            android:contentDescription="@null"
+            android:onClick="iv_back_onClick"
+            android:paddingRight="20dip"
+            android:src="@drawable/back_btn" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="支付结果"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/tile_size" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_top"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rl_title"
+        android:background="@drawable/recharge_top_bg">
+
+        <TextView
+            android:id="@+id/tv_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10.0dip"
+            android:layout_marginTop="25.0dip"
+            android:gravity="center"
+            android:text="支付成功"
+            android:textColor="#ff3d3d3d"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/tv_code"
+            android:layout_below="@id/tv_code"
+            android:layout_marginBottom="25.0dip"
+            android:layout_marginTop="10.0dip"
+            android:gravity="center"
+            android:textColor="#fff66627"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -22,6 +22,7 @@ import com.subang.app.activity.FeedbackActivity;
 import com.subang.app.activity.MallActivity;
 import com.subang.app.activity.MoreActivity;
 import com.subang.app.activity.R;
+import com.subang.app.activity.RechargeActivity;
 import com.subang.app.activity.TicketActivity;
 import com.subang.app.activity.WebActivity;
 import com.subang.app.fragment.face.OnFrontListener;
@@ -66,6 +67,9 @@ public class MineFragment extends Fragment implements OnFrontListener {
             if (!isLoaded) {
                 return;
             }
+            Intent intent = new Intent(getActivity(), RechargeActivity.class);
+            intent.putExtra("user", user);
+            startActivity(intent);
         }
     };
 

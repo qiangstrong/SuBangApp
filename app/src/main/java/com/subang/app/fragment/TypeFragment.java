@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 
 import com.subang.api.OrderAPI;
 import com.subang.app.activity.OrderDetailActivity;
+import com.subang.app.activity.PayActivity;
 import com.subang.app.activity.R;
 import com.subang.app.activity.RemarkActivity;
 import com.subang.app.fragment.face.OnFrontListener;
@@ -198,9 +199,16 @@ public class TypeFragment extends Fragment implements OnFrontListener {
                     break;
                 }
                 case paid: {
+                    Intent intent = new Intent(getActivity(), PayActivity.class);
+                    intent.putExtra("orderid", operaData.orderid);
+                    startActivity(intent);
                     break;
                 }
                 case delivered: {
+                    if (operaThread == null || !operaThread.isAlive()) {
+                        operaThread = new OperaThread(operaData);
+                        operaThread.start();
+                    }
                     break;
                 }
                 case remarked: {
@@ -241,9 +249,6 @@ public class TypeFragment extends Fragment implements OnFrontListener {
                     }
                     msg = ComUtil.getMessage(AppConst.WHAT_SUCC_SUBMIT, "订单取消成功。");
                     handler.sendMessage(msg);
-                    break;
-                }
-                case paid: {
                     break;
                 }
                 case delivered: {

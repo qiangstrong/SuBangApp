@@ -5,6 +5,9 @@ package com.subang.app.util;
  */
 public interface AppConst {
 
+    String APP_ID="wxe52147e45bfaa563";
+    String LOG_TAG = "subang";
+
     //用于标识handler所发message的类型
     int WHAT_NETWORK_ERR = 0;
     int WHAT_SUCC_LOAD = -1;
