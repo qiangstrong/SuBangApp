@@ -160,6 +160,7 @@ public class RechargeActivity extends Activity {
         super.onCreate(savedInstanceState);
         appShare = (AppShare) getApplication();
         appShare.map.put("mine.refresh", true);
+        appShare.map.remove("pay");
         appShare.map.put("recharge", true);     //指示支付成功后，在WXPayEntryActivity中如何跳转
         user = (User) getIntent().getSerializableExtra("user");
         setContentView(R.layout.activity_recharge);

@@ -154,6 +154,7 @@ public class PayActivity extends Activity {
         super.onCreate(savedInstanceState);
         appShare = (AppShare) getApplication();
         appShare.map.put("type.refresh", true);
+        appShare.map.remove("recharge");
         appShare.map.put("pay", true);
         orderid = getIntent().getIntExtra("orderid", 0);
         setContentView(R.layout.activity_pay);

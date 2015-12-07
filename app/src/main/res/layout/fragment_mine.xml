@@ -96,38 +96,6 @@
         android:paddingTop="10.0dip"
         android:weightSum="2.0">
 
-        <RelativeLayout
-            android:id="@+id/rl_money"
-            android:layout_width="0.0dip"
-            android:layout_height="wrap_content"
-            android:layout_weight="1.0">
-
-            <TextView
-                android:id="@+id/tv_money_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:drawableLeft="@drawable/mine_money_icon"
-                android:text=" 余额"
-                android:textColor="#ff222222"
-                android:textSize="14.0sp" />
-
-            <TextView
-                android:id="@+id/tv_money"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_money_label"
-                android:layout_centerHorizontal="true"
-                android:paddingTop="2.0dip"
-                android:text="暂无信息"
-                android:textColor="#ffaaaaaa"
-                android:textSize="13.0sp" />
-        </RelativeLayout>
-
-        <View
-            android:layout_width="1.0px"
-            android:layout_height="fill_parent"
-            android:background="@color/gray" />
 
         <RelativeLayout
             android:id="@+id/rl_score"
@@ -156,6 +124,40 @@
                 android:textColor="#ffaaaaaa"
                 android:textSize="13.0sp" />
         </RelativeLayout>
+
+        <View
+            android:layout_width="1.0px"
+            android:layout_height="fill_parent"
+            android:background="@color/gray" />
+
+        <RelativeLayout
+            android:id="@+id/rl_money"
+            android:layout_width="0.0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0">
+
+            <TextView
+                android:id="@+id/tv_money_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:drawableLeft="@drawable/mine_money_icon"
+                android:text=" 余额"
+                android:textColor="#ff222222"
+                android:textSize="14.0sp" />
+
+            <TextView
+                android:id="@+id/tv_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_money_label"
+                android:layout_centerHorizontal="true"
+                android:paddingTop="2.0dip"
+                android:text="暂无信息"
+                android:textColor="#ffaaaaaa"
+                android:textSize="13.0sp" />
+        </RelativeLayout>
+
     </LinearLayout>
 
     <View
@@ -181,8 +183,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="5.0dip"
-        android:gravity="center_horizontal"
-        android:background="@android:color/white">
+        android:background="@android:color/white"
+        android:gravity="center_horizontal">
 
         <TextView
             android:id="@+id/tv_phone"

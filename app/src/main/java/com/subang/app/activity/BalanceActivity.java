@@ -23,13 +23,14 @@ import java.util.Map;
 
 public class BalanceActivity extends Activity {
 
+    private User user;
+
     private TextView tv_money;
     private ListView lv_balance;
 
     private SimpleAdapter balanceAdapter;
 
     private Thread thread;
-    private User user;
     private List<Balance> balances;
     private List<Map<String, Object>> balanceItems;
 

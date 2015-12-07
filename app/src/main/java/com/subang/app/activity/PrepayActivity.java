@@ -2,7 +2,6 @@ package com.subang.app.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.subang.app.util.AppConst;
 import com.subang.bean.WeixinPayRequest;
@@ -19,7 +18,7 @@ public class PrepayActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        wxapi = WXAPIFactory.createWXAPI(this, null);
+        wxapi = WXAPIFactory.createWXAPI(this,AppConst.APP_ID, true);
         payRequest = (WeixinPayRequest) getIntent().getSerializableExtra("payrequest");
         wxapi.registerApp(AppConst.APP_ID);
         genPayReq();
