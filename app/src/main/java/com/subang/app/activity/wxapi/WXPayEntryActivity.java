@@ -47,7 +47,6 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
         if (resp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
             if (resp.errCode == BaseResp.ErrCode.ERR_OK) {            //支付成功
                 Intent intent = null;
-
                 if (appShare.map.containsKey("recharge")) {
                     appShare.map.remove("recharge");
                     appShare.map.put("main.position", 2);
@@ -63,7 +62,6 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
                     appShare.map.put("main.position", 0);
                     intent = new Intent(WXPayEntryActivity.this, MainActivity.class);
                 }
-
                 startActivity(intent);
             } else if (resp.errCode == BaseResp.ErrCode.ERR_COMM) {    //错误
                 Intent intent = new Intent(WXPayEntryActivity.this, PayResultActivity.class);

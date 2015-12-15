@@ -73,23 +73,13 @@
         android:textSize="16.0sp" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/et_password"
-        android:layout_below="@id/tv_login"
-        android:layout_marginTop="20.0dip"
-        android:gravity="left"
-        android:text="您可以使用在速帮微信公众平台中注册的账号登录。"
-        android:textColor="@android:color/white"
-        android:textSize="16.0sp" />
-
-    <TextView
         android:id="@+id/tv_signin"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@id/et_password"
         android:layout_alignRight="@id/et_password"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@id/tv_login"
+        android:layout_marginTop="20.0dip"
         android:background="@drawable/btn_action_bg"
         android:clickable="true"
         android:enabled="true"

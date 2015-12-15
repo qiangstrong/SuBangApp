@@ -23,6 +23,7 @@ import com.subang.app.util.AppConf;
 import com.subang.app.util.AppConst;
 import com.subang.app.util.AppShare;
 import com.subang.app.util.AppUtil;
+import com.subang.bean.AliPrepayResult;
 import com.subang.bean.BasePrepayResult;
 import com.subang.bean.OrderDetail;
 import com.subang.bean.PayArg;
@@ -81,6 +82,9 @@ public class PayActivity extends Activity {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case AppConst.WHAT_NETWORK_ERR: {
+                    if (progressDialog != null) {
+                        progressDialog.dismiss();
+                    }
                     AppUtil.networkTip(PayActivity.this);
                     break;
                 }
@@ -226,11 +230,11 @@ public class PayActivity extends Activity {
         payTypeItem.put("type", Payment.PayType.weixin);
         payTypeItems.add(payTypeItem);
 
-//        payTypeItem = new HashMap<>();
-//        payTypeItem.put("icon", R.drawable.ali_pay_icon);
-//        payTypeItem.put("name", "支付宝支付");
-//        payTypeItem.put("type", Payment.PayType.alipay);
-//        payTypeItems.add(payTypeItem);
+        payTypeItem = new HashMap<>();
+        payTypeItem.put("icon", R.drawable.ali_pay_icon);
+        payTypeItem.put("name", "支付宝支付");
+        payTypeItem.put("type", Payment.PayType.alipay);
+        payTypeItems.add(payTypeItem);
     }
 
     public void iv_back_onClick(View view) {
@@ -257,20 +261,24 @@ public class PayActivity extends Activity {
             submitThread = new Thread(submitRunnable);
             submitThread.start();
         }
-        progressDialog = ProgressDialog.show(this, "提示", "正在获取预支付订单...");
+        progressDialog = ProgressDialog.show(this, "提示", "正在生成支付信息...");
     }
 
     private void prepay() {
         switch (payArg.getPayTypeEnum()) {
             case weixin: {
                 WeixinPrepayResult weixinPrepayResult = (WeixinPrepayResult) basePrepayResult;
-                Intent intent = new Intent(PayActivity.this, PrepayActivity.class);
+                Intent intent = new Intent(PayActivity.this, WXPrepayActivity.class);
                 intent.putExtra("payrequest", weixinPrepayResult.getArg());
                 startActivity(intent);
                 break;
             }
             case alipay: {
-
+                AliPrepayResult aliPrepayResult = (AliPrepayResult) basePrepayResult;
+                Intent intent = new Intent(PayActivity.this, AliPrepayActivity.class);
+                intent.putExtra("payrequest", aliPrepayResult.getArg());
+                startActivity(intent);
+                break;
             }
         }
     }

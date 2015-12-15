@@ -59,20 +59,31 @@
         <activity android:name=".PayActivity" />
         <activity android:name=".RechargeActivity" />
         <activity
-            android:name="PrepayActivity"
+            android:name=".WXPrepayActivity"
             android:exported="true"
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <data android:scheme="wxe52147e45bfaa563" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".AliPrepayActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"
             android:launchMode="singleTop" />
         <activity android:name=".PayResultActivity" />
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
 
         <receiver android:name="com.subang.app.component.WeixinReceiver">
             <intent-filter>

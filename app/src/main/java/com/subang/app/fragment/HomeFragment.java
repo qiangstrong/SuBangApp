@@ -1,5 +1,6 @@
 package com.subang.app.fragment;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -117,6 +118,9 @@ public class HomeFragment extends Fragment implements OnFrontListener {
                     break;
                 }
                 case 1: {
+                    if (!isLoaded) {
+                        return;
+                    }
                     Intent intent = new Intent(getActivity(), WebActivity.class);
                     intent.putExtra("title", "服务范围");
                     intent.putExtra("url", WebConst.HOST_URI + "weixin/region/scope.html?cityid=" + city.getId());
@@ -283,7 +287,7 @@ public class HomeFragment extends Fragment implements OnFrontListener {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        if (requestCode == 0 && resultCode == getActivity().RESULT_OK) {
+        if (requestCode == 0 && resultCode == Activity.RESULT_OK) {
             isLoaded = false;
             Bundle bundle = intent.getExtras();
             city = (City) bundle.get("city");
