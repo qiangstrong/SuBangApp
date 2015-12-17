@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.subang.api.UserAPI;
@@ -17,6 +18,7 @@ import com.subang.app.util.AppUtil;
 import com.subang.app.util.ComUtil;
 import com.subang.bean.Result;
 import com.subang.domain.User;
+import com.subang.util.WebConst;
 
 import java.util.Map;
 
@@ -29,6 +31,7 @@ public class PasswordActivity extends Activity {
 
     private EditText et_password1, et_password2;
     private TextView tv_ok;
+    private LinearLayout ll_term;
 
     private Thread signinThread, changeThread;
     private User user;
@@ -94,8 +97,8 @@ public class PasswordActivity extends Activity {
             AppUtil.saveConf(PasswordActivity.this, user);
             AppUtil.conf(PasswordActivity.this);
             AppUtil.confApi(PasswordActivity.this);
-            AppUtil.setLocation(PasswordActivity.this);
             handler.sendEmptyMessage(WHAT_SIGNIN);
+            AppUtil.setLocation(PasswordActivity.this);
         }
     };
 
@@ -134,12 +137,17 @@ public class PasswordActivity extends Activity {
         et_password1.addTextChangedListener(password1Watcher);
         password2Watcher = new MyTextWatcher(1, onPrepareListener);
         et_password2.addTextChangedListener(password2Watcher);
+
+        if (type==AppConst.TYPE_SIGNIN){
+            ll_term.setVisibility(View.VISIBLE);
+        }
     }
 
     private void findView() {
         et_password1 = (EditText) findViewById(R.id.et_password1);
         et_password2 = (EditText) findViewById(R.id.et_password2);
         tv_ok = (TextView) findViewById(R.id.tv_ok);
+        ll_term=(LinearLayout)findViewById(R.id.ll_term);
     }
 
     public void tv_ok_onClick(View view) {
@@ -161,5 +169,12 @@ public class PasswordActivity extends Activity {
                 changeThread.start();
             }
         }
+    }
+
+    public void tv_term_onClick(View view){
+        Intent intent = new Intent(PasswordActivity.this, WebActivity.class);
+        intent.putExtra("title", "用户协议");
+        intent.putExtra("url", WebConst.HOST_URI + "content/weixin/info/term.htm");
+        startActivity(intent);
     }
 }

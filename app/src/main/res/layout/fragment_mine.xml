@@ -194,7 +194,7 @@
             android:drawableLeft="@drawable/mine_phone"
             android:paddingBottom="15.0dip"
             android:paddingTop="15.0dip"
-            android:text="客服热线：0429-2912222"
+            android:text="客服热线：400-004-0429"
             android:textColor="#ff444444"
             android:textSize="18.0sp" />
     </LinearLayout>

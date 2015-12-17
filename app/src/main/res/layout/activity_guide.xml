@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="30.0dip"
+        android:layout_marginBottom="13.0dip"
         android:orientation="horizontal">
 
         <ImageView
@@ -49,12 +49,12 @@
 
     <ImageView
         android:id="@+id/iv_start"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="170dip"
+        android:layout_height="70dip"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="45.0dip"
-        android:background="@drawable/guide_btn_bg"
+        android:layout_marginBottom="20.0dip"
+        android:background="@android:color/transparent"
         android:onClick="iv_start_onClick"
         android:visibility="invisible" />
 </RelativeLayout>

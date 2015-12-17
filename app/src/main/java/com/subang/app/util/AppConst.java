@@ -17,4 +17,5 @@ public interface AppConst {
     //用于标识CellnumActivity和PasswordActivity的类型
     int TYPE_CHANGE = 1;    //用于改变用户信息
     int TYPE_SIGNIN = 2;    //用于注册
+    int TYPE_LOGIN = 3;    //用于登录
 }

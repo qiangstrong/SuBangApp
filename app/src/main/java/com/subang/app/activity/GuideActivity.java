@@ -81,7 +81,7 @@ public class GuideActivity extends Activity {
         AppEtc appEtc = new AppEtc();
         appEtc.setFirst(false);
         AppUtil.saveEtc(GuideActivity.this, appEtc);
-        Intent intent = new Intent(GuideActivity.this, LoadActivity.class);
+        Intent intent = new Intent(GuideActivity.this, LoginActivity.class);
         startActivity(intent);
         finish();
     }

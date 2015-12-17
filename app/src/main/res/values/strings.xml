@@ -11,4 +11,8 @@
     <string name="operation_pay">支付</string>
     <string name="operation_deliver">送达</string>
     <string name="operation_remark">评价</string>
+
+    <string name="text_forget"><u>忘记密码，请点击这里</u></string>
+    <string name="text_term_label">轻触上面的“下一步”按钮，即表示您同意</string>
+    <string name="text_term"><u>速帮用户协议</u></string>
 </resources>

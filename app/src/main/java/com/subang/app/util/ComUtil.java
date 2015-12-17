@@ -1,6 +1,5 @@
 package com.subang.app.util;
 
-import android.os.Bundle;
 import android.os.Message;
 import android.util.Log;
 
@@ -12,16 +11,12 @@ public class ComUtil {
     public static Message getMessage(int what,String info){
         Message msg = new Message();
         msg.what = what;
-        Bundle bundle = new Bundle();
-        bundle.putString("info", info);
-        msg.setData(bundle);
+        msg.obj=info;
         return msg;
     }
 
     public static String getInfo(Message msg){
-        Bundle bundle=msg.getData();
-        String info=bundle.getString("info");
-        return info;
+        return (String)msg.obj;
     }
 
     public static void log(String code,String msg){

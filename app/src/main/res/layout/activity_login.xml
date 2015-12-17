@@ -45,10 +45,10 @@
         android:background="@drawable/login_edit_default"
         android:drawableLeft="@drawable/password_icon"
         android:hint="请输入密码"
+        android:inputType="textPassword"
         android:maxLength="@integer/password"
         android:paddingLeft="5.0dip"
         android:paddingRight="5.0dip"
-        android:inputType="textPassword"
         android:textColor="@android:color/black"
         android:textColorHint="@color/gray_hint"
         android:textCursorDrawable="@null"
@@ -89,5 +89,17 @@
         android:text="注册"
         android:textColor="@android:color/white"
         android:textSize="16.0sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:clickable="true"
+        android:onClick="tv_forget_onClick"
+        android:padding="20dip"
+        android:text="@string/text_forget"
+        android:textColor="@android:color/white"
+        android:textSize="15sp" />
 
 </RelativeLayout>

@@ -55,8 +55,9 @@ public class LoginActivity extends Activity {
                 }
                 case WHAT_MAIN: {
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
-                    finish();
+                    LoginActivity.this.finish();
                     break;
                 }
             }
@@ -81,8 +82,8 @@ public class LoginActivity extends Activity {
             AppUtil.saveConf(LoginActivity.this, user);
             AppUtil.conf(LoginActivity.this);
             AppUtil.confApi(LoginActivity.this);
-            AppUtil.setLocation(LoginActivity.this);
             handler.sendEmptyMessage(WHAT_MAIN);                //转主界面
+            AppUtil.setLocation(LoginActivity.this);
         }
     };
 
@@ -119,6 +120,12 @@ public class LoginActivity extends Activity {
     public void tv_signin_onClick(View view) {
         Intent intent = new Intent(LoginActivity.this, CellnumActivity.class);
         intent.putExtra("type", AppConst.TYPE_SIGNIN);
+        startActivity(intent);
+    }
+
+    public void tv_forget_onClick(View view){
+        Intent intent = new Intent(LoginActivity.this, CellnumActivity.class);
+        intent.putExtra("type", AppConst.TYPE_LOGIN);
         startActivity(intent);
     }
 }

@@ -65,9 +65,9 @@ public class LoadActivity extends Activity {
                 handler.sendEmptyMessage(WHAT_LOGIN);    //转登录界面
                 return;
             }
+            handler.sendEmptyMessage(WHAT_MAIN);        //转主界面
             AppUtil.confApi(LoadActivity.this);
             AppUtil.setLocation(LoadActivity.this);
-            handler.sendEmptyMessage(WHAT_MAIN);        //转主界面
         }
     };
 
