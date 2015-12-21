@@ -2,17 +2,21 @@ package com.subang.app.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.support.annotation.StringRes;
 import android.widget.Toast;
 
 import com.subang.api.SubangAPI;
 import com.subang.api.UserAPI;
 import com.subang.app.activity.R;
 import com.subang.app.bean.AppEtc;
+import com.subang.bean.AppInfo;
 import com.subang.bean.Result;
 import com.subang.domain.User;
 import com.subang.util.WebConst;
@@ -112,6 +116,11 @@ public class AppUtil {
         toast.show();
     }
 
+    public static void tip(Context context, @StringRes int resId) {
+        Toast toast = Toast.makeText(context, resId, Toast.LENGTH_SHORT);
+        toast.show();
+    }
+
     //后台执行
     public static boolean setLocation(Context context) {
         LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
@@ -142,5 +151,17 @@ public class AppUtil {
             return false;
         }
         return true;
+    }
+
+    public static AppInfo getAppInfo(Context context) {
+        PackageInfo packageInfo = null;
+        try {
+            packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        Integer version = packageInfo.versionCode;
+        AppInfo appInfo = new AppInfo(AppInfo.USER_USER, AppInfo.OS_ANDROID, version);
+        return appInfo;
     }
 }

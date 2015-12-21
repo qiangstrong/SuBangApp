@@ -12,6 +12,7 @@ import com.subang.app.fragment.MineFragment;
 import com.subang.app.fragment.OrderFragment;
 import com.subang.app.helper.MyFragmentPagerAdapter;
 import com.subang.app.util.AppShare;
+import com.umeng.update.UmengUpdateAgent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +51,9 @@ public class MainActivity extends Activity {
         fragmentPagerAdapter = new MyFragmentPagerAdapter(getFragmentManager(), fragments);
         vp_main.setAdapter(fragmentPagerAdapter);
         vp_main.setOnPageChangeListener(simpleOnPageChangeListener);
+
+        //友盟自动更新
+        UmengUpdateAgent.update(this);
     }
 
     @Override

@@ -19,6 +19,14 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/FullscreenTheme">
+
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="5662e403e0f55a3abd003c95"/>
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="subang_user_android"/>
+
         <activity android:name=".TestActivity">
 
         </activity>
@@ -90,6 +98,15 @@
                 <action android:name="com.tencent.mm.plugin.openapi.Intent.ACTION_REFRESH_WXAPP" />
             </intent-filter>
         </receiver>
+
+        <!-- 友盟自动更新 -->
+        <service
+            android:name="com.umeng.update.net.DownloadingService"
+            android:process=":DownloadingService"/>
+
+        <activity
+            android:name="com.umeng.update.UpdateDialogActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
     </application>
 
 </manifest>

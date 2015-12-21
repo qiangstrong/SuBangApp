@@ -6,17 +6,23 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
+import com.subang.api.MiscAPI;
 import com.subang.api.UserAPI;
 import com.subang.app.util.AppConf;
 import com.subang.app.util.AppConst;
 import com.subang.app.util.AppUtil;
+import com.subang.bean.AppInfo;
 import com.subang.bean.Result;
 import com.subang.domain.User;
+import com.umeng.update.UmengDialogButtonListener;
+import com.umeng.update.UmengUpdateAgent;
+import com.umeng.update.UpdateStatus;
 
 public class LoadActivity extends Activity {
 
-    private static final int WHAT_LOGIN = 1;
-    private static final int WHAT_MAIN = 2;
+    private static final int WHAT_CHECK = 1;
+    private static final int WHAT_LOGIN = 2;
+    private static final int WHAT_MAIN = 3;
 
     private Handler handler = new Handler() {
         @Override
@@ -24,6 +30,11 @@ public class LoadActivity extends Activity {
             switch (msg.what) {
                 case AppConst.WHAT_NETWORK_ERR: {
                     AppUtil.networkTip(LoadActivity.this);
+                    break;
+                }
+                case WHAT_CHECK: {
+                    UmengUpdateAgent.setDialogListener(umengDialogButtonListener);
+                    UmengUpdateAgent.forceUpdate(LoadActivity.this);
                     break;
                 }
                 case WHAT_LOGIN: {
@@ -49,6 +60,18 @@ public class LoadActivity extends Activity {
                 return;
             }
 
+            //检查app版本
+            AppInfo appInfo = AppUtil.getAppInfo(LoadActivity.this);
+            Result result = MiscAPI.checkApp(appInfo);
+            if (result == null) {
+                handler.sendEmptyMessage(AppConst.WHAT_NETWORK_ERR);    //提示用户，停留此界面
+                return;
+            }
+            if (!result.getCode().equals(Result.OK)) {
+                handler.sendEmptyMessage(WHAT_CHECK);    //提示更新应用
+                return;
+            }
+
             if (!AppUtil.conf(LoadActivity.this)) {
                 handler.sendEmptyMessage(WHAT_LOGIN);    //转登录界面
                 return;
@@ -56,7 +79,7 @@ public class LoadActivity extends Activity {
             User user = new User();
             user.setCellnum(AppConf.cellnum);
             user.setPassword(AppConf.password);
-            Result result = UserAPI.login(user);
+            result = UserAPI.login(user);
             if (result == null) {
                 handler.sendEmptyMessage(AppConst.WHAT_NETWORK_ERR);    //提示用户，停留此界面
                 return;
@@ -77,4 +100,19 @@ public class LoadActivity extends Activity {
         setContentView(R.layout.activity_load);
         new Thread(runnable).start();
     }
+
+    private UmengDialogButtonListener umengDialogButtonListener = new UmengDialogButtonListener() {
+
+        @Override
+        public void onClick(int status) {
+            switch (status) {
+                case UpdateStatus.Update:
+                    break;
+                case UpdateStatus.Ignore:
+                case UpdateStatus.NotNow:
+                    AppUtil.tip(LoadActivity.this, "由于后台的升级，您当前的应用版本已不被支持。");
+                    break;
+            }
+        }
+    };
 }

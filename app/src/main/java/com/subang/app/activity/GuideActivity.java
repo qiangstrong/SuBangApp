@@ -26,22 +26,22 @@ public class GuideActivity extends Activity {
     private ViewPager.SimpleOnPageChangeListener simpleOnPageChangeListener = new ViewPager.SimpleOnPageChangeListener() {
         @Override
         public void onPageSelected(int position) {
-            switch (position){
-                case 0:{
+            switch (position) {
+                case 0: {
                     iv_dot1.setImageResource(R.drawable.guide_dot_current);
                     iv_dot2.setImageResource(R.drawable.guide_dot_default);
                     iv_dot3.setImageResource(R.drawable.guide_dot_default);
                     iv_start.setVisibility(View.INVISIBLE);
                     break;
                 }
-                case 1:{
+                case 1: {
                     iv_dot1.setImageResource(R.drawable.guide_dot_default);
                     iv_dot2.setImageResource(R.drawable.guide_dot_current);
                     iv_dot3.setImageResource(R.drawable.guide_dot_default);
                     iv_start.setVisibility(View.INVISIBLE);
                     break;
                 }
-                case 2:{
+                case 2: {
                     iv_dot1.setImageResource(R.drawable.guide_dot_default);
                     iv_dot2.setImageResource(R.drawable.guide_dot_default);
                     iv_dot3.setImageResource(R.drawable.guide_dot_current);
@@ -64,7 +64,7 @@ public class GuideActivity extends Activity {
         setContentView(R.layout.activity_guide);
         findView();
         createItems();
-        ImagePagerAdapter guideAdapter=new ImagePagerAdapter(guideItems);
+        ImagePagerAdapter guideAdapter = new ImagePagerAdapter(guideItems);
         vp_guide.setAdapter(guideAdapter);
         vp_guide.setOnPageChangeListener(simpleOnPageChangeListener);
     }
@@ -81,14 +81,14 @@ public class GuideActivity extends Activity {
         AppEtc appEtc = new AppEtc();
         appEtc.setFirst(false);
         AppUtil.saveEtc(GuideActivity.this, appEtc);
-        Intent intent = new Intent(GuideActivity.this, LoginActivity.class);
+        Intent intent = new Intent(GuideActivity.this, LoadActivity.class);
         startActivity(intent);
         finish();
     }
 
     private void createItems() {
         guideItems = new ArrayList<ImageView>(NUM_GUIDE);
-        int[] guides={R.drawable.guide_1_bg,R.drawable.guide_2_bg,R.drawable.guide_3_bg};
+        int[] guides = {R.drawable.guide_1_bg, R.drawable.guide_2_bg, R.drawable.guide_3_bg};
         ImageView guideItem;
         for (int i = 0; i < NUM_GUIDE; i++) {
             guideItem = new ImageView(GuideActivity.this);
