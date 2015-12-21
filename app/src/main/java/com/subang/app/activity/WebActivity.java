@@ -58,6 +58,10 @@ public class WebActivity extends Activity {
 
         WebSettings webSettings = wv_web.getSettings();
         webSettings.setJavaScriptEnabled(true);
+        webSettings.setUseWideViewPort(true);
+        webSettings.setLoadWithOverviewMode(true);
+        webSettings.setSupportZoom(true);
+        webSettings.setBuiltInZoomControls(true);
         wv_web.setWebChromeClient(webChromeClient);
         wv_web.setWebViewClient(webViewClient);
         wv_web.loadUrl(url);

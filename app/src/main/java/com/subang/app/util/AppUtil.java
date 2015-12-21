@@ -22,11 +22,19 @@ import com.subang.domain.User;
 import com.subang.util.WebConst;
 
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by Qiang on 2015/10/31.
  */
 public class AppUtil {
+
+    private static int NETWORK_TIP_INTERVAL = 30000;//30s
+
+    private static boolean isNetworkTip = true;
+    private static Timer timer;    //调度timerTask
+    private static TimerTask timerTask;        //30s后可以再次提示网络错误
 
     //把用户信息（app配置）保存在磁盘
     public static void saveConf(Context context, User user) {
@@ -53,7 +61,7 @@ public class AppUtil {
 
     //配置app，使用AppConf前调用此函数。如果没有配置，则配置
     public static boolean conf(Context context) {
-        if (AppConf.isConfed()){
+        if (AppConf.isConfed()) {
             return true;
         }
         SharedPreferences sharedPreferences = context.getSharedPreferences(context.getResources().getString(R.string
@@ -79,15 +87,15 @@ public class AppUtil {
         SubangAPI.conf(WebConst.USER, AppConf.cellnum, AppConf.password, AppConf.basePath);
     }
 
-    public static AppEtc getEtc(Context context){
-        AppEtc etc=new AppEtc();
+    public static AppEtc getEtc(Context context) {
+        AppEtc etc = new AppEtc();
         SharedPreferences sharedPreferences = context.getSharedPreferences(context.getResources().getString(R.string
                 .file_etc), Context.MODE_PRIVATE);
         etc.setFirst(sharedPreferences.getBoolean("first", true));
         return etc;
     }
 
-    public static void saveEtc(Context context,AppEtc etc){
+    public static void saveEtc(Context context, AppEtc etc) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(context.getResources().getString(R.string
                 .file_etc), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -107,8 +115,22 @@ public class AppUtil {
     }
 
     public static void networkTip(Context context) {
+        if (!isNetworkTip) {
+            return;
+        }
         Toast toast = Toast.makeText(context, R.string.err_network, Toast.LENGTH_SHORT);
         toast.show();
+        isNetworkTip = false;
+        timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                isNetworkTip = true;
+            }
+        };
+        if (timer == null) {
+            timer = new Timer();
+        }
+        timer.schedule(timerTask, NETWORK_TIP_INTERVAL);
     }
 
     public static void tip(Context context, String info) {
@@ -147,7 +169,7 @@ public class AppUtil {
         myLocation.setLatitude(Double.toString(location.getLatitude()));
         myLocation.setLongitude(Double.toString(location.getLongitude()));
         Result result = UserAPI.setLocation(myLocation);
-        if (result==null||!result.getCode().equals(Result.OK)) {
+        if (result == null || !result.getCode().equals(Result.OK)) {
             return false;
         }
         return true;

@@ -72,7 +72,7 @@ public class OrderFragment extends Fragment implements OnFrontListener {
         fragment = new TypeFragment();
         fragment.setArguments(args);
         fragments.add(fragment);
-        fragmentPagerAdapter = new MyFragmentPagerAdapter(getChildFragmentManager(), fragments);
+        fragmentPagerAdapter = new MyFragmentPagerAdapter(getFragmentManager(), fragments);
     }
 
     @Override

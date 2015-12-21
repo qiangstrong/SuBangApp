@@ -236,7 +236,7 @@
             android:text="立即预约"
             android:textColor="@android:color/white"
             android:textSize="15.0sp" />
-
+        <!--
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -245,5 +245,6 @@
             android:layout_marginTop="10.0dip"
             android:text="· 订单金额不满 10 元收取 10 元运费"
             android:textColor="#ffb6b6b6" />
+        -->
     </RelativeLayout>
 </ScrollView>
