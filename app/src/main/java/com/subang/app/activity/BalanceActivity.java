@@ -48,7 +48,7 @@ public class BalanceActivity extends Activity {
                     for (Balance balance : balances) {
                         balanceItem = new HashMap<>();
                         balanceItem.put("payType", balance.getPayTypeDes());
-                        balanceItem.put("money", "+" + balance.getMoney());
+                        balanceItem.put("money", balance.getMoneyDes());
                         balanceItem.put("time", balance.getTimeDes());
                         balanceItems.add(balanceItem);
                     }

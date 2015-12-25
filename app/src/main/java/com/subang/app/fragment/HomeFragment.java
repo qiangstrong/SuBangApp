@@ -64,7 +64,7 @@ public class HomeFragment extends Fragment implements OnFrontListener {
     private ImagePagerAdapter bannerAdapter;
     private SimpleAdapter categoryAdapter;
 
-    private Thread thread;
+    private Thread thread,categoryThread;
     private List<Banner> banners;
     private City city;
     private List<Category> categorys;
@@ -88,7 +88,7 @@ public class HomeFragment extends Fragment implements OnFrontListener {
             String url = (String) v.getTag(R.id.key_link);
             if (url!=null&&url.length()!=0){
                 Intent intent = new Intent(getActivity(), WebActivity.class);
-                intent.putExtra("url", WebConst.HOST_URI + url);
+                intent.putExtra("url", url);
                 startActivity(intent);
             }
         }
@@ -101,6 +101,10 @@ public class HomeFragment extends Fragment implements OnFrontListener {
                 return;
             }
             Intent intent = new Intent(getActivity(), AddOrderActivity.class);
+            Category category= categorys.get(position);
+            if (!category.getValid()){
+                return;
+            }
             intent.putExtra("category", categorys.get(position));
             startActivity(intent);
         }
@@ -168,6 +172,10 @@ public class HomeFragment extends Fragment implements OnFrontListener {
                 }
                 case WHAT_CITY: {
                     tv_location.setText(city.getName());
+                    if (categoryThread == null || !categoryThread.isAlive()) {
+                        categoryThread = new Thread(categoryRunnable);
+                        categoryThread.start();
+                    }
                     break;
                 }
                 case WHAT_CATEGORY: {
@@ -195,14 +203,6 @@ public class HomeFragment extends Fragment implements OnFrontListener {
         @Override
         public void run() {
             AppUtil.confApi(getActivity());
-
-            banners = ActivityAPI.listBanner(null);
-            if (banners == null) {
-                handler.sendEmptyMessage(AppConst.WHAT_NETWORK_ERR);
-                return;
-            }
-            handler.sendEmptyMessage(WHAT_BANNER);
-
             Integer cityid = RegionAPI.getCityid();
             if (cityid == null) {
                 handler.sendEmptyMessage(AppConst.WHAT_NETWORK_ERR);
@@ -214,6 +214,20 @@ public class HomeFragment extends Fragment implements OnFrontListener {
                 return;
             }
             handler.sendEmptyMessage(WHAT_CITY);
+
+            banners = ActivityAPI.listBanner(null);
+            if (banners == null) {
+                handler.sendEmptyMessage(AppConst.WHAT_NETWORK_ERR);
+                return;
+            }
+            handler.sendEmptyMessage(WHAT_BANNER);
+        }
+    };
+
+    private Runnable categoryRunnable = new Runnable() {
+        @Override
+        public void run() {
+            AppUtil.confApi(getActivity());
             categorys = PriceAPI.listcategory(city.getId(), null);
             if (categorys == null) {
                 handler.sendEmptyMessage(AppConst.WHAT_NETWORK_ERR);

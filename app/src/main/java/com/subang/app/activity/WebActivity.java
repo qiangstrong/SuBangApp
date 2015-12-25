@@ -1,8 +1,6 @@
 package com.subang.app.activity;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -12,8 +10,6 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
-import com.subang.util.WebConst;
 
 public class WebActivity extends Activity {
 
@@ -35,12 +31,13 @@ public class WebActivity extends Activity {
     private WebViewClient webViewClient = new WebViewClient() {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            if (Uri.parse(url).getHost().equals(WebConst.HOST_NAME)) {
-                return false;
-            }
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-            startActivity(intent);
-            return true;
+//            if (Uri.parse(url).getHost().equals(WebConst.HOST_NAME)) {
+//                return false;
+//            }
+//            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+//            startActivity(intent);
+//            return true;
+            return false;
         }
     };
 

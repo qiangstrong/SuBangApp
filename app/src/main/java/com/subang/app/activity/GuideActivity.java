@@ -93,7 +93,7 @@ public class GuideActivity extends Activity {
         for (int i = 0; i < NUM_GUIDE; i++) {
             guideItem = new ImageView(GuideActivity.this);
             guideItem.setImageResource(guides[i]);
-            guideItem.setScaleType(ImageView.ScaleType.CENTER);
+            guideItem.setScaleType(ImageView.ScaleType.FIT_XY);
             guideItems.add(guideItem);
         }
     }
