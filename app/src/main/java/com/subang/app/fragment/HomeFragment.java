@@ -203,12 +203,7 @@ public class HomeFragment extends Fragment implements OnFrontListener {
         @Override
         public void run() {
             AppUtil.confApi(getActivity());
-            Integer cityid = RegionAPI.getCityid();
-            if (cityid == null) {
-                handler.sendEmptyMessage(AppConst.WHAT_NETWORK_ERR);
-                return;
-            }
-            city = RegionAPI.getCity(cityid);
+            city = RegionAPI.getUserCity();
             if (city == null) {
                 handler.sendEmptyMessage(AppConst.WHAT_NETWORK_ERR);
                 return;

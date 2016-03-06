@@ -26,7 +26,7 @@
             android:gravity="center"
             android:maxEms="5"
             android:singleLine="true"
-            android:text="定位中"
+            android:text="葫芦岛"
             android:textColor="@android:color/white"
             android:textSize="17.0sp" />
 

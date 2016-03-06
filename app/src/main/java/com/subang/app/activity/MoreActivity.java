@@ -23,7 +23,7 @@ import java.util.Map;
 
 public class MoreActivity extends Activity {
 
-    private static final int NUM_ACTION = 5;
+    private static final int NUM_ACTION = 4;
     private static final int NO_LINE = 0;
     private static final int YES_LINE = 1;
 
@@ -36,30 +36,24 @@ public class MoreActivity extends Activity {
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             switch (position) {
                 case 0: {
-                    Intent intent = new Intent(MoreActivity.this, CellnumActivity.class);
+                    Intent intent = new Intent(MoreActivity.this, LoginActivity.class);
                     intent.putExtra("type", AppConst.TYPE_CHANGE);
                     startActivity(intent);
                     break;
                 }
                 case 1: {
-                    Intent intent = new Intent(MoreActivity.this, PasswordActivity.class);
-                    intent.putExtra("type", AppConst.TYPE_CHANGE);
-                    startActivity(intent);
-                    break;
-                }
-                case 2: {
                     Intent intent = new Intent(MoreActivity.this, WebActivity.class);
                     intent.putExtra("title", "用户协议");
                     intent.putExtra("url", WebConst.HOST_URI + "content/weixin/info/term.htm");
                     startActivity(intent);
                     break;
                 }
-                case 3: {
+                case 2: {
                     UmengUpdateAgent.setUpdateListener(umengUpdateListener);
                     UmengUpdateAgent.forceUpdate(MoreActivity.this);
                     break;
                 }
-                case 4: {
+                case 3: {
                     AppUtil.deleteConf(MoreActivity.this);
                     Intent intent = new Intent(MoreActivity.this, LoginActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -110,8 +104,8 @@ public class MoreActivity extends Activity {
 
     private void createItems() {
         actionItems = new ArrayList<Map<String, Object>>(NUM_ACTION);
-        int[] icons = {R.drawable.more_cellnum, R.drawable.more_password, R.drawable.more_agreement, R.drawable.more_upgrade, R.drawable.more_logout};
-        String[] texts = {"修改手机号", "修改密码", "用户协议", "版本升级", "退出账号"};
+        int[] icons = {R.drawable.more_cellnum, R.drawable.more_agreement, R.drawable.more_upgrade, R.drawable.more_logout};
+        String[] texts = {"修改手机号", "用户协议", "版本升级", "退出账号"};
         Map<String, Object> actionItem;
         for (int i = 0; i < NUM_ACTION; i++) {
             actionItem = new HashMap<String, Object>();
@@ -120,8 +114,8 @@ public class MoreActivity extends Activity {
             actionItem.put("line", NO_LINE);
             actionItems.add(actionItem);
         }
-        actionItems.get(1).put("line", YES_LINE);
-        actionItems.get(4).put("line", YES_LINE);
+        actionItems.get(0).put("line", YES_LINE);
+        actionItems.get(3).put("line", YES_LINE);
     }
 
     private UmengUpdateListener umengUpdateListener = new UmengUpdateListener() {

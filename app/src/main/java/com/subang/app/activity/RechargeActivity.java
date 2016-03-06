@@ -280,7 +280,7 @@ public class RechargeActivity extends Activity {
 
     public void btn_recharge_onClick(View view) {
         et_text.clearFocus();
-        payArg.setClient(PayArg.Client.user);
+        payArg.setClient(User.Client.user);
         String msg = getPayMoney();
         if (msg != null) {
             AppUtil.tip(RechargeActivity.this, msg);

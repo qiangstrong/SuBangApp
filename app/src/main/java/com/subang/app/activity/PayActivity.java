@@ -30,6 +30,7 @@ import com.subang.bean.PayArg;
 import com.subang.bean.TicketDetail;
 import com.subang.bean.WeixinPrepayResult;
 import com.subang.domain.Payment;
+import com.subang.domain.User;
 import com.subang.util.WebConst;
 
 import java.util.ArrayList;
@@ -251,7 +252,7 @@ public class PayActivity extends Activity {
     }
 
     public void btn_pay_onClick(View view) {
-        payArg.setClient(PayArg.Client.user);
+        payArg.setClient(User.Client.user);
         payArg.setPayType((Payment.PayType) payTypeItems.get(selectedPayTypeIndex).get("type"));
         payArg.setOrderid(orderid);
         if (ticketDetail != null) {

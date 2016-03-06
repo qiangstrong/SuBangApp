@@ -13,7 +13,6 @@ import com.subang.app.util.AppConst;
 import com.subang.app.util.AppUtil;
 import com.subang.bean.AppInfo;
 import com.subang.bean.Result;
-import com.subang.domain.User;
 import com.umeng.update.UmengDialogButtonListener;
 import com.umeng.update.UmengUpdateAgent;
 import com.umeng.update.UpdateStatus;
@@ -76,15 +75,12 @@ public class LoadActivity extends Activity {
                 handler.sendEmptyMessage(WHAT_LOGIN);    //转登录界面
                 return;
             }
-            User user = new User();
-            user.setCellnum(AppConf.cellnum);
-            user.setPassword(AppConf.password);
-            result = UserAPI.login(user);
+            result = UserAPI.login(AppConf.cellnum);
             if (result == null) {
                 handler.sendEmptyMessage(AppConst.WHAT_NETWORK_ERR);    //提示用户，停留此界面
                 return;
             }
-            if (!result.getCode().equals(Result.OK)) {
+            if (!result.isOk()) {
                 handler.sendEmptyMessage(WHAT_LOGIN);    //转登录界面
                 return;
             }

@@ -9,7 +9,7 @@ public class AppConf {
     public static String password;
 
     public static boolean isConfed() {
-        if (cellnum == null || password == null || basePath == null) {
+        if (cellnum == null || basePath == null) {
             return false;
         }
         return true;

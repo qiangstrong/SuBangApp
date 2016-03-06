@@ -69,7 +69,7 @@ public class AppUtil {
         String basePath = context.getFilesDir().getAbsolutePath() + "/";
         String cellnum = sharedPreferences.getString("cellnum", null);
         String password = sharedPreferences.getString("password", null);
-        if (cellnum != null && password != null) {
+        if (cellnum != null) {
             AppConf.basePath = basePath;
             AppConf.cellnum = cellnum;
             AppConf.password = password;
@@ -84,7 +84,7 @@ public class AppUtil {
             return;
         }
         conf(context);
-        SubangAPI.conf(WebConst.USER, AppConf.cellnum, AppConf.password, AppConf.basePath);
+        SubangAPI.conf(WebConst.USER, AppConf.cellnum, AppConf.basePath);
     }
 
     public static AppEtc getEtc(Context context) {
@@ -161,7 +161,10 @@ public class AppUtil {
             }
         } catch (SecurityException e) {
             e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
         if (location == null) {
             return false;
         }
