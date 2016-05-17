@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -11,7 +12,14 @@ import com.subang.app.fragment.HomeFragment;
 import com.subang.app.fragment.MineFragment;
 import com.subang.app.fragment.OrderFragment;
 import com.subang.app.helper.MyFragmentPagerAdapter;
+import com.subang.app.util.AppConf;
+import com.subang.app.util.AppConst;
 import com.subang.app.util.AppShare;
+import com.subang.app.util.AppUtil;
+import com.subang.util.WebConst;
+import com.umeng.message.IUmengRegisterCallback;
+import com.umeng.message.PushAgent;
+import com.umeng.message.UmengRegistrar;
 import com.umeng.update.UmengUpdateAgent;
 
 import java.util.ArrayList;
@@ -21,6 +29,7 @@ public class MainActivity extends Activity {
 
     private static final int NUM_FRAGMENT = 3;
 
+    private PushAgent pushAgent;
     private AppShare appShare;
 
     private ViewPager vp_main;
@@ -51,6 +60,15 @@ public class MainActivity extends Activity {
         fragmentPagerAdapter = new MyFragmentPagerAdapter(getFragmentManager(), fragments);
         vp_main.setAdapter(fragmentPagerAdapter);
         vp_main.setOnPageChangeListener(simpleOnPageChangeListener);
+
+        //友盟消息推送
+        pushAgent = PushAgent.getInstance(MainActivity.this);
+        pushAgent.enable(umengRegisterCallback);
+        pushAgent.onAppStart();
+        PushAgent.getInstance(MainActivity.this).setMuteDurationSeconds(3);
+        String device_token = UmengRegistrar.getRegistrationId(MainActivity.this);
+        Log.e(AppConst.LOG_TAG, device_token);
+        Log.e(AppConst.LOG_TAG, String.valueOf(pushAgent.isEnabled()));
 
         //友盟自动更新
         UmengUpdateAgent.update(this);
@@ -102,4 +120,18 @@ public class MainActivity extends Activity {
 
     }
 
+    private IUmengRegisterCallback umengRegisterCallback = new IUmengRegisterCallback() {
+        @Override
+        public void onRegistered(String registrationId) {
+            AppUtil.conf(MainActivity.this);
+
+            pushAgent.setNoDisturbMode(0, 0, 0, 0);
+            try {
+                pushAgent.addAlias(AppConf.cellnum, WebConst.ALIAS_TYPE);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            Log.e(AppConst.LOG_TAG, "IUmengRegisterCallback");
+        }
+    };
 }

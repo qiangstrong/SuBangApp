@@ -43,7 +43,7 @@
 
 -keep class org.android.spdy.**{*;}
 
--keep public class com.subang.worker.activity.R$*{
+-keep public class com.subang.app.activity.R$*{
    public static final int *;
 }
 
