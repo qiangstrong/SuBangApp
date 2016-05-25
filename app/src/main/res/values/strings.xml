@@ -15,4 +15,8 @@
     <string name="text_forget"><u>忘记密码?</u></string>
     <string name="text_term_label">轻触上面的“确定”按钮，即表示您同意</string>
     <string name="text_term"><u>速帮用户协议</u></string>
+    <string name="prom_rule_label"><u>活动规则</u></string>
+    <string name="prom_rule" formatted="false">1. 您邀请的新用户使用速帮洗衣服务，您将获得一定的收益。\n2. 收益按照以下规则计算：假设A用户邀请B用户，B邀请C，C邀请D。B消费，A获得B消费额%d%%的收益；C消费，A获得%d%%的收益，B获得%d%%的收益；D消费，A获得%d%%的收益，B获得%d%%的收益，C获得%d%%的收益。\n3. 收益存入用户收益账户，满%.1f元可以提现。\n4. 本规则最终解释权归速帮洗衣所有。</string>
+    <string name="share_rule" formatted="false">分享即可获得%.1f元返现</string>
+    <string name="draw_rule" formatted="false">1. 收益满%.1f元可以提现。\n2. 全部收益将转入您绑定的微信账户。\n3. 如果您在微信中使用速帮洗衣服务，那么此微信账户将成为绑定的账户。以您最后一次绑定的微信账户为准。\n4. 如果您对绑定的微信账户不确信，您可以关注速帮洗衣的微信号，在微信中提现。</string>
 </resources>

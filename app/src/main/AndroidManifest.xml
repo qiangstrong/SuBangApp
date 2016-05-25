@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.subang.app.activity">
+    package="com.subang.app.activity" >
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -12,7 +12,8 @@
     <uses-permission android:name="android.permission.BROADCAST_PACKAGE_REPLACED" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />;
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    ;
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
@@ -24,7 +25,6 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
 
-
     <application
         android:name="com.subang.app.util.AppShare"
         android:allowBackup="true"
@@ -32,24 +32,21 @@
         android:label="@string/app_name"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
-        android:theme="@style/FullscreenTheme">
-
+        android:theme="@style/FullscreenTheme" >
         <meta-data
             android:name="UMENG_APPKEY"
             android:value="5662e403e0f55a3abd003c95" />
         <meta-data
             android:name="UMENG_MESSAGE_SECRET"
-            android:value="b39aaa9d6bedab7df419732a04a32025"/>
+            android:value="b39aaa9d6bedab7df419732a04a32025" />
         <meta-data
             android:name="UMENG_CHANNEL"
             android:value="subang_user_android" />
 
-        <activity android:name=".TestActivity">
-
-        </activity>
+        <activity android:name=".TestActivity" />
         <activity
             android:name=".GuideActivity"
-            android:label="速帮洗衣">
+            android:label="速帮洗衣" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -81,10 +78,14 @@
         <activity android:name=".MallActivity" />
         <activity android:name=".PayActivity" />
         <activity android:name=".RechargeActivity" />
+        <activity android:name=".PromoteActivity" />
+        <activity
+            android:name=".PromRuleActivity"
+            android:theme="@style/DialogTheme" />
         <activity
             android:name=".WXPrepayActivity"
             android:exported="true"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -100,6 +101,10 @@
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"
             android:launchMode="singleTop" />
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop" />
         <activity android:name=".PayResultActivity" />
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"
@@ -108,7 +113,7 @@
             android:screenOrientation="behind"
             android:windowSoftInputMode="adjustResize|stateHidden" />
 
-        <receiver android:name="com.subang.app.component.WeixinReceiver">
+        <receiver android:name="com.subang.app.component.WeixinReceiver" >
             <intent-filter>
                 <action android:name="com.tencent.mm.plugin.openapi.Intent.ACTION_REFRESH_WXAPP" />
             </intent-filter>
@@ -117,12 +122,12 @@
         <!-- 监听通知点击或者忽略处理的广播 -->
         <receiver
             android:name="com.umeng.message.NotificationProxyBroadcastReceiver"
-            android:exported="false"></receiver>
+            android:exported="false" />
 
         <!-- 监听开机运行、网络连接变化、卸载的广播 -->
         <receiver
             android:name="com.umeng.message.SystemReceiver"
-            android:process=":push">
+            android:process=":push" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
@@ -131,6 +136,7 @@
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
                 <data android:scheme="package" />
             </intent-filter>
         </receiver>
@@ -139,7 +145,7 @@
         <receiver
             android:name="com.umeng.message.MessageReceiver"
             android:exported="false"
-            android:process=":push">
+            android:process=":push" >
             <intent-filter>
                 <action android:name="org.agoo.android.intent.action.RECEIVE" />
             </intent-filter>
@@ -148,9 +154,10 @@
         <!-- 监听宿主选举的广播 -->
         <receiver
             android:name="com.umeng.message.ElectionReceiver"
-            android:process=":push">
+            android:process=":push" >
             <intent-filter>
                 <action android:name="org.agoo.android.intent.action.ELECTION_RESULT_V4" />
+
                 <category android:name="umeng" />
             </intent-filter>
         </receiver>
@@ -159,12 +166,12 @@
         <!-- 【应用包名】字符串需要替换成本应用的应用包名 -->
         <receiver
             android:name="com.umeng.message.RegistrationReceiver"
-            android:exported="false">
+            android:exported="false" >
             <intent-filter>
                 <action android:name="com.subang.app.activity.intent.action.COMMAND" />
             </intent-filter>
         </receiver>
-        <receiver android:name="com.umeng.message.UmengMessageBootReceiver">
+        <receiver android:name="com.umeng.message.UmengMessageBootReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
@@ -176,7 +183,7 @@
             android:name="com.umeng.message.UmengService"
             android:exported="true"
             android:label="PushService"
-            android:process=":push">
+            android:process=":push" >
             <intent-filter>
                 <action android:name="com.subang.app.activity.intent.action.START" />
             </intent-filter>
@@ -185,6 +192,7 @@
             </intent-filter>
             <intent-filter>
                 <action android:name="org.agoo.android.intent.action.PING_V4" />
+
                 <category android:name="umeng" />
             </intent-filter>
         </service>
@@ -198,7 +206,7 @@
         <service
             android:name="com.umeng.message.UmengMessageIntentReceiverService"
             android:exported="true"
-            android:process=":push">
+            android:process=":push" >
             <intent-filter>
                 <action android:name="org.android.agoo.client.MessageReceiverService" />
             </intent-filter>
@@ -210,7 +218,7 @@
         <!-- v2.4.1添加的Service，Umeng的消息接收后的处理服务 -->
         <service
             android:name="com.umeng.message.UmengMessageCallbackHandlerService"
-            android:exported="false">
+            android:exported="false" >
             <intent-filter>
                 <action android:name="com.umeng.messge.registercallback.action" />
             </intent-filter>
@@ -242,6 +250,16 @@
         <activity
             android:name="com.umeng.update.UpdateDialogActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name=".PromQrcodeActivity"
+            android:theme="@style/DialogTheme" />
+        <activity
+            android:name=".ShareActivity"
+            android:theme="@style/DialogTheme" />
+        <activity android:name=".SalaryActivity" >
+        </activity>
+        <activity android:name=".DrawActivity" >
+        </activity>
     </application>
 
 </manifest>

@@ -6,7 +6,7 @@
     android:background="@android:color/white"
     android:clipToPadding="true"
     android:fitsSystemWindows="true"
-    tools:context="com.subang.app.activity.BalanceActivity">
+    tools:context="com.subang.app.activity.SalaryActivity">
 
     <RelativeLayout
         android:id="@+id/rl_title"
@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="我的余额"
+            android:text="我的收益"
             android:textColor="@android:color/white"
             android:textSize="@dimen/tile_size" />
     </RelativeLayout>
@@ -46,12 +46,12 @@
         android:layout_marginTop="30.0dip"
         android:background="@drawable/balance_top_bg"
         android:gravity="center"
-        android:text="余额\n"
+        android:text="收益\n"
         android:textColor="@android:color/white"
         android:textSize="16sp" />
 
     <TextView
-        android:id="@+id/tv_recharge"
+        android:id="@+id/tv_draw"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_money"
@@ -59,12 +59,12 @@
         android:layout_marginBottom="20.0dip"
         android:background="@drawable/balance_recharge_bg"
         android:clickable="true"
-        android:onClick="tv_recharge_onClick"
+        android:onClick="tv_draw_onClick"
         android:paddingBottom="10.0dip"
         android:paddingLeft="20.0dip"
         android:paddingRight="20.0dip"
         android:paddingTop="10.0dip"
-        android:text="充值"
+        android:text="提现"
         android:textColor="#ff3e3e3e"
         android:textSize="15sp" />
 
@@ -72,7 +72,7 @@
         android:id="@+id/rl_balance"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_recharge"
+        android:layout_below="@id/tv_draw"
         android:layout_marginLeft="10.0dip"
         android:layout_marginRight="10.0dip">
 
@@ -90,7 +90,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="10.0dip"
             android:layout_marginRight="10.0dip"
-            android:text="余额明细" />
+            android:text="收益明细" />
 
         <View
             android:layout_width="wrap_content"
@@ -103,10 +103,54 @@
     <ListView
         android:id="@+id/lv_balance"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@id/rl_balance"
         android:layout_marginLeft="10.0dip"
         android:layout_marginRight="10.0dip"
         android:divider="@color/gray"
         android:dividerHeight="0.5dip" />
+
+    <RelativeLayout
+        android:id="@+id/rl_user"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lv_balance"
+        android:layout_marginTop="20.0dip"
+        android:layout_marginLeft="10.0dip"
+        android:layout_marginRight="10.0dip">
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1.0px"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/tv_user"
+            android:background="#ffd1d1d1" />
+
+        <TextView
+            android:id="@id/tv_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="10.0dip"
+            android:layout_marginRight="10.0dip"
+            android:text="您推荐的用户" />
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1.0px"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/tv_user"
+            android:background="#ffd1d1d1" />
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/lv_user"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rl_user"
+        android:layout_marginLeft="10.0dip"
+        android:layout_marginRight="10.0dip"
+        android:divider="@color/gray"
+        android:dividerHeight="0.5dip" />
 </RelativeLayout>
+

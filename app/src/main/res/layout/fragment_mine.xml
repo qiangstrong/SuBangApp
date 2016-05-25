@@ -94,7 +94,7 @@
         android:orientation="horizontal"
         android:paddingBottom="10.0dip"
         android:paddingTop="10.0dip"
-        android:weightSum="2.0">
+        android:weightSum="3.0">
 
 
         <RelativeLayout
@@ -126,7 +126,40 @@
         </RelativeLayout>
 
         <View
-            android:layout_width="1.0px"
+            android:layout_width="2.0px"
+            android:layout_height="fill_parent"
+            android:background="@color/gray" />
+
+        <RelativeLayout
+            android:id="@+id/rl_salary"
+            android:layout_width="0.0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0">
+
+            <TextView
+                android:id="@+id/tv_salary_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:drawableLeft="@drawable/mine_salary_icon"
+                android:text=" 收益"
+                android:textColor="#ff222222"
+                android:textSize="14.0sp" />
+
+            <TextView
+                android:id="@+id/tv_salary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_salary_label"
+                android:layout_centerHorizontal="true"
+                android:paddingTop="2.0dip"
+                android:text="暂无信息"
+                android:textColor="#ffaaaaaa"
+                android:textSize="13.0sp" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="2.0px"
             android:layout_height="fill_parent"
             android:background="@color/gray" />
 

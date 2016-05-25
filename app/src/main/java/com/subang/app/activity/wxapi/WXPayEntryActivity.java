@@ -10,6 +10,7 @@ import com.subang.app.activity.PayResultActivity;
 import com.subang.app.util.AppConst;
 import com.subang.app.util.AppShare;
 import com.subang.app.util.AppUtil;
+import com.subang.app.util.ComUtil;
 import com.subang.bean.BasePrepayResult;
 import com.tencent.mm.sdk.constants.ConstantsAPI;
 import com.tencent.mm.sdk.modelbase.BaseReq;
@@ -73,6 +74,8 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
             } else if (resp.errCode == BaseResp.ErrCode.ERR_USER_CANCEL) {     //用户取消
                 AppUtil.tip(WXPayEntryActivity.this, "取消支付");
             }
+        }else {
+            ComUtil.log(String.valueOf(resp.getType()), String.valueOf(resp.errCode));
         }
         finish();
     }

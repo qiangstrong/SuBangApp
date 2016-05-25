@@ -63,7 +63,7 @@ public class DateActivity extends Activity implements TimeFragment.OnResultListe
         int position = vp_date.getCurrentItem();
         this.selectedDateOption = dateOptions.get(position);
         if (selectedView != null) {
-            selectedView.setBackgroundResource(R.drawable.white_btn_bg);
+            selectedView.setBackgroundResource(R.drawable.btn_white_bg);
         }
         view.setBackgroundResource(R.drawable.blue_btn_bg);
         this.selectedView = view;

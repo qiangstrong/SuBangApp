@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@android:color/white"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    tools:context="com.subang.app.activity.PromoteActivity">
+
+    <RelativeLayout
+        android:id="@+id/rl_title"
+        android:layout_width="fill_parent"
+        android:layout_height="50.0dip"
+        android:background="@color/blue_theme">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="45.0dip"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15.0dip"
+            android:contentDescription="@null"
+            android:onClick="iv_back_onClick"
+            android:paddingRight="20dip"
+            android:src="@drawable/back_btn" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="推荐有奖"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/tile_size" />
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rl_title"
+        android:scaleType="fitXY"
+        android:src="@drawable/promote_top_bg" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btn_promote"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20.0dip"
+        android:src="@drawable/promote_package" />
+
+    <Button
+        android:id="@id/btn_promote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tv_tip"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15.0dip"
+        android:background="@drawable/promote_btn_bg"
+        android:onClick="btn_promote_onClick"
+        android:text="邀请好友"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:id="@id/tv_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20.0dip"
+        android:clickable="true"
+        android:onClick="tv_tip_onClick"
+        android:text= "@string/prom_rule_label"
+        android:textColor="#ff532000"
+        android:textSize="14.0sp" />
+</RelativeLayout>

@@ -10,17 +10,21 @@
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Action"
+        android:onClick="onClick"
         android:padding="10dip"
-        android:onClick="onClick"/>
+        android:text="Action" />
 
-    <RatingBar
-        android:id="@+id/rb_test"
-        android:layout_width="wrap_content"
+    <Button
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:numStars="5"
-        android:max="5"
-        android:progress="3"
-        android:stepSize="1"/>
+        android:onClick="onClick1"
+        android:padding="10dip"
+        android:text="Action1" />
+
+    <ImageView
+        android:id="@+id/iv_qrcode"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal" />
 
 </LinearLayout>

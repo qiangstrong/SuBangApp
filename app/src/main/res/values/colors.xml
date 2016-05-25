@@ -4,4 +4,5 @@
     <color name="gray">#fff0f0f0</color>
     <color name="gray_hint">#ffc1c1c1</color>
     <color name="half_translucent">#50000000</color>
+    <color name="common_text">#ff3e3e3e</color>
 </resources>

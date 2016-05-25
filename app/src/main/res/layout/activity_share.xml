@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    tools:context="com.subang.app.activity.ShareActivity">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_margin="40.0dip"
+        android:background="@drawable/btn_white_bg">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:paddingTop="15.0dip"
+            android:text="分享给好友或朋友圈"
+            android:textColor="#ff3e3e3e"
+            android:textSize="16.0sp" />
+
+        <GridView
+            android:id="@+id/gv_share"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_title"
+            android:gravity="center"
+            android:horizontalSpacing="0.0dip"
+            android:listSelector="@android:color/transparent"
+            android:numColumns="2" />
+
+        <ImageView
+            android:id="@+id/iv_line"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/gv_share"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5.0dip"
+            android:layout_marginRight="5.0dip"
+            android:layout_marginTop="10.0dip"
+            android:src="@drawable/line_share" />
+
+        <ImageView
+            android:id="@+id/iv_qrcode"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/iv_line" />
+
+        <TextView
+            android:id="@+id/tv_rule"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/iv_qrcode"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:padding="10.0dip"
+            android:textColor="#ff3b3f45"
+            android:textSize="16.0sp" />
+    </RelativeLayout>
+</RelativeLayout>

@@ -21,8 +21,10 @@ import com.subang.app.activity.BalanceActivity;
 import com.subang.app.activity.FeedbackActivity;
 import com.subang.app.activity.MallActivity;
 import com.subang.app.activity.MoreActivity;
+import com.subang.app.activity.PromoteActivity;
 import com.subang.app.activity.R;
 import com.subang.app.activity.RechargeActivity;
+import com.subang.app.activity.SalaryActivity;
 import com.subang.app.activity.TicketActivity;
 import com.subang.app.activity.WebActivity;
 import com.subang.app.fragment.face.OnFrontListener;
@@ -42,14 +44,14 @@ import java.util.Map;
 
 public class MineFragment extends Fragment implements OnFrontListener {
 
-    private static final int NUM_ACTION = 6;
+    private static final int NUM_ACTION = 7;
     private static final int NO_LINE = 0;
     private static final int YES_LINE = 1;
 
     private AppShare appShare;
 
-    private RelativeLayout rl_money, rl_score;
-    private TextView tv_cellnum, tv_recharge, tv_money, tv_score, tv_phone;
+    private RelativeLayout rl_money, rl_salary, rl_score;
+    private TextView tv_cellnum, tv_recharge, tv_money, tv_score, tv_salary, tv_phone;
     private ListView lv_action;
 
     private SimpleAdapter actionSimpleAdapter;
@@ -85,6 +87,18 @@ public class MineFragment extends Fragment implements OnFrontListener {
         }
     };
 
+    private View.OnClickListener salaryOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (!isLoaded) {
+                return;
+            }
+            Intent intent = new Intent(getActivity(), SalaryActivity.class);
+            intent.putExtra("user", user);
+            startActivity(intent);
+        }
+    };
+
     private View.OnClickListener scoreOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -110,6 +124,11 @@ public class MineFragment extends Fragment implements OnFrontListener {
                     break;
                 }
                 case 2: {
+                    Intent intent = new Intent(getActivity(), PromoteActivity.class);
+                    startActivity(intent);
+                    break;
+                }
+                case 3: {
                     if (!isLoaded) {
                         return;
                     }
@@ -118,19 +137,19 @@ public class MineFragment extends Fragment implements OnFrontListener {
                     startActivity(intent);
                     break;
                 }
-                case 3: {
+                case 4: {
                     Intent intent = new Intent(getActivity(), WebActivity.class);
                     intent.putExtra("title", "常见问题");
                     intent.putExtra("url", WebConst.HOST_URI + "weixin/info/faq.html");
                     startActivity(intent);
                     break;
                 }
-                case 4: {
+                case 5: {
                     Intent intent = new Intent(getActivity(), FeedbackActivity.class);
                     startActivity(intent);
                     break;
                 }
-                case 5: {
+                case 6: {
                     Intent intent = new Intent(getActivity(), MoreActivity.class);
                     startActivity(intent);
                     break;
@@ -164,8 +183,9 @@ public class MineFragment extends Fragment implements OnFrontListener {
                     break;
                 }
                 case AppConst.WHAT_SUCC_LOAD: {
-                    tv_money.setText(user.getMoney().toString() + "元");
                     tv_score.setText(user.getScore().toString());
+                    tv_money.setText(user.getMoney().toString() + "元");
+                    tv_salary.setText(user.getSalary().toString() + "元");
                     tv_phone.setText("客服热线：" + info.getPhone());
                     isLoaded = true;
                     break;
@@ -183,7 +203,7 @@ public class MineFragment extends Fragment implements OnFrontListener {
                 handler.sendEmptyMessage(AppConst.WHAT_NETWORK_ERR);    //提示用户，停留此界面
                 return;
             }
-            info = InfoAPI.get();
+            info = InfoAPI.get(null);
             if (info == null) {
                 handler.sendEmptyMessage(AppConst.WHAT_NETWORK_ERR);    //提示用户，停留此界面
                 return;
@@ -216,6 +236,7 @@ public class MineFragment extends Fragment implements OnFrontListener {
         tv_cellnum.setText(AppConf.cellnum);
         tv_recharge.setOnClickListener(rechargeOnClickListener);
         rl_money.setOnClickListener(moneyOnClickListener);
+        rl_salary.setOnClickListener(salaryOnClickListener);
         rl_score.setOnClickListener(scoreOnClickListener);
 
         lv_action.setAdapter(actionSimpleAdapter);
@@ -236,7 +257,7 @@ public class MineFragment extends Fragment implements OnFrontListener {
             refresh = (boolean) appShare.map.get("mine.refresh");
             appShare.map.remove("mine.refresh");
             if (refresh) {
-                isLoaded=false;
+                isLoaded = false;
                 if (thread == null || !thread.isAlive()) {
                     thread = new Thread(runnable);
                     thread.start();
@@ -247,10 +268,12 @@ public class MineFragment extends Fragment implements OnFrontListener {
 
     private void findView(View view) {
         rl_money = (RelativeLayout) view.findViewById(R.id.rl_money);
+        rl_salary = (RelativeLayout) view.findViewById(R.id.rl_salary);
         rl_score = (RelativeLayout) view.findViewById(R.id.rl_score);
         tv_cellnum = (TextView) view.findViewById(R.id.tv_cellnum);
         tv_recharge = (TextView) view.findViewById(R.id.tv_recharge);
         tv_money = (TextView) view.findViewById(R.id.tv_money);
+        tv_salary = (TextView) view.findViewById(R.id.tv_salary);
         tv_score = (TextView) view.findViewById(R.id.tv_score);
         lv_action = (ListView) view.findViewById(R.id.lv_action);
         tv_phone = (TextView) view.findViewById(R.id.tv_phone);
@@ -258,9 +281,9 @@ public class MineFragment extends Fragment implements OnFrontListener {
 
     private void createItems() {
         actionItems = new ArrayList<Map<String, Object>>(NUM_ACTION);
-        int[] icons = {R.drawable.mine_address_icon, R.drawable.mine_ticket_icon, R.drawable.mine_score_icon,
+        int[] icons = {R.drawable.mine_address_icon, R.drawable.mine_ticket_icon, R.drawable.mine_promote_icon, R.drawable.mine_score_icon,
                 R.drawable.mine_faq_icon, R.drawable.mine_feedback_icon, R.drawable.mine_more_icon};
-        String[] texts = {"常用地址", "优惠券", "积分商城", "常见问题", "意见反馈", "更多"};
+        String[] texts = {"常用地址", "优惠券", "推荐有奖", "积分商城", "常见问题", "意见反馈", "更多"};
         Map<String, Object> actionItem;
         for (int i = 0; i < NUM_ACTION; i++) {
             actionItem = new HashMap<String, Object>();
@@ -269,8 +292,8 @@ public class MineFragment extends Fragment implements OnFrontListener {
             actionItem.put("line", NO_LINE);
             actionItems.add(actionItem);
         }
-        actionItems.get(2).put("line", YES_LINE);
-        actionItems.get(5).put("line", YES_LINE);
+        actionItems.get(3).put("line", YES_LINE);
+        actionItems.get(6).put("line", YES_LINE);
     }
 
 }

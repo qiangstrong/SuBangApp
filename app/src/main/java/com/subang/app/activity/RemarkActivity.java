@@ -1,6 +1,7 @@
 package com.subang.app.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -34,6 +35,10 @@ public class RemarkActivity extends Activity {
                 case AppConst.WHAT_SUCC_SUBMIT: {
                     AppUtil.tip(RemarkActivity.this, "评价提交成功，谢谢。");
                     RemarkActivity.this.finish();
+
+                    Intent intent = new Intent(RemarkActivity.this, ShareActivity.class);
+                    intent.putExtra("orderid", orderid);
+                    startActivity(intent);
                     break;
                 }
             }
