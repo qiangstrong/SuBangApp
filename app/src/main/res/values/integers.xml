@@ -9,4 +9,5 @@
     <integer name="password">50</integer>
     <integer name="authcode">4</integer>
     <integer name="feedback_comment_text">200</integer>
+    <integer name="ticket_codeno">8</integer>
 </resources>

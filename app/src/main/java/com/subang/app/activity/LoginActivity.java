@@ -1,10 +1,14 @@
 package com.subang.app.activity;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.telephony.SmsMessage;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -23,6 +27,8 @@ import com.subang.util.WebConst;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class LoginActivity extends Activity {
 
@@ -32,6 +38,7 @@ public class LoginActivity extends Activity {
 
     private int type;       //标志此activity用于改变用户信息，注册, 登录
     private Timer timer;    //调度timerTask
+    private SmsReceiver smsReceiver;
 
     private EditText et_cellnum, et_authcode;
     private TextView tv_get, tv_ok;
@@ -203,7 +210,7 @@ public class LoginActivity extends Activity {
                     handler.sendMessage(msg);
                     return;
                 }
-                User user=new User();
+                User user = new User();
                 user.setCellnum(cellnum);
                 AppUtil.saveConf(LoginActivity.this, user);
                 AppUtil.conf(LoginActivity.this);
@@ -229,16 +236,26 @@ public class LoginActivity extends Activity {
         authcodeWatcher = new MyTextWatcher(authcodeLength, onPrepareListener);
         et_authcode.addTextChangedListener(authcodeWatcher);
 
-        if (type==AppConst.TYPE_CHANGE){
+        if (type == AppConst.TYPE_CHANGE) {
             ll_term.setVisibility(View.INVISIBLE);
         }
 
         timer = new Timer();
+        registerSmsReceiver();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (smsReceiver != null) {
+            unregisterReceiver(smsReceiver);
+            smsReceiver = null;
+        }
     }
 
     private void findView() {
@@ -273,10 +290,45 @@ public class LoginActivity extends Activity {
         }
     }
 
-    public void tv_term_onClick(View view){
+    public void tv_term_onClick(View view) {
         Intent intent = new Intent(LoginActivity.this, WebActivity.class);
         intent.putExtra("title", "用户协议");
         intent.putExtra("url", WebConst.HOST_URI + "content/weixin/info/term.htm");
         startActivity(intent);
+    }
+
+    private void registerSmsReceiver() {
+        smsReceiver = new SmsReceiver();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("android.provider.Telephony.SMS_RECEIVED");
+        filter.setPriority(1000);
+        registerReceiver(smsReceiver, filter);
+    }
+
+
+    private class SmsReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Object[] pdus = (Object[]) intent.getExtras().get("pdus");
+            for (Object pdu : pdus) {
+                SmsMessage sms = SmsMessage.createFromPdu((byte[]) pdu);
+                String message = sms.getMessageBody();
+                String code = parseCode(message);
+                if (code != null) {
+                    et_authcode.setText(code);
+                }
+            }
+        }
+    }
+
+    private String parseCode(String message) {
+        String code=null;
+        String regex = "^【速帮家庭服务平台】.*(\\d{4}).*";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(message);
+        if (matcher.matches()) {
+            code = matcher.group(1);
+        }
+        return code;
     }
 }

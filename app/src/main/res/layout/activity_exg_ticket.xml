@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="320.0dip"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@drawable/dialog_white_bg"
+    android:orientation="vertical"
+    android:scrollbars="vertical"
+    tools:context="com.subang.app.activity.ExgTicketActivity">
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="50.0dip"
+        android:gravity="center"
+        android:text="优惠券兑换"
+        android:textColor="#ff666666"
+        android:textSize="20.0sp" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/et_codeno"
+            style="@style/textsize_3"
+            android:layout_width="fill_parent"
+            android:layout_height="40.0dip"
+            android:layout_marginLeft="20.0dip"
+            android:layout_marginRight="20.0dip"
+            android:background="@android:color/white"
+            android:gravity="center_vertical"
+            android:hint="请输入优惠码"
+            android:maxLength="@integer/ticket_codeno"
+            android:paddingRight="10.0dip"
+            android:textColor="#ff222222"
+            android:textColorHint="#ffc3c3c3"
+            android:textSize="18.0sp" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1.0px"
+            android:layout_marginLeft="20.0dip"
+            android:layout_marginRight="20.0dip"
+            android:background="#ff8e8e8e"
+            android:paddingBottom="5.0dip" />
+
+        <TextView
+            android:id="@+id/tv_tip"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20.0dip"
+            android:layout_marginRight="20.0dip"
+            android:paddingBottom="5.0dip"
+            android:textColor="#ffff0000"
+            android:textSize="16.0sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="1.0dip"
+        android:background="#ffd1d1d1" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="40.0dip"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_cancle"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0"
+            android:background="@drawable/ticket_exchange_left_btn_selector"
+            android:onClick="btn_cancle_onClick"
+            android:text="取消"
+            android:textColor="#ff8e8e8e"
+            android:textSize="16.0sp" />
+
+        <LinearLayout
+            android:layout_width="1.0dip"
+            android:layout_height="fill_parent"
+            android:background="#ffd1d1d1" />
+
+        <Button
+            android:id="@+id/btn_ok"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0"
+            android:background="@drawable/ticket_exchange_right_btn_selector"
+            android:onClick="btn_ok_onClick"
+            android:text="兑换"
+            android:textColor="#ff1aa4f2"
+            android:textSize="16.0sp" />
+    </LinearLayout>
+</LinearLayout>

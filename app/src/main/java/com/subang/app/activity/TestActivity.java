@@ -1,79 +1,84 @@
 package com.subang.app.activity;
 
 import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.telephony.SmsMessage;
+import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import com.subang.app.util.AppConst;
-import com.subang.app.util.AppUtil;
-import com.subang.app.util.ComUtil;
-import com.tencent.mm.sdk.modelmsg.SendMessageToWX;
-import com.tencent.mm.sdk.modelmsg.WXMediaMessage;
-import com.tencent.mm.sdk.modelmsg.WXWebpageObject;
-import com.tencent.mm.sdk.openapi.IWXAPI;
-import com.tencent.mm.sdk.openapi.WXAPIFactory;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class TestActivity extends Activity {
 
-    private IWXAPI wxapi;
+    private SmsReceiver smsReceiver;
+
+    private TextView tv_msg,tv_code;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
-        wxapi = WXAPIFactory.createWXAPI(this, AppConst.APP_ID, true);
-        if (!wxapi.registerApp(AppConst.APP_ID)) {
-            AppUtil.tip(TestActivity.this, "没有找到微信客户端。");
-            this.finish();
-            return;
+        findView();
+        registerSmsReceiver();
+    }
+
+    private void findView(){
+        tv_msg=(TextView)findViewById(R.id.tv_msg);
+        tv_code=(TextView)findViewById(R.id.tv_code);
+    }
+
+    public void onClick(View view) {
+
+    }
+
+
+    private void registerSmsReceiver() {
+        smsReceiver = new SmsReceiver();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("android.provider.Telephony.SMS_RECEIVED");
+        filter.setPriority(1000);
+        registerReceiver(smsReceiver, filter);
+    }
+
+    private class SmsReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.e(AppConst.LOG_TAG,"SmsReceiver");
+            Object[] pdus = (Object[]) intent.getExtras().get("pdus");
+            for (Object pdu : pdus) {
+                SmsMessage sms = SmsMessage.createFromPdu((byte[])pdu);
+                String message = sms.getMessageBody();
+                tv_msg.setText(message);
+                parseCode(message);
+            }
         }
     }
 
-    public void onClick(View view){
-        WXWebpageObject webpage = new WXWebpageObject();
-        webpage.webpageUrl = "http://movie.douban.com/subject/25785114";
-        WXMediaMessage msg = new WXMediaMessage(webpage);
-        msg.title = "互联网之子";
-        msg.description = "互联网之子";
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.subang_icon);
-        bitmap = Bitmap.createScaledBitmap(bitmap, 150, 150, true);
-        msg.thumbData = ComUtil.bmpToByteArray(bitmap, true);
-
-        SendMessageToWX.Req req = new SendMessageToWX.Req();
-        req.transaction = String.valueOf(System.currentTimeMillis());
-        req.message = msg;
-        req.scene = SendMessageToWX.Req.WXSceneSession;
-        wxapi.sendReq(req);
-//
-//        String text="互联网之子";
-//        WXTextObject textObj = new WXTextObject();
-//        textObj.text = text;
-//
-//        // 用WXTextObject对象初始化一个WXMediaMessage对象
-//        WXMediaMessage msg = new WXMediaMessage();
-//        msg.mediaObject = textObj;
-//        msg.description = text;
-//
-//        // 构造一个Req
-//        SendMessageToWX.Req req = new SendMessageToWX.Req();
-//        req.transaction = String.valueOf(System.currentTimeMillis());
-//        req.message = msg;
-//        req.scene = SendMessageToWX.Req.WXSceneSession;
-//
-//        // 调用api接口发送数据到微信
-//        wxapi.sendReq(req);
+    private void parseCode(String message) {
+        String regex = "^【速帮家庭服务平台】.*(\\d{4}).*";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(message);
+        if (matcher.matches()) {
+            tv_code.setText(matcher.group(1));
+        }
     }
 
-    public void onClick1(View view){
-//        ImageView iv_qrcode=(ImageView)findViewById(R.id.iv_qrcode);
-//        String url="http://movie.douban.com/subject/25785114";
-//        Bitmap bitmap=ComUtil.createQRImage(url);
-//        iv_qrcode.setImageBitmap(bitmap);
-
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (smsReceiver != null) {
+            unregisterReceiver(smsReceiver);
+            smsReceiver = null;
+        }
     }
-
 
 }

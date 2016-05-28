@@ -49,11 +49,53 @@
             android:textSize="@dimen/tile_size" />
     </RelativeLayout>
 
+    <View
+        android:id="@+id/v_line_1"
+        android:layout_width="fill_parent"
+        android:layout_height="1.0px"
+        android:layout_below="@id/rl_title"
+        android:layout_marginTop="10.0dip"
+        android:background="#ffd2d2d2" />
+
+    <LinearLayout
+        android:id="@+id/ll_exchange"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/v_line_1"
+        android:background="@android:color/white"
+        android:onClick="ll_exchange_onClick"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null"
+            android:src="@drawable/ticket_exchange" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:gravity="center"
+            android:padding="10.0dip"
+            android:text="兑换优惠券"
+            android:textColor="#ff3e3e3e"
+            android:textSize="16.0sp" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/v_line_2"
+        android:layout_width="fill_parent"
+        android:layout_height="1.0px"
+        android:layout_below="@id/ll_exchange"
+        android:background="#ffd2d2d2" />
+
     <ListView
         android:id="@+id/lv_ticket"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@id/rl_title"
+        android:layout_below="@id/v_line_2"
         android:background="@drawable/listview_default"
         android:cacheColorHint="#00000000"
         android:divider="#ffe5e5e5"

@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@android:color/white"
     android:orientation="vertical"
+    android:background="@android:color/white"
     tools:context="com.subang.app.activity.TestActivity">
 
     <Button
@@ -14,17 +14,18 @@
         android:padding="10dip"
         android:text="Action" />
 
-    <Button
+    <TextView
+        android:id="@+id/tv_msg"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:onClick="onClick1"
-        android:padding="10dip"
-        android:text="Action1" />
+        android:padding="5dip"
+        android:textColor="@android:color/black"/>
 
-    <ImageView
-        android:id="@+id/iv_qrcode"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center_horizontal" />
+    <TextView
+        android:id="@+id/tv_code"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dip"
+        android:textColor="@android:color/black"/>
 
 </LinearLayout>

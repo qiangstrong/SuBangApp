@@ -174,6 +174,14 @@ public class AddrActivity extends Activity {
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+       if (resultCode==RESULT_OK){
+           setResult(RESULT_OK, intent);
+           finish();
+       }
+    }
+
     private void findView() {
         lv_addr = (SwipeMenuListView) findViewById(R.id.lv_addr);
     }
@@ -183,8 +191,12 @@ public class AddrActivity extends Activity {
     }
 
     public void tv_add_onClick(View view) {
-        Intent intent = new Intent(AddrActivity.this, AddAddrActivity.class);
-        startActivity(intent);
+        Intent intent=new Intent(AddrActivity.this, AddAddrActivity.class);
+        if (callingActivity==null){
+            startActivity(intent);
+        }else {
+            startActivityForResult(intent, 0);
+        }
     }
 
     private class OperaThread extends Thread {

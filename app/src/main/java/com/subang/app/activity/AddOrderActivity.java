@@ -23,7 +23,6 @@ import com.subang.util.WebConst;
 
 import java.sql.Date;
 import java.util.List;
-import java.util.Map;
 
 public class AddOrderActivity extends Activity {
 
@@ -108,8 +107,8 @@ public class AddOrderActivity extends Activity {
         @Override
         public void run() {
             AppUtil.confApi(AddOrderActivity.this);
-            Map<String, String> errors = OrderAPI.add(order);
-            if (errors == null) {
+            order = OrderAPI.add(order);
+            if (order == null) {
                 handler.sendEmptyMessage(AppConst.WHAT_NETWORK_ERR);
                 return;
             }
@@ -128,8 +127,6 @@ public class AddOrderActivity extends Activity {
             thread.start();
         }
         category = (Category) getIntent().getSerializableExtra("category");
-        order = new Order();
-        order.setCategoryid(category.getId());
         tv_title.setText(category.getName());
     }
 
@@ -198,8 +195,7 @@ public class AddOrderActivity extends Activity {
     }
 
     public void tv_addAddr_onClick(View view) {
-        //仍然跳转到AddrActivity。因为不能立即获取到添加的地址的主键
-        Intent intent = new Intent(AddOrderActivity.this, AddrActivity.class);
+        Intent intent = new Intent(AddOrderActivity.this, AddAddrActivity.class);
         startActivityForResult(intent, REGUEST_CODE_ADDR);
     }
 
@@ -214,6 +210,8 @@ public class AddOrderActivity extends Activity {
     }
 
     public void tv_add_onClick(View view) {
+        order = new Order();
+        order.setCategoryid(category.getId());
         order.setAddrid(addr.getId());
         order.setDate((Date) dateOption.getValue());
         order.setTime((Integer) timeOption.getValue());

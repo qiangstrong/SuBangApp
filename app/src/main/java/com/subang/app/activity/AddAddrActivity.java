@@ -1,6 +1,7 @@
 package com.subang.app.activity;
 
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,11 +20,10 @@ import com.subang.app.util.AppUtil;
 import com.subang.bean.AddrData;
 import com.subang.domain.Addr;
 
-import java.util.Map;
-
 public class AddAddrActivity extends Activity {
 
     private AppShare appShare;
+    private ComponentName callingActivity;
 
     private TextView tv_area;
     private EditText et_detailAuto, et_detailManu, et_name, et_cellnum;
@@ -69,7 +69,13 @@ public class AddAddrActivity extends Activity {
                     break;
                 }
                 case AppConst.WHAT_SUCC_SUBMIT: {
-                    appShare.map.put("addr.refresh", true);
+                    if (callingActivity==null){
+                        appShare.map.put("addr.refresh", true);
+                    }else {
+                        Intent intent = getIntent();
+                        intent.putExtra("addr", addr);
+                        setResult(RESULT_OK, intent);
+                    }
                     finish();
                     break;
                 }
@@ -95,8 +101,8 @@ public class AddAddrActivity extends Activity {
         @Override
         public void run() {
             AppUtil.confApi(AddAddrActivity.this);
-            Map<String, String> errors = UserAPI.addAddr(addr);
-            if (errors == null) {
+            addr = UserAPI.addAddr(addr);
+            if (addr == null) {
                 handler.sendEmptyMessage(AppConst.WHAT_NETWORK_ERR);
                 return;
             }
@@ -108,13 +114,13 @@ public class AddAddrActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         appShare = (AppShare) getApplication();
+        callingActivity = getCallingActivity();
         setContentView(R.layout.activity_add_addr);
         findView();
         if (thread == null || !thread.isAlive()) {
             thread = new Thread(runnable);
             thread.start();
         }
-        addr = new Addr();
 
         int cellnumLength=getResources().getInteger(R.integer.cellnum);
         detailAutoWatcher = new MyTextWatcher(1, onPrepareListener);
@@ -163,9 +169,11 @@ public class AddAddrActivity extends Activity {
     }
 
     public void tv_add_onClick(View view) {
+        addr = new Addr();
         addr.setName(et_name.getText().toString());
         addr.setCellnum(et_cellnum.getText().toString());
-        addr.setDetail(et_detailAuto.getText().toString() + et_detailManu.getText().toString());
+        //addr.setDetail(et_detailAuto.getText().toString() + et_detailManu.getText().toString());  //不自动定位
+        addr.setDetail(et_detailManu.getText().toString());
         addr.setRegionid(addrData.getDefaultRegionid());
         if (submitThread == null || !submitThread.isAlive()) {
             submitThread = new Thread(submitRunnable);

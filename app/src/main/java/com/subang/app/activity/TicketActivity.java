@@ -17,6 +17,7 @@ import android.widget.SimpleAdapter;
 import com.subang.api.UserAPI;
 import com.subang.app.util.AppConf;
 import com.subang.app.util.AppConst;
+import com.subang.app.util.AppShare;
 import com.subang.app.util.AppUtil;
 import com.subang.bean.TicketDetail;
 import com.subang.util.WebConst;
@@ -29,6 +30,7 @@ import java.util.Map;
 
 public class TicketActivity extends Activity {
 
+    private AppShare appShare;
     private ComponentName callingActivity;
     private Integer categoryid;
 
@@ -121,6 +123,7 @@ public class TicketActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        appShare = (AppShare) getApplication();
         callingActivity = getCallingActivity();
         if (callingActivity != null) {
             categoryid = getIntent().getIntExtra("categoryid", 0);
@@ -144,6 +147,22 @@ public class TicketActivity extends Activity {
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        boolean refresh;
+        if (appShare.map.containsKey("ticket.refresh")) {
+            refresh = (boolean) appShare.map.get("ticket.refresh");
+            appShare.map.remove("ticket.refresh");
+            if (refresh) {
+                if (thread == null || !thread.isAlive()) {
+                    thread = new Thread(runnable);
+                    thread.start();
+                }
+            }
+        }
+    }
+
     private void findView() {
         lv_ticket = (ListView) findViewById(R.id.lv_ticket);
     }
@@ -152,6 +171,11 @@ public class TicketActivity extends Activity {
         Intent intent = new Intent(TicketActivity.this, WebActivity.class);
         intent.putExtra("title", "优惠券使用说明");
         intent.putExtra("url", WebConst.HOST_URI + "content/weixin/ticket/intro.htm");
+        startActivity(intent);
+    }
+
+    public void ll_exchange_onClick(View view) {
+        Intent intent = new Intent(TicketActivity.this, ExgTicketActivity.class);
         startActivity(intent);
     }
 
